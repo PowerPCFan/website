@@ -1,51 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
-  
-  <style>
-  body {
-  background-color: #262626;
-  margin: 20px;
-}
+    <head>
+        <meta charset="UTF-8" />
 
-h1 {
-  text-align: left;
-  font-family: Cabin, Arial, sans-serif;
-  color: #ebebeb;
-}
+        <script src="/assets/scripts/head/head.js"></script>
+        <title>Movie Download Search</title>
 
-label {
-  display: block;
-  font-family: Georgia, serif;
-  color: #ebebeb;
-}
+        <style>
+            body {
+                background-color: #262626;
+                margin: 20px;
+            }
 
-p, a {
-  font-family: Georgia, serif;
-  color: #ebebeb;
-}
+            h1 {
+                text-align: left;
+                font-family: Cabin, Arial, sans-serif;
+                color: #ebebeb;
+            }
 
-.link {
-  text-align: center;
-}
+            label {
+                display: block;
+                font-family: Georgia, serif;
+                color: #ebebeb;
+            }
 
-input[type="text"] {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 666px;
-  box-sizing: border-box;
-  font-family: Georgia, serif;
-  background-color: #000000;
-  color: #ebebeb;
-}
+            p,
+            a {
+                font-family: Georgia, serif;
+                color: #ebebeb;
+            }
 
-/* button {
+            .link {
+                text-align: center;
+            }
+
+            input[type="text"] {
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                width: 666px;
+                box-sizing: border-box;
+                font-family: Georgia, serif;
+                background-color: #000000;
+                color: #ebebeb;
+            }
+
+            /* button {
   background-color: #4CAF50;
   color: white;
   padding: 10px 20px;
@@ -61,73 +61,70 @@ button:hover {
  #45a049;
 } */
 
-button {
-  font-family: Georgia, serif;
-  background-color: #262626;
-  border: 0;
-  color: #ebebeb;
-  border-radius: 0.5em;
-  font-size: 1.35rem;
-  padding: 0.375em 1em;
-  font-weight: 600;
-  /* text-shadow: 0 0.0625em 0 #fff;
+            button {
+                font-family: Georgia, serif;
+                background-color: #262626;
+                border: 0;
+                color: #ebebeb;
+                border-radius: 0.5em;
+                font-size: 1.35rem;
+                padding: 0.375em 1em;
+                font-weight: 600;
+                /* text-shadow: 0 0.0625em 0 #fff;
   box-shadow: inset 0 0.0625em 0 0 #f4f4f4, 0 0.0625em 0 0 #efefef,
     0 0.125em 0 0 #ececec, 0 0.25em 0 0 #e0e0e0, 0 0.3125em 0 0 #dedede,
     0 0.375em 0 0 #dcdcdc, 0 0.425em 0 0 #cacaca, 0 0.425em 0.5em 0 #cecece;  */
-  transition: 0.2s ease;
-  box-shadow: 0 0 0.6em rgba(235, 235, 235, 1);
-  cursor: pointer;
-}
-button:hover {
-  translate: 0 0.125em;
-  /* box-shadow: inset 0 0.03em 0 0 #f4f4f4, 0 0.03em 0 0 #efefef,
+                transition: 0.2s ease;
+                box-shadow: 0 0 0.6em rgba(235, 235, 235, 1);
+                cursor: pointer;
+            }
+            button:hover {
+                translate: 0 0.125em;
+                /* box-shadow: inset 0 0.03em 0 0 #f4f4f4, 0 0.03em 0 0 #efefef,
     0 0.0625em 0 0 #ececec, 0 0.125em 0 0 #e0e0e0, 0 0.125em 0 0 #dedede,
     0 0.2em 0 0 #dcdcdc, 0 0.225em 0 0 #cacaca, 0 0.225em 0.375em 0 #cecece; */
-  box-shadow: 0 0 0.3em rgba(141, 141, 141, 1);
-  color: #dbdbdb
-}
+                box-shadow: 0 0 0.3em rgba(141, 141, 141, 1);
+                color: #dbdbdb;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="link">
+            <a style="font-size: 19px; text-decoration: underline" href="https://home.macintosh.garden/search/moviedownloader/torrenting.html">**Read this guide on how to safely download torrents!**</a>
+        </div>
+        <br />
+        <hr />
+        <h1>Movie Downloader</h1>
+        <label for="name">Movie Name:</label>
+        <input type="text" id="name" placeholder="Enter movie name" />
+        <br />
+        <br />
+        <label for="year">Release Year (Optional):</label>
+        <input type="text" id="year" placeholder="Enter release year (if known)" />
+        <br />
+        <br />
+        <button onclick="openNewTab()">Search</button>
+        <br />
+        <br />
+        <br />
+        <a href="https://home.macintosh.garden/search/moviedownloader/1337x.html">Switch to direct 1337x search</a>
+        <script>
+            function buildUrl() {
+                const name = document.getElementById("name").value;
+                const year = document.getElementById("year").value;
+                const baseUrl = "https://www.google.com/search?q=";
+                let url = baseUrl + `%22${encodeURIComponent(name)}%22`;
+                if (year) {
+                    url += ` %22${year}%22`;
+                }
+                url += " site:1337x.to";
+                return url;
+            }
 
-  </style>
-  
-  
-</head>
-<body>
-  <div class="link">
-  <a style="font-size: 19px; text-decoration: underline;" href="https://home.macintosh.garden/~powerpcfan/search/moviedownloader/torrenting.html">**Read this guide on how to safely download torrents!**</a>
-  </div>
-  <br>
-  <hr>
-  <h1>Movie Downloader</h1>
-  <label for="name">Movie Name:</label>
-  <input type="text" id="name" placeholder="Enter movie name">
-  <br>
-  <br>
-  <label for="year">Release Year (Optional):</label>
-  <input type="text" id="year" placeholder="Enter release year (if known)">
-	<br>
-    <br>
-  <button onclick="openNewTab()">Search</button>
-  <br>
-  <br>
-  <br>
-    <a href="https://home.macintosh.garden/~powerpcfan/search/moviedownloader/1337x.html">Switch to direct 1337x search</a>
-  <script>
-    function buildUrl() {
-      const name = document.getElementById("name").value;
-      const year = document.getElementById("year").value;
-      const baseUrl = "https://www.google.com/search?q=";
-      let url = baseUrl + `%22${encodeURIComponent(name)}%22`;
-      if (year) {
-        url += ` %22${year}%22`;
-      }
-      url += " site:1337x.to";
-      return url;
-    }
-
-    function openNewTab() {
-      const url = buildUrl();
-      window.open(url, '_blank');
-    }
-  </script>
-</body>
+            function openNewTab() {
+                const url = buildUrl();
+                window.open(url, "_blank");
+            }
+        </script>
+    </body>
 </html>
