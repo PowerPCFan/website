@@ -26,10 +26,13 @@ img {
     font-size: 1.6rem;
     margin-bottom: 4rem;
 
-    * {
+    .page-link {
         margin-bottom: 2rem;
         display: block;
-        text-decoration: none;
+        
+        a {
+            text-decoration: none;
+        }
     }
 }
 
