@@ -1,7 +1,8 @@
+# i was going to set up eleventy but i decided not to, cant hurt to leave this stuff in though
+
+
 # Node
 node_modules/
-npm-debug.log
-package-lock.json
 
 # Eleventy
 _site/
