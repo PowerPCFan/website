@@ -39,9 +39,11 @@ img {
   font-size: 1.6rem;
   margin-bottom: 4rem;
 }
-.page-links * {
+.page-links .page-link {
   margin-bottom: 2rem;
   display: block;
+}
+.page-links .page-link a {
   text-decoration: none;
 }
 
