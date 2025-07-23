@@ -7,9 +7,4 @@
     "emmet.includeLanguages": {
         "html": "html"
     },
-
-    "terminal.integrated.scrollback": 5000,
-    "workbench.tree.renderIndentGuides": "always",
-    "explorer.compactFolders": false,
-    "workbench.tree.indent": 16
 }
