@@ -15,6 +15,7 @@
 
 <style lang="scss">
     main {
+        flex: 1;
         margin: 0;
         padding: 0;
         width: 100%;

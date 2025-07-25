@@ -7,4 +7,7 @@
     "emmet.includeLanguages": {
         "html": "html"
     },
+    "[svelte]": {
+        "editor.defaultFormatter": "svelte.svelte-vscode"
+    },
 }

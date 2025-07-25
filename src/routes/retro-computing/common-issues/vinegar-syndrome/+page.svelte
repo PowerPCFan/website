@@ -1,0 +1,62 @@
+<script lang="ts">
+    import Title from "$lib/components/title.svelte";
+</script>
+
+<Title title="Vinegar Syndrome" />
+
+<div class="container">
+    <div class="container-2">
+        <h1><u>Vinegar Syndrome</u></h1>
+
+        <h2>Symptoms of Vinegar Syndrome:</h2>
+
+        <ul>
+            <li>1 or more discolored bubble&lpar;s&rpar; in and/or under the display glass/plastic</li>
+            <li>Weird streak patterns that look like scrapes</li>
+            <li>Discoloration around the edges and sides of the display, like the "vignette" effect</li>
+            <li>A strong vinegar smell coming from the display</li>
+            <li>Cracking patterns on the display resembling spider webs</li>
+        </ul>
+
+        <h2>Causes of Vinegar Syndrome:</h2>
+        <p>
+            The adhesive that holds the polarizing film in place on LCD displays breaks down over time, causing a vinegar syndrome effect. This effect is caused by the breakdown of the adhesive, which is accelerated by humidity and heat. As a result, vinegar syndrome is more common on displays that are stored in humid environments, such as those in Japan.
+            <br /><br />
+            For example, if you browse Japanese auction sites for 90s laptops, you will find that more of them have vinegar syndrome than those from other countries. Vinegar syndrome is the same root cause as the problem that occurs when removing CRT "Cataract" safety glass. In both cases, the adhesive breaks down over time and causes a cloudy or milky appearance on the display.
+            <br /><br />
+            The vinegar smell is caused by the breakdown of the adhesive, which releases acetic acid. The cloudy or milky appearance is caused by the formation of bubbles in the adhesive. Vinegar syndrome can be prevented by storing LCD displays in a cool, dry environment. If vinegar syndrome has already occurred, it can be repaired by replacing the adhesive.
+        </p>
+
+        <h2>Solutions to fix Vinegar Syndrome:</h2>
+        <p>
+            The best and hardest way to fix it is to replace the polarizer film. To do this, you will need to find a film of the same angle. Repairs have been done successfully with this method. The hardest part of the process is removing the old film. This can be difficult due to the strong, hard to remove adhesive.
+            <br /><br />
+            To test the degree of the screen, you can turn a piece of polarizer film of a known degree until the picture appears. Once you have determined the correct angle, you can purchase film of that angle and install it.
+            <br /><br />
+            The medium difficulty method is to replace the entire LCD. This can be annoying to do, but sometimes the best method.
+            <br /><br />
+            Last but not least, there's the method of just pretending that the effects of vinegar syndrome are not there. If you're lazy, this is the way to do it :)
+        </p>
+    </div>
+</div>
+
+<style lang="scss">
+    @use '/static/scss/global.scss' as g;
+
+    .container {
+        height: 100%;
+        width: auto;
+        padding: 2rem;
+        background-image: url("/images/background-tiles/2.png");
+        background-repeat: repeat;
+
+        .container-2 {
+            margin-inline: auto;
+            width: 90%;
+            background-color: g.$light;
+            color: g.$dark;
+            padding: 0.5rem 2rem 0.5rem 2rem;
+            border-radius: 1rem;
+        }
+    }
+</style>

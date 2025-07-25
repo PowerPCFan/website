@@ -1,5 +1,6 @@
 <script lang="ts">
     import Title from "$lib/components/title.svelte";
+    import NowPlaying from "$lib/components/nowPlaying.svelte";
 </script>
 
 <Title title="Home" />
@@ -15,15 +16,20 @@
                 I also love coding and enjoy writing code in Python, Svelte, TypeScript, and PowerShell. 
                 I’m also into gaming and my favorite game is probably BeamNG.drive. 
                 I love retro tech as well - especially Apple's PowerPC Macs of the 90s-2000s. 
-                When I’m not busy with tech stuff, I’m probably listening to music - mainly new wave, rock, or metal.
+                When I’m not busy with tech stuff, I’m probably listening to music - mainly new wave, rock, or metal. 
+                Check out the last.fm widget below!
             </p>
         </div>
+
+        <h2>last.fm</h2>
+        <hr />
+        <NowPlaying username="PowerPCFan" />
 
         <h2>Links</h2>
         <hr />
         <div class="links">
             <a class="link" href="https://github.com/PowerPCFan/" target="_blank">
-                <i class="font-awesome-icon fa-brands fa-square-github"></i>
+                <i class="font-awesome-icon fa-brands fa-github"></i>
                 <span class="ul">GitHub</span>
             </a>
             <a class="link" href="https://youtube.com/@charliesretrocomputing/" target="_blank">
@@ -34,6 +40,14 @@
                 <i class="font-awesome-icon fa-brands fa-spotify"></i>
                 <span class="ul">Spotify</span>
             </a>
+            <a class="link" href="https://steamcommunity.com/profiles/76561199516243582" target="_blank">
+                <i class="font-awesome-icon fa-brands fa-steam"></i>
+                <span class="ul">Steam</span>
+            </a>
+            <a class="link" href="mailto:charlies.retro.computing@gmail.com" target="_blank">
+                <i class="fa-solid fa-envelope"></i>
+                <span class="ul">Email</span>
+            </a>
         </div>
 
         <!-- 88x31s -->
@@ -42,31 +56,31 @@
         <div class="box-88x31">
             <div class="grid-88x31">
                 <a href="https://www.apple.com/mac/">
-                    <img alt="Made with Macintosh" src="/images/home/88x31/madewithmac.gif" />
+                    <img alt="Made with Macintosh" src="/images/88x31/madewithmac.gif" />
                 </a>
                 <a href="https://www.mozilla.org/en-US/firefox/new">
-                    <img alt="Tested on Firefox" src="/images/home/88x31/firefox.gif" />
+                    <img alt="Tested on Firefox" src="/images/88x31/firefox.gif" />
                 </a>
                 <a href="https://amazon.com">
-                    <img alt="Amazon.com" src="/images/home/88x31/amazon.gif" />
+                    <img alt="Amazon.com" src="/images/88x31/amazon.gif" />
                 </a>
                 <a href="https://google.com">
-                    <img alt="Google" src="/images/home/88x31/google.gif" />
+                    <img alt="Google" src="/images/88x31/google.gif" />
                 </a>
                 <a href="https://en.wikipedia.org/wiki/Netscape_Navigator">
-                    <img alt="Netscape Navigator" src="/images/home/88x31/netscape.gif" />
+                    <img alt="Netscape Navigator" src="/images/88x31/netscape.gif" />
                 </a>
                 <a href="https://www.nvidia.com/en-us/">
-                    <img alt="Nvidia" src="/images/home/88x31/nvidia.gif" />
+                    <img alt="Nvidia" src="/images/88x31/nvidia.gif" />
                 </a>
                 <a href="https://en.wikipedia.org/wiki/Sun_Microsystems">
-                    <img alt="Sun Microsystems" src="/images/home/88x31/sun.gif" />
+                    <img alt="Sun Microsystems" src="/images/88x31/sun.gif" />
                 </a>
                 <a href="https://en.wikipedia.org/wiki/Windows_Media_Player">
-                    <img alt="Windows Media Player" src="/images/home/88x31/windowsmediaplayer.gif" />
+                    <img alt="Windows Media Player" src="/images/88x31/windowsmediaplayer.gif" />
                 </a>
                 <a href="https://www.rarlab.com/download.htm">
-                    <img alt="WinRAR" src="/images/home/88x31/winrar.gif" />
+                    <img alt="WinRAR" src="/images/88x31/winrar.gif" />
                 </a>
             </div>
         </div>
@@ -126,11 +140,13 @@
                     color: g.$light;
                     text-decoration: none;
 
+                    margin-top: 0.35rem;
+
                     display: flex;
                     align-items: center;
                     flex-direction: row;
 
-                    .font-awesome-icon {
+                    .font-awesome-icon, .fa-solid {
                         font-size: 2.2rem;
                         margin-right: 0.5rem;
                     }
