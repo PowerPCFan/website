@@ -1,7 +1,0 @@
-# Welcome to my robots.txt :) 
-# Last updated May 3, 2025
-
-# Allow all crawler bots
-User-agent: *
-
-Disallow: /deleted-content/
