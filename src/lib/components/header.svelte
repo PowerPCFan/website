@@ -1,10 +1,12 @@
 <header>
     <nav>
+        <a class="navbar-item" href="/">Home</a>
         <a class="navbar-item" href="https://blog.powerpcfan.xyz">Blog</a>
         <div class="navbar-item navbar-dropdown">
             <span class="navbar-dropdown-trigger">Resources <i id="chevron" class="fa-solid fa-circle-chevron-down"></i></span>
             <div class="navbar-dropdown-menu">
                 <a class="navbar-dropdown-item" href="/resources/pc-resource-document/">PC Resource Document</a>
+                <a class="navbar-dropdown-item" href="/resources/pc-resource-document/install-windows">Installing Windows</a>
                 <a class="navbar-dropdown-item" href="/resources/keys/">Product Keys</a>
             </div>
         </div>
@@ -13,9 +15,7 @@
             <div class="navbar-dropdown-menu">
                 <a class="navbar-dropdown-item" href="/retro-computing/start-retro-computing/">Get Started with Retro Computing</a>
                 <a class="navbar-dropdown-item" href="/retro-computing/good-sites/">Good Sites for Old Macs</a>
-                <a class="navbar-dropdown-item" href="/retro-computing/common-old-mac-issues/">Common Issues with Old Macs</a>
-                <a class="navbar-dropdown-item" href="/retro-computing/specs/">Old Mac Specs</a>
-                <a class="navbar-dropdown-item" href="/retro-computing/2000s-sites/">Websites of the 2000s</a>
+                <a class="navbar-dropdown-item" href="/retro-computing/common-issues/">Common Issues with Old Macs</a>
             </div>
         </div>
         <div class="navbar-item navbar-dropdown">
