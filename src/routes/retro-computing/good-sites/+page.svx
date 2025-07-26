@@ -1,0 +1,41 @@
+<script lang="ts">
+    import Title from "$lib/components/title.svelte";
+</script>
+
+<Title title="Good Sites for your Old Mac" />
+
+<div class="container">
+
+# Good Sites for your Old Macs
+
+## Some awesome pages to get your old Mac up and running!
+
+[Macintosh Garden - A good resource for downloading old apps and games](http://macintoshgarden.org)
+[Macintosh Repository - Another good resource for old apps and games](http://macintoshrepository.org)
+[Apple Fool - Information about Macs and Mac Networking](http://www.applefool.com/se30/)
+[MacFixer - A useful site for downloading software for computers old as the Apple II!](http://obsolete.macfixer.com/vintage-software/)
+[FrogFind - A search engine created by YouTuber Action Retro, designed to run smoothly on basically any computer that has internet access.](http://frogfind.com/)
+[iFixIt - A huge site full of computer repair guides (may not load on an old mac.)](http://www.ifixit.com)
+
+</div>
+
+<style lang="scss">
+    @use '/static/scss/global.scss' as g;
+
+    .container {
+        margin: 0;
+        padding: 0.5rem;
+        height: 100%;
+        width: auto;
+        background-color: antiquewhite;
+        color: g.$dark;
+        text-align: center;
+    }
+
+    a {
+        margin-top: 0.75rem;
+        display: block;
+        color: g.$link;
+        font-size: 1.2rem;
+    }
+</style>
