@@ -1,0 +1,101 @@
+<script lang="ts">
+    import Title from "$lib/components/title.svelte";
+</script>
+
+<Title title="Installing Windows" />
+
+<div class="box">
+
+# How to Install Windows 10/11
+
+<hr />
+
+#### What OS should I choose?
+For PCs, you have two choices: Windows or Linux.
+
+If your PC has:
+- Intel Core 10th Gen/AMD Ryzen 3000 or newer
+- 8GB RAM or more
+
+then you should install Windows 11.
+
+If your PC has:
+- Intel Core 9th Gen/AMD Ryzen 2000 or older
+- Any AMD FX series CPU
+- Any Intel Celeron or Pentium CPU
+- 4GB RAM or more
+
+then you should install Windows 10.
+
+If your PC has a CPU that is 10+ years old or less than 2GB RAM, then you
+should install a Linux distro such as Linux Mint or Arch Linux. Linux isn't
+just for old hardware though - if you'd like to give it a try or if you
+prefer Linux over Windows, feel free to install it.
+
+### <u>Before you install Windows</u>
+- Ensure that the BIOS is updated to the latest version available on the manufacturer's website.
+- Ensure that your USB Flash Drive is 8GB or bigger and in 100% working condition.
+- Ensure that you have another computer such as a laptop that is running Windows 10 or Windows 11 and has decent specs for you to make the USB. You can borrow a friend's PC if needed.
+
+
+<hr />
+
+## <u>Installing Windows 10</u>
+### Downloading Windows and making your USB
+
+- Download a Windows 10 ISO from [MSDL (Microsoft Software Download Listing)](https://msdl.gravesoft.dev/). The proper ISO image is named "Windows 10 22H2 V1". You'll need to set your language. Once you get to the download page, select "IsoX64 Download" - **NOT** the X86 one!
+- Download Rufus to flash your USB. You can get it from [the download page on the official Rufus website](https://rufus.ie/en/#download).
+- Plug in your USB flash drive.
+- Open Rufus.
+- Under 'Device' select your 8GB or larger USB Flash Drive. IT WILL BE ERASED so back up any important files that might be on it.
+- Under 'Boot Selection' select 'Disk or ISO Image'.
+- Next to the dropdown under 'Boot Selection' there is a "SELECT" button. Click it, and find + choose the Windows 10 22H2 V1 ISO you downloaded from MSDL.
+- Under 'Image Option' make sure it is set to 'Standard Windows Installation'.
+- Set the partition scheme to GPT. Set the target system to UEFI (non-CSM).
+- DO NOT touch the other settings like cluster size or filesystem.
+
+### Booting the USB and Installing Windows
+- Shut down the TARGET PC that you'd like to install Windows on.
+- Unplug or remove every hard drive or SSD besides the one that you'll be installing Windows to. If you only have one drive, skip this.
+- Turn on the PC. It should automatically boot the USB. If not, go to the BIOS and set the boot order to boot USB first.
+- Windows will ask you to set a time/date format and a keyboard layout. Choose the correct options for your country's date format and keyboard layout. Keep going through the installer. When it says "Enter a product key," select "I don't have a product key".
+- Choosing a Windows Edition - go with Windows 10 Pro since it has far more features and sounds more "pro" than the home version.
+- When you get to the Disk Selection, you should have one option which is Drive 0 Unallocated Space. If there are other options or names shown, keep deleting the partitions until you get the Drive 0 Unallocated Space option. Now you can install Windows!
+- At the end of the installation, it will tell you that your PC will automatically restart in 10 seconds. Unplug the USB flash drive immediately and restart your PC. It should boot into the newly installed Windows.
+
+## Installing Windows 11
+Follow the exact same process as Windows 10 but ensure that Secure Boot is enabled in BIOS and that you download the "Windows 11 23H2 V2" ISO from MSDL instead of the Windows 10 one.
+
+## Post-Install
+
+- #### Step 1 - Running my PC Flipper Windows Script to set up Windows with apps, drivers, and more
+
+Download the .exe from the [releases page](https://github.com/PowerPCFan/pc-flipper-windows-script/releases/latest) on GitHub. Run the .exe. Once open, explore the options and select what you'd like to do. Then, run the script.
+
+- #### Step 2 - OOBE + Audit Mode
+
+*Note: Do not run this unless you are going to sell the computer you are installing Windows on. It puts the PC back into the setup process.* 
+
+I'm pretty bad at explaining the OOBE and Audit Mode. You should go check out the OOBE and Audit Mode part of [this guide](https://rentry.co/pcflippinginstall#oobe-and-audit-mode) which explains audit mode and what it's used for.
+
+</div>
+
+<style lang="scss">
+    @use '/static/scss/global.scss' as g;
+
+    .box {
+        background-color: #262626;
+        color: #ebebeb;
+        width: 88vw;
+        margin: 1rem auto;
+        padding: 0.2rem 1.2rem;
+        border-radius: 10px;
+    }
+
+    a {
+        text-align: left;
+        margin: 0;
+        text-decoration: underline;
+        color: g.$link;
+    }
+</style>
