@@ -1,0 +1,54 @@
+<script lang="ts">
+    import Title from "$lib/components/title.svelte";
+</script>
+
+<Title title="Get Started with Retro Computing"></Title>
+
+<div class="container">
+<div class="container-2">
+
+# How to get started with Retro Computing!
+## This guide will help you find a good Apple Mac that will be reliable and fun to use as a vintage machine.
+
+1. A PowerPC laptop like the iBook G4 or PowerBook G4 is a great place for beginners to start, because they are:
+   - Easy to find and affordable on sites like eBay and Facebook Marketplace
+   - Still quick and usable &lpar;with browsers like [InterWebPPC](https://macintoshgarden.org/apps/interwebppc-browser-a-rebrand-of-tenfourfox-the-future) you can send emails, watch YouTube, and more!&rpar;
+   - Great "coffee shop computers", because they are still usable and not as valuable as something new if someone were to steal it.
+
+2. Another great option if you want something older is a Macintosh SE/30. It's nostalgic, has a cool 2-color grayscale display, and you can mod it to your liking &colon;&rpar;
+
+3. The third great option is a Power Mac G5 because it's super fast (great for light *and heavy* tasks!!), not too expensive, and easy to use and set up, as long as you have a decent monitor (i use an old lcd tv with a vga port) and a usb keyboard & mouse.
+
+4. Last but not least, the eMac (Education Macintosh) or iMac G3 are both good options if you want a lower-end PowerPC Mac. The iMac G3 is still pretty capable, and it makes a great OS 8/OS 9 mac. The eMac is a great choice if you want the same feel of the iMac G3 but with the faster PowerPC G4 chip.
+
+</div>
+</div>
+
+<style lang="scss">
+    @use '/static/scss/global.scss' as g;
+
+    .container {
+        height: 100%;
+        width: auto;
+        padding: 2rem;
+        background-image: url("/images/background-tiles/1.png");
+        background-repeat: repeat;
+    }
+
+    .container-2 {
+        margin-inline: auto;
+        width: 90%;
+        background-color: g.$light;
+        color: g.$dark;
+        padding: 1rem;
+        border-radius: 1rem;
+    }
+
+    h1, h2 {
+        text-align: center;
+    }
+
+    a {
+        color: g.$link;
+    }
+</style>
