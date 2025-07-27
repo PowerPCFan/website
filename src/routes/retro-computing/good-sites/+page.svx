@@ -2,7 +2,7 @@
     import Title from "$lib/components/title.svelte";
 </script>
 
-<Title title="Good Sites for your Old Mac" />
+<Title title="Good Sites for your Old Mac"></Title>
 
 <div class="container">
 

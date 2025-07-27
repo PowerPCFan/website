@@ -2,15 +2,15 @@
     import Title from "$lib/components/title.svelte";
 </script>
 
-<Title title="Installing Windows" />
+<Title title="Installing Windows"></Title>
 
 <div class="box">
 
 # How to Install Windows 10/11
 
-<hr />
+---
 
-#### What OS should I choose?
+### What OS should I choose?
 For PCs, you have two choices: Windows or Linux.
 
 If your PC has:
@@ -32,13 +32,12 @@ should install a Linux distro such as Linux Mint or Arch Linux. Linux isn't
 just for old hardware though - if you'd like to give it a try or if you
 prefer Linux over Windows, feel free to install it.
 
-### <u>Before you install Windows</u>
+### Before you install Windows
 - Ensure that the BIOS is updated to the latest version available on the manufacturer's website.
 - Ensure that your USB Flash Drive is 8GB or bigger and in 100% working condition.
 - Ensure that you have another computer such as a laptop that is running Windows 10 or Windows 11 and has decent specs for you to make the USB. You can borrow a friend's PC if needed.
 
-
-<hr />
+---
 
 ## <u>Installing Windows 10</u>
 ### Downloading Windows and making your USB
@@ -68,15 +67,15 @@ Follow the exact same process as Windows 10 but ensure that Secure Boot is enabl
 
 ## Post-Install
 
-- #### Step 1 - Running my PC Flipper Windows Script to set up Windows with apps, drivers, and more
+- **Step 1 - Running my PC Flipper Windows Script to set up Windows with apps, drivers, and more**
 
-Download the .exe from the [releases page](https://github.com/PowerPCFan/pc-flipper-windows-script/releases/latest) on GitHub. Run the .exe. Once open, explore the options and select what you'd like to do. Then, run the script.
+    Download the .exe from the [releases page](https://github.com/PowerPCFan/pc-flipper-windows-script/releases/latest) on GitHub. Run the .exe. Once open, explore the options and select what you'd like to do. Then, run the script.
 
-- #### Step 2 - OOBE + Audit Mode
+- **Step 2 - OOBE + Audit Mode**
 
-*Note: Do not run this unless you are going to sell the computer you are installing Windows on. It puts the PC back into the setup process.* 
-
-I'm pretty bad at explaining the OOBE and Audit Mode. You should go check out the OOBE and Audit Mode part of [this guide](https://rentry.co/pcflippinginstall#oobe-and-audit-mode) which explains audit mode and what it's used for.
+    *Note: Do not run this unless you are going to sell the computer you are installing Windows on. It puts the PC back into the setup process.* 
+    
+    I'm pretty bad at explaining the OOBE and Audit Mode. You should go check out the OOBE and Audit Mode part of [this guide](https://rentry.co/pcflippinginstall#oobe-and-audit-mode) which explains audit mode and what it's used for.
 
 </div>
 
@@ -85,7 +84,7 @@ I'm pretty bad at explaining the OOBE and Audit Mode. You should go check out th
 
     .box {
         background-color: #262626;
-        color: #ebebeb;
+        color: g.$light;
         width: 88vw;
         margin: 1rem auto;
         padding: 0.2rem 1.2rem;

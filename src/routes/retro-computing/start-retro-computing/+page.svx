@@ -2,7 +2,7 @@
     import Title from "$lib/components/title.svelte";
 </script>
 
-<Title title="Get Started with Retro Computing" />
+<Title title="Get Started with Retro Computing"></Title>
 
 <div class="container">
 <div class="container-2">
@@ -44,15 +44,11 @@
         border-radius: 1rem;
     }
 
-    h1 {
+    h1, h2 {
         text-align: center;
     }
 
-    h2 {
-        text-align: center;
-    }
-
-    li {
-        text-align: left;
+    a {
+        color: g.$link;
     }
 </style>
