@@ -1,0 +1,238 @@
+<script lang="ts">
+    import Title from "$lib/components/title.svelte";
+    import Accordion from "$lib/components/accordion.svelte";
+
+    const accordionStyles = "font-size: 1.625rem; font-weight: bold;";
+</script>
+
+<Title title="PC Resource Document"></Title>
+
+<div id="page-container">
+
+# The Ultimate PC Resource Document
+
+---
+
+<Accordion title="Cable Management" titleStyles={accordionStyles} openByDefault>
+
+### PC Cable Management
+
+- [Cable Manage YOUR Gaming PC like a PRO](https://www.youtube.com/shorts/J-LznRRSiXo)
+- [How to cable manage your PC like a PRO!](https://www.youtube.com/watch?v=c3dggnkaEs8)
+
+### Desk Setup Cable Management
+
+- [How To: Cable Management - Full Guide](https://www.youtube.com/watch?v=Uc01oUqmxhE)
+- [The Best Cable Management Guide 2023 / 2024](https://www.youtube.com/watch?v=nGGRiODkY8E)
+- [The Ultimate Cable Management Guide!](https://www.youtube.com/watch?v=DHPuvLcSYu8)
+
+</Accordion>
+
+<Accordion title="Hard Drives/SSDs" titleStyles={accordionStyles}>
+
+### Migrating your OS to a new drive
+- [How to move OS drive to new PC and keep Windows and Activation! EASY!](https://www.youtube.com/watch?v=D3bFUXA91yU)
+- [Migrate Windows to Another SSD Drive For FREE](https://www.youtube.com/watch?v=K5naSG3Tki0)
+- [Types of SSD NAND and FLASH types](https://docs.google.com/document/d/1JBlvCZiI7veFBZyMFQZ6IdtDhc78lwGPIVr0M1au8vQ/edit)
+
+</Accordion>
+
+<Accordion title="PC Building" titleStyles={accordionStyles}>
+
+### Build Help (GPU & PSU tier lists, parts compatibility, price checker, etc)
+
+- [ZTT Build Help](https://www.zachstechturf.com/buildhelp)
+
+### How to build a PC
+
+- [Nerd Sidekick - How to Build a PC Step by Step](https://www.youtube.com/watch?v=V38NoO2xiVw)
+- [Linus Tech Tips - How to build a PC (original video)](https://www.youtube.com/watch?v=BL4DCEp7blY)
+- [Linus Tech Tips - How to build a PC (2024 Update)](https://www.youtube.com/watch?v=s1fxZ-VWs2U)
+- [TechSource - How to build a PC - Detailed Build Guide in 2024](https://www.youtube.com/watch?v=Mho0M1Ns0Rw)
+
+</Accordion>
+
+<Accordion title="Windows" titleStyles={accordionStyles}>
+
+### Installing Windows
+
+- [PC Flipper Guide on how to install an OS](https://rentry.co/pcflippinginstall)
+- [How to Install Windows 10 or Windows 11 (my guide)](/resources/pc-resource-document/install-windows)
+
+### Activate Windows for Free with MAS
+
+- [MAS (Microsoft Activation Scripts)](https://massgrave.dev)
+
+### Setting up settings in Windows after building a PC (personal or flip)
+
+- [Always do THIS with a new Gaming PC!](https://www.youtube.com/watch?v=Hk1N18LBizg)
+- [How to set up a PC, the last guide you'll ever need! - Timestamp 18:44 for Windows setup](https://www.youtube.com/watch?v=WpnLehvOM6E)
+
+### Troubleshoot problems in Windows using ThioJoe’s AI troubleshooting tool
+
+- [Windows Troubleshooter](https://chatgpt.com/g/g-yIhrl3jfB-computer-troubleshooter-docs-references)
+
+### Fix a broken Windows installation without reinstalling Windows
+
+- [In-Place Repair](https://gravesoft.dev/in-place_repair_upgrade)
+
+</Accordion>
+
+<Accordion title="PC Flipping" titleStyles={accordionStyles}>
+
+### Putting a PC back into the OOBE after installing drivers
+
+- [How to set up a PC's OOBE](https://www.youtube.com/watch?v=Nt0JerqdGKE)
+
+### Everything you need to know for a PC flip (OS setup, packaging, shipping)
+
+- [How to Pack and Ship a Completely Built Gaming PC](https://www.youtube.com/watch?v=UOq-2kdcK8c)
+- [How to configure a Gaming PC Before Selling](https://www.youtube.com/watch?v=IwHyKYRm63M)
+- [How to Safely Ship your Gaming PC](https://www.youtube.com/watch?v=mvwEoquVsgA)
+- [How to Stress Test a Gaming PC before selling](https://www.youtube.com/watch?v=3VNSEpHz_4c)
+- [How to Take High Quality Photos of Your PC](https://www.youtube.com/watch?v=2y7sODYmguo)
+
+</Accordion>
+
+<Accordion title="Miscellaneous resources" titleStyles={accordionStyles}>
+
+#### PC Front Panel connectors
+![PC Front Panel Connectors](/images/pc-resource-document/image3.png)
+
+#### Windows 11 - Bypass Microsoft Account requirement on Install:
+Remove Ethernet Cable or Disable Wi-Fi  
+Shift-F10 to open Command Prompt at First Run wizard.  
+Type “OOBE\BYPASSNRO” without quotes  
+Your PC will restart and a “Continue With Limited Setup” option will now be available.
+
+#### C++ Redistributables
+[Latest Visual C++ Redistributable Runtimes \| TechPowerUp](https://www.techpowerup.com/download/visual-c-redistributable-runtime-package-all-in-one/)
+
+#### Screws for building a PC
+[https://www.amazon.com/dp/B09BD7Y13P/](https://www.amazon.com/dp/B09BD7Y13P/)
+
+#### Standardized screw sizes for PCs:
+![Standardized screw sizes for PCs](/images/pc-resource-document/image5.png)
+
+#### Best thermal paste
+[Best Thermal Paste for CPUs 2024: 90 Pastes Tested, Ranked \| Tom's Hardware](https://www.tomshardware.com/best-picks/best-thermal-paste)
+
+#### Power Supply Tier List
+[PSU Tier List rev. 17.0g - Cultists Network](https://cultists.network/140/psu-tier-list/)
+
+#### Guide to Display Cables and Adapters for your monitors
+[https://linustechtips.com/topic/729232-guide-to-display-cables-adapters-v2/](https://linustechtips.com/topic/729232-guide-to-display-cables-adapters-v2/)
+
+#### Windows 11 System Requirements and Supported CPUs
+[Windows 11 System Requirements](https://www.microsoft.com/en-us/windows/windows-11-specifications?r=1)  
+[Windows 11 - Supported AMD Processors](https://learn.microsoft.com/en-us/windows-hardware/design/minimum/supported/windows-11-supported-amd-processors)  
+[Windows 11 - Supported Intel Processors](https://learn.microsoft.com/en-us/windows-hardware/design/minimum/supported/windows-11-supported-intel-processors)
+
+#### RAM latency calculator
+[RAM Latency Calculator](https://notkyon.moe/ram-latency.htm)
+
+#### Laptop Schematics
+[schematic laptop \| Google Drive](https://drive.google.com/drive/folders/0B2Two5KUvEqRR2JqeFVMdUZKMHc?resourcekey=0-5FI6_JVZZz52Z67XadAJ5w)
+
+#### AM4 Motherboard Chipsets
+![AM4 Motherboard Chipsets](/images/pc-resource-document/image7.png)
+
+#### Intel 8th/9th gen motherboard comparison database
+[Google Sheets spreadsheet](https://docs.google.com/spreadsheets/d/1IY6W6YhyjnzSvi8BqEqiK1xykSiTDF2Lt1FO8cNhI6I/edit?gid=585498417#gid=585498417)
+
+#### GPU comparison table
+[Graphics Card Comparison Table](https://docs.google.com/spreadsheets/d/1wGRZ-5sl7G9DhIgwW36g2KnrwVfZqBW7GDKHOd2vbaM/edit?gid=0#gid=0)
+
+#### PSU comparison table
+[PSU Comparison](https://docs.google.com/spreadsheets/d/1i6gYAlEEB8Wpbr4E3jY3ctuYvNR5SiuokzPLb5WiQlw/edit?gid=0#gid=0)
+
+#### SSD list/specs
+[SSDs](https://docs.google.com/spreadsheets/d/1B27_j9NDPU3cNlj2HKcrfpJKHkOf-Oi1DbuuQva2gT4/edit?gid=0#gid=0)
+
+#### Average pricing for used GPUs (July 2024)
+[Average Pricing for Used GPUs](https://docs.google.com/spreadsheets/d/1jj_pGfN5N4zj7xobrCJkMNhFm3mQqQ4_5b9BF8tPyBk/edit?gid=184521451#gid=184521451)
+
+#### PC flipping component guide
+[PC Flipping Component Guide](https://docs.google.com/spreadsheets/d/1PegKY7IeELKeCivpI_CYbD368Y3cCXvWbDPEIW4jmhw/edit?gid=0#gid=0)
+
+#### Tom's Hardware GPU Hierarchy 2024
+[The GPU benchmarks hierarchy 2024: All recent graphics cards ranked](https://www.tomshardware.com/reviews/gpu-hierarchy,4388.html)
+
+#### HDMI versions, supported resolutions, and refresh rates
+![HDMI versions, supported resolutions, and refresh rates](/images/pc-resource-document/image2.png)
+
+#### PC won't boot? Take a look at this flowchart!
+[PC won't boot flowchart](https://docs.google.com/document/d/1PwMJNOICZLbZFH_prGzAabP9dFEaJgiE-zRB4jM5ld8/edit)
+
+#### USB and audio connectors
+![USB and audio connectors](/images/pc-resource-document/image1.png)
+
+#### Identify PC parts
+![Identify PC Parts](/images/pc-resource-document/image4.png)
+NOTE - a lot of the items on this list are only found in older computers.
+
+#### PSU connectors
+![PSU Connectors](/images/pc-resource-document/image6.png)
+
+#### Linux command cheat sheet
+[https://phoenixnap.com/kb/linux-commands-cheat-sheet](https://phoenixnap.com/kb/linux-commands-cheat-sheet)
+
+#### If you've never built a PC, this is how you apply thermal paste.
+[https://www.youtube.com/watch?v=JYwHB2P6GmM](https://www.youtube.com/watch?v=JYwHB2P6GmM)  
+The best method shown in that video is the cross method, demonstrated at [0:59](https://www.youtube.com/watch?v=JYwHB2P6GmM&t=59s).
+
+#### Troubleshoot problems with old Apple computers from the 80s/90s:
+[The Dead Mac Scrolls, 1992](https://www.vintageapple.org/macbooks/pdf/The_Dead_Mac_Scrolls_1992.pdf)
+
+#### Windows Environment Variables (very old list but most of them still apply to modern Windows versions):
+[Environment Variables \| Internet Archive](https://www.vintageapple.org/macbooks/pdf/The_Dead_Mac_Scrolls_1992.pdf)  
+Note - this list is quite old from the Windows 98/Windows XP days, but most info on the list should still apply to modern Windows.
+
+#### FanControl
+[Releases \| Rem0o/FanControl.Releases](https://github.com/Rem0o/FanControl.Releases/releases)
+</Accordion>
+</div>
+
+<style lang="scss">
+    @use "/static/scss/global.scss" as g;
+
+    #page-container {
+        margin: 2rem;
+    }
+
+    h1 {
+        text-align: left;
+        font-size: 2.25rem;
+    }
+
+    h3 {
+        text-align: left;
+        font-size: 1.1rem;
+        font-weight: normal;
+        margin-bottom: -9;
+    }
+
+    h4 {
+        font-size: 1.1rem;
+        margin-bottom: 0.15rem;
+    }
+
+    p {
+        margin: 0;
+    }
+
+    a {
+        font-size: 1rem;
+        text-decoration: underline;
+        color: g.$link;
+    }
+
+    img {
+        width: auto;
+        max-width: 100%;
+        max-height: 500px;
+        height: auto;
+        display: block;
+        object-fit: contain;
+    }
+</style>
