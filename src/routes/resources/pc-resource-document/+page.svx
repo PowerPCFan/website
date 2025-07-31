@@ -13,7 +13,156 @@
 
 ---
 
-<Accordion title="Cable Management" titleStyles={accordionStyles} openByDefault>
+<Accordion title="PC Building" titleStyles={accordionStyles} openByDefault>
+
+### PC Part Tier Lists, Comparison Tables, Buyers Guides
+
+#### Nvidia GPUs
+
+**10 Series**
+
+- GeForce GTX 1060 - $60
+- GeForce GTX 1070 - $70-80
+- GeForce GTX 1080 - $90
+- GeForce GTX 1080 Ti - $100-120
+
+**16 Series**
+
+- GeForce GTX 1660 Ti - $70-80
+- GeForce GTX 1660 Super - $70-80
+
+**20 Series**
+
+- GeForce RTX 2060 - $90
+- GeForce RTX 2060 Super - $120
+- GeForce RTX 2070 - $120
+- GeForce RTX 2070 Super - $150
+- GeForce RTX 2080 - $150
+- GeForce RTX 2080 Super - $170
+
+**30 Series**
+
+- GeForce RTX 3050 (6GB) - Please Don't &#128557;
+- GeForce RTX 3050 - $100
+- GeForce RTX 3060 12GB- $150-170
+- GeForce RTX 3060 Ti - $180-200
+- GeForce RTX 3070 - $240
+- GeForce RTX 3080 - $330
+- GeForce RTX 3080 12GB - $350
+- GeForce RTX 3080 Ti - $450
+- GeForce RTX 3090 - $550-600
+- GeForce RTX 3090 Ti - $700
+
+**40 Series**
+
+- GeForce RTX 4060 - $200-220
+- GeForce RTX 4060 Ti - $250
+- GeForce RTX 4060 Ti 16GB - $280-300
+- GeForce RTX 4070 - $375
+- GeForce RTX 4070 Super - $450
+- GeForce RTX 4070 Ti - $500
+- GeForce RTX 4070 Ti Super - $650-700
+- GeForce RTX 4080 - $800
+- GeForce RTX 4080 Super - $800
+- GeForce RTX 4090 - &lt;$1800
+
+#### AMD GPUs
+
+**500 Series**
+
+- Radeon RX 580 8GB - $50
+
+**5000 Series**
+
+- Radeon RX 5700 XT - $120 (On Par with 3060 12GB)
+
+**6000 Series**
+
+- Radeon RX 6600 - $120 (On Par with 3060 12GB)
+- Radeon RX 6600 XT - $140
+- Radeon RX 6650 XT/7600 - $160 (On Par with 4060)
+- Radeon RX 6700 - $160 (6650 XT with 10GB VRAM)
+- Radeon RX 6700 XT - $220
+- Radeon RX 6750 XT - $240
+- Radeon RX 6800 - $280-300
+- Radeon RX 6800 XT - $330 (Faster than RTX 4070)
+- Radeon RX 6900 XT - $400 (On Par with RTX 4070 Super)
+- Radeon RX 6950 XT - $450 (On Par with RTX 3090/4070 Ti/5070)
+
+**7000 Series**
+
+- Radeon RX 7600 - $160
+- Radeon RX 7700 XT - $300
+- Radeon RX 7800 XT - $350
+- Radeon RX 7900 XT - $600 (On Par with RTX 4070 Ti Super)
+- Radeon RX 7900 XTX - $800 (Faster than RTX 4080 / 4080 Super)
+
+#### AMD CPUs
+
+**Ryzen 3**
+
+I wouldn't recommend any Ryzen 3 CPUs
+
+**Ryzen 5**
+
+- Ryzen 5 2600 - $35
+- Ryzen 5 3600 - $50
+- Ryzen 5 5500 - $55
+- Ryzen 5 5600 - $70
+- Ryzen 5 7500f - $115
+- Ryzen 5 7600 - $135
+- Ryzen 5 7600x - $145
+- Ryzen 5 9600x - $150
+
+**Ryzen 7**
+
+- Ryzen 7 2700x - $45
+- Ryzen 7 3700x - $60
+- Ryzen 7 3800x - $70
+- Ryzen 7 5700x - $85
+- Ryzen 7 5800x - $105
+- Ryzen 7 7700 - $170
+- Ryzen 7 7700x - $150-180
+- Ryzen 7 9700x - $175-200
+
+**Ryzen 9**
+
+- Ryzen 9 3900x - $80
+- Ryzen 9 5900x - $170
+- Ryzen 9 5950x - $200
+- Ryzen 9 7900 - $220
+- Ryzen 9 7900x - $250
+- Ryzen 9 7950x - $320
+- Ryzen 9 9900x - $300
+- Ryzen 9 9950x - $400
+
+**X3D CPUs**
+
+- Ryzen 7 7800x3D - $300
+- Ryzen 7 9800x3D - $400
+- Ryzen 9 9950x3D - $600
+
+#### SPL's PSU Tier List
+[SPL's PSU Tier List](https://docs.google.com/spreadsheets/d/1akCHL7Vhzk_EhrpIGkz8zTEvYfLDcaSpZRB6Xt6JWkc/edit?gid=1719706335#gid=1719706335)
+
+#### Guide to Display Cables and Adapters for your monitors
+[https://linustechtips.com/topic/729232-guide-to-display-cables-adapters-v2/](https://linustechtips.com/topic/729232-guide-to-display-cables-adapters-v2/)
+
+#### SSD list/specs
+[SSDs](https://docs.google.com/spreadsheets/d/1B27_j9NDPU3cNlj2HKcrfpJKHkOf-Oi1DbuuQva2gT4/edit?gid=0#gid=0)
+
+#### PC Flipping Component Guide
+[PC Flipping Component Guide](https://docs.google.com/spreadsheets/d/1PegKY7IeELKeCivpI_CYbD368Y3cCXvWbDPEIW4jmhw/edit?gid=0#gid=0)
+
+### How to build a PC
+
+- [Nerd Sidekick - How to Build a PC Step by Step](https://www.youtube.com/watch?v=V38NoO2xiVw)
+- [Linus Tech Tips - How to build a PC (2024 Update)](https://www.youtube.com/watch?v=s1fxZ-VWs2U)
+- [TechSource - How to build a PC - Detailed Build Guide in 2024](https://www.youtube.com/watch?v=Mho0M1Ns0Rw)
+
+</Accordion>
+
+<Accordion title="Cable Management" titleStyles={accordionStyles}>
 
 ### PC Cable Management
 
@@ -34,21 +183,6 @@
 - [How to move OS drive to new PC and keep Windows and Activation! EASY!](https://www.youtube.com/watch?v=D3bFUXA91yU)
 - [Migrate Windows to Another SSD Drive For FREE](https://www.youtube.com/watch?v=K5naSG3Tki0)
 - [Types of SSD NAND and FLASH types](https://docs.google.com/document/d/1JBlvCZiI7veFBZyMFQZ6IdtDhc78lwGPIVr0M1au8vQ/edit)
-
-</Accordion>
-
-<Accordion title="PC Building" titleStyles={accordionStyles}>
-
-### Build Help (GPU & PSU tier lists, parts compatibility, price checker, etc)
-
-- [ZTT Build Help](https://www.zachstechturf.com/buildhelp)
-
-### How to build a PC
-
-- [Nerd Sidekick - How to Build a PC Step by Step](https://www.youtube.com/watch?v=V38NoO2xiVw)
-- [Linus Tech Tips - How to build a PC (original video)](https://www.youtube.com/watch?v=BL4DCEp7blY)
-- [Linus Tech Tips - How to build a PC (2024 Update)](https://www.youtube.com/watch?v=s1fxZ-VWs2U)
-- [TechSource - How to build a PC - Detailed Build Guide in 2024](https://www.youtube.com/watch?v=Mho0M1Ns0Rw)
 
 </Accordion>
 
@@ -97,7 +231,7 @@
 <Accordion title="Miscellaneous resources" titleStyles={accordionStyles}>
 
 #### PC Front Panel connectors
-![PC Front Panel Connectors](/images/pc-resource-document/image3.png)
+![PC Front Panel Connectors](/images/pc-resource-document/3.png)
 
 #### Windows 11 - Bypass Microsoft Account requirement on Install:
 Remove Ethernet Cable or Disable Wi-Fi  
@@ -112,16 +246,10 @@ Your PC will restart and a “Continue With Limited Setup” option will now be 
 [https://www.amazon.com/dp/B09BD7Y13P/](https://www.amazon.com/dp/B09BD7Y13P/)
 
 #### Standardized screw sizes for PCs:
-![Standardized screw sizes for PCs](/images/pc-resource-document/image5.png)
+![Standardized screw sizes for PCs](/images/pc-resource-document/5.png)
 
 #### Best thermal paste
 [Best Thermal Paste for CPUs 2024: 90 Pastes Tested, Ranked \| Tom's Hardware](https://www.tomshardware.com/best-picks/best-thermal-paste)
-
-#### Power Supply Tier List
-[PSU Tier List rev. 17.0g - Cultists Network](https://cultists.network/140/psu-tier-list/)
-
-#### Guide to Display Cables and Adapters for your monitors
-[https://linustechtips.com/topic/729232-guide-to-display-cables-adapters-v2/](https://linustechtips.com/topic/729232-guide-to-display-cables-adapters-v2/)
 
 #### Windows 11 System Requirements and Supported CPUs
 [Windows 11 System Requirements](https://www.microsoft.com/en-us/windows/windows-11-specifications?r=1)  
@@ -135,44 +263,26 @@ Your PC will restart and a “Continue With Limited Setup” option will now be 
 [schematic laptop \| Google Drive](https://drive.google.com/drive/folders/0B2Two5KUvEqRR2JqeFVMdUZKMHc?resourcekey=0-5FI6_JVZZz52Z67XadAJ5w)
 
 #### AM4 Motherboard Chipsets
-![AM4 Motherboard Chipsets](/images/pc-resource-document/image7.png)
-
-#### Intel 8th/9th gen motherboard comparison database
-[Google Sheets spreadsheet](https://docs.google.com/spreadsheets/d/1IY6W6YhyjnzSvi8BqEqiK1xykSiTDF2Lt1FO8cNhI6I/edit?gid=585498417#gid=585498417)
-
-#### GPU comparison table
-[Graphics Card Comparison Table](https://docs.google.com/spreadsheets/d/1wGRZ-5sl7G9DhIgwW36g2KnrwVfZqBW7GDKHOd2vbaM/edit?gid=0#gid=0)
-
-#### PSU comparison table
-[PSU Comparison](https://docs.google.com/spreadsheets/d/1i6gYAlEEB8Wpbr4E3jY3ctuYvNR5SiuokzPLb5WiQlw/edit?gid=0#gid=0)
-
-#### SSD list/specs
-[SSDs](https://docs.google.com/spreadsheets/d/1B27_j9NDPU3cNlj2HKcrfpJKHkOf-Oi1DbuuQva2gT4/edit?gid=0#gid=0)
-
-#### Average pricing for used GPUs (July 2024)
-[Average Pricing for Used GPUs](https://docs.google.com/spreadsheets/d/1jj_pGfN5N4zj7xobrCJkMNhFm3mQqQ4_5b9BF8tPyBk/edit?gid=184521451#gid=184521451)
-
-#### PC flipping component guide
-[PC Flipping Component Guide](https://docs.google.com/spreadsheets/d/1PegKY7IeELKeCivpI_CYbD368Y3cCXvWbDPEIW4jmhw/edit?gid=0#gid=0)
+![AM4 Motherboard Chipsets](/images/pc-resource-document/7.png)
 
 #### Tom's Hardware GPU Hierarchy 2024
 [The GPU benchmarks hierarchy 2024: All recent graphics cards ranked](https://www.tomshardware.com/reviews/gpu-hierarchy,4388.html)
 
 #### HDMI versions, supported resolutions, and refresh rates
-![HDMI versions, supported resolutions, and refresh rates](/images/pc-resource-document/image2.png)
+![HDMI versions, supported resolutions, and refresh rates](/images/pc-resource-document/2.png)
 
 #### PC won't boot? Take a look at this flowchart!
 [PC won't boot flowchart](https://docs.google.com/document/d/1PwMJNOICZLbZFH_prGzAabP9dFEaJgiE-zRB4jM5ld8/edit)
 
 #### USB and audio connectors
-![USB and audio connectors](/images/pc-resource-document/image1.png)
+![USB and audio connectors](/images/pc-resource-document/1.png)
 
 #### Identify PC parts
-![Identify PC Parts](/images/pc-resource-document/image4.png)
+![Identify PC Parts](/images/pc-resource-document/4.png)
 NOTE - a lot of the items on this list are only found in older computers.
 
 #### PSU connectors
-![PSU Connectors](/images/pc-resource-document/image6.png)
+![PSU Connectors](/images/pc-resource-document/6.png)
 
 #### Linux command cheat sheet
 [https://phoenixnap.com/kb/linux-commands-cheat-sheet](https://phoenixnap.com/kb/linux-commands-cheat-sheet)
@@ -181,18 +291,19 @@ NOTE - a lot of the items on this list are only found in older computers.
 [https://www.youtube.com/watch?v=JYwHB2P6GmM](https://www.youtube.com/watch?v=JYwHB2P6GmM)  
 The best method shown in that video is the cross method, demonstrated at [0:59](https://www.youtube.com/watch?v=JYwHB2P6GmM&t=59s).
 
-#### Troubleshoot problems with old Apple computers from the 80s/90s:
+#### Troubleshoot problems with old Apple computers:
 [The Dead Mac Scrolls, 1992](https://www.vintageapple.org/macbooks/pdf/The_Dead_Mac_Scrolls_1992.pdf)
 
 #### Windows Environment Variables (very old list but most of them still apply to modern Windows versions):
-[Environment Variables \| Internet Archive](https://www.vintageapple.org/macbooks/pdf/The_Dead_Mac_Scrolls_1992.pdf)  
-Note - this list is quite old from the Windows 98/Windows XP days, but most info on the list should still apply to modern Windows.
+[Environment Variables \| Internet Archive](https://web.archive.org/web/20120101144026/http://www.scriptlogic.com/support/CustomScripts/environmentVariableReference.html)  
+Note - this list is quite old but it still applies to modern Windows versions for the most part.
 
 #### FanControl
 [Releases \| Rem0o/FanControl.Releases](https://github.com/Rem0o/FanControl.Releases/releases)
 </Accordion>
 </div>
 
+<!--
 <style lang="scss">
     @use "/static/scss/global.scss" as g;
 
@@ -201,24 +312,56 @@ Note - this list is quite old from the Windows 98/Windows XP days, but most info
     }
 
     h1 {
-        text-align: left;
         font-size: 2.25rem;
     }
 
-    h3 {
-        text-align: left;
-        font-size: 1.1rem;
-        font-weight: normal;
-        margin-bottom: -9;
+    h3, h4 {
+        margin-bottom: -0.5rem;
     }
 
     h4 {
         font-size: 1.1rem;
-        margin-bottom: 0.15rem;
     }
 
-    p {
-        margin: 0;
+    h6 {
+        margin-top: 1.5rem;
+        margin-bottom: -0.5rem;
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
+    a {
+        font-size: 1rem;
+        text-decoration: underline;
+        color: g.$link;
+    }
+
+    img {
+        width: auto;
+        max-width: 100%;
+        max-height: 500px;
+        height: auto;
+        display: block;
+        object-fit: contain;
+    }
+</style>
+
+-->
+
+<style lang="scss">
+    @use '/static/scss/global.scss' as g;
+
+    // thanks to chatgpt for this
+    // the spacing on this page is SO fucked
+    h1, h2, h3, h4, h5, h6 {line-height: 1.25;margin-top: 1.5rem;margin-bottom: 0.4rem;font-weight: bold;} 
+    h3 {margin-top: 2rem;margin-bottom: 1rem;}
+    h3 + h4 {margin-top: 1rem;}
+    h4 {font-size: 1.05rem;margin-top: 1.5rem;margin-bottom: 0.6rem;}
+    h4 + p, h4 + ul, h4 + ol {margin-top: 0.6rem;}
+    p, ul, ol {margin-top: 0;margin-bottom: 0.75rem;line-height: 1.5;}
+
+    #page-container {
+        margin: 2rem;
     }
 
     a {
