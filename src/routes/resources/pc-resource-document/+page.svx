@@ -1,6 +1,7 @@
 <script lang="ts">
     import Title from "$lib/components/title.svelte";
     import Accordion from "$lib/components/accordion.svelte";
+    import SmallAccordion from "$lib/components/smallAccordion.svelte";
 
     const accordionStyles = "font-size: 1.625rem; font-weight: bold;";
 </script>
@@ -17,22 +18,19 @@
 
 ### PC Part Tier Lists, Comparison Tables, Buyers Guides
 
-#### Nvidia GPUs
+<SmallAccordion title="Nvidia GPU Price Guide">
 
 **10 Series**
-
 - GeForce GTX 1060 - $60
 - GeForce GTX 1070 - $70-80
 - GeForce GTX 1080 - $90
 - GeForce GTX 1080 Ti - $100-120
 
 **16 Series**
-
 - GeForce GTX 1660 Ti - $70-80
 - GeForce GTX 1660 Super - $70-80
 
 **20 Series**
-
 - GeForce RTX 2060 - $90
 - GeForce RTX 2060 Super - $120
 - GeForce RTX 2070 - $120
@@ -41,7 +39,6 @@
 - GeForce RTX 2080 Super - $170
 
 **30 Series**
-
 - GeForce RTX 3050 (6GB) - Please Don't &#128557;
 - GeForce RTX 3050 - $100
 - GeForce RTX 3060 12GB- $150-170
@@ -54,7 +51,6 @@
 - GeForce RTX 3090 Ti - $700
 
 **40 Series**
-
 - GeForce RTX 4060 - $200-220
 - GeForce RTX 4060 Ti - $250
 - GeForce RTX 4060 Ti 16GB - $280-300
@@ -66,18 +62,17 @@
 - GeForce RTX 4080 Super - $800
 - GeForce RTX 4090 - &lt;$1800
 
-#### AMD GPUs
+</SmallAccordion>
+
+<SmallAccordion title="AMD GPU Price Guide">
 
 **500 Series**
-
 - Radeon RX 580 8GB - $50
 
 **5000 Series**
-
 - Radeon RX 5700 XT - $120 (On Par with 3060 12GB)
 
 **6000 Series**
-
 - Radeon RX 6600 - $120 (On Par with 3060 12GB)
 - Radeon RX 6600 XT - $140
 - Radeon RX 6650 XT/7600 - $160 (On Par with 4060)
@@ -90,21 +85,21 @@
 - Radeon RX 6950 XT - $450 (On Par with RTX 3090/4070 Ti/5070)
 
 **7000 Series**
-
 - Radeon RX 7600 - $160
 - Radeon RX 7700 XT - $300
 - Radeon RX 7800 XT - $350
 - Radeon RX 7900 XT - $600 (On Par with RTX 4070 Ti Super)
 - Radeon RX 7900 XTX - $800 (Faster than RTX 4080 / 4080 Super)
 
-#### AMD CPUs
+</SmallAccordion>
+
+<SmallAccordion title="AMD CPU Price Guide">
 
 **Ryzen 3**
 
 I wouldn't recommend any Ryzen 3 CPUs
 
 **Ryzen 5**
-
 - Ryzen 5 2600 - $35
 - Ryzen 5 3600 - $50
 - Ryzen 5 5500 - $55
@@ -115,7 +110,6 @@ I wouldn't recommend any Ryzen 3 CPUs
 - Ryzen 5 9600x - $150
 
 **Ryzen 7**
-
 - Ryzen 7 2700x - $45
 - Ryzen 7 3700x - $60
 - Ryzen 7 3800x - $70
@@ -126,7 +120,6 @@ I wouldn't recommend any Ryzen 3 CPUs
 - Ryzen 7 9700x - $175-200
 
 **Ryzen 9**
-
 - Ryzen 9 3900x - $80
 - Ryzen 9 5900x - $170
 - Ryzen 9 5950x - $200
@@ -137,10 +130,11 @@ I wouldn't recommend any Ryzen 3 CPUs
 - Ryzen 9 9950x - $400
 
 **X3D CPUs**
-
 - Ryzen 7 7800x3D - $300
 - Ryzen 7 9800x3D - $400
 - Ryzen 9 9950x3D - $600
+
+</SmallAccordion>
 
 #### SPL's PSU Tier List
 [SPL's PSU Tier List](https://docs.google.com/spreadsheets/d/1akCHL7Vhzk_EhrpIGkz8zTEvYfLDcaSpZRB6Xt6JWkc/edit?gid=1719706335#gid=1719706335)
@@ -154,7 +148,7 @@ I wouldn't recommend any Ryzen 3 CPUs
 #### PC Flipping Component Guide
 [PC Flipping Component Guide](https://docs.google.com/spreadsheets/d/1PegKY7IeELKeCivpI_CYbD368Y3cCXvWbDPEIW4jmhw/edit?gid=0#gid=0)
 
-### How to build a PC
+#### How to build a PC
 
 - [Nerd Sidekick - How to Build a PC Step by Step](https://www.youtube.com/watch?v=V38NoO2xiVw)
 - [Linus Tech Tips - How to build a PC (2024 Update)](https://www.youtube.com/watch?v=s1fxZ-VWs2U)
@@ -200,7 +194,7 @@ I wouldn't recommend any Ryzen 3 CPUs
 ### Setting up settings in Windows after building a PC (personal or flip)
 
 - [Always do THIS with a new Gaming PC!](https://www.youtube.com/watch?v=Hk1N18LBizg)
-- [How to set up a PC, the last guide you'll ever need! - Timestamp 18:44 for Windows setup](https://www.youtube.com/watch?v=WpnLehvOM6E)
+- [How to set up a PC, the last guide you'll ever need!](https://www.youtube.com/watch?v=WpnLehvOM6E) \(Timestamp 18:44 for Windows setup\)
 
 ### Troubleshoot problems in Windows using ThioJoe’s AI troubleshooting tool
 
@@ -346,8 +340,6 @@ Note - this list is quite old but it still applies to modern Windows versions fo
     }
 </style>
 
--->
-
 <style lang="scss">
     @use '/static/scss/global.scss' as g;
 
@@ -356,7 +348,7 @@ Note - this list is quite old but it still applies to modern Windows versions fo
     h1, h2, h3, h4, h5, h6 {line-height: 1.25;margin-top: 1.5rem;margin-bottom: 0.4rem;font-weight: bold;} 
     h3 {margin-top: 2rem;margin-bottom: 1rem;}
     h3 + h4 {margin-top: 1rem;}
-    h4 {font-size: 1.05rem;margin-top: 1.5rem;margin-bottom: 0.6rem;}
+    h4 {font-size: 1.1rem;margin-top: 1.5rem;margin-bottom: 0.6rem;}
     h4 + p, h4 + ul, h4 + ol {margin-top: 0.6rem;}
     p, ul, ol {margin-top: 0;margin-bottom: 0.75rem;line-height: 1.5;}
 
@@ -377,5 +369,71 @@ Note - this list is quite old but it still applies to modern Windows versions fo
         height: auto;
         display: block;
         object-fit: contain;
+    }
+</style> -->
+
+<style lang="scss">
+    @use '/static/scss/global.scss' as g;
+
+    #page-container {
+        margin: 2rem auto;
+        max-width: 1100px;
+        padding: 0 1rem;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-weight: bold;
+        line-height: 1.3;
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+    }
+
+    h4 {
+        margin-bottom: 0.2rem;
+    }
+
+    h1 { font-size: 2.25rem; }
+    h2 { font-size: 1.75rem; }
+    h3 { font-size: 1.4rem; }
+    h4 { font-size: 1.15rem; }
+
+    p, ul, ol {
+        margin-top: 0;
+        margin-bottom: 1rem;
+        line-height: 1.6;
+        font-size: 1rem;
+    }
+
+    p + ul, p + ol {
+    margin-top: -1rem;
+    }
+
+
+    a {
+        font-size: 1rem;
+        text-decoration: none;
+        color: g.$link;
+
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: lighten(g.$link, 20);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+    }
+
+    img {
+        width: auto;
+        max-width: 100%;
+        max-height: 500px;
+        height: auto;
+        display: block;
+        object-fit: contain;
+    }
+
+    hr {
+        background-color: transparent;
+        border: 1px solid g.$border;
     }
 </style>
