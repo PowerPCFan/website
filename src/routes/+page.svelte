@@ -13,11 +13,10 @@
         <hr />
         <div class="about-me">
             <p>
-                Hi, I’m Charlie! I love computers - whether it's building and selling PCs or messing around with hardware. 
-                I also love coding and enjoy writing code in Python, Svelte, TypeScript, and PowerShell. 
+                Hi, I’m Charlie! I love computers - whether it's building and selling PCs, messing around with hardware, or coding. My favorite languages are Python, Svelte, TypeScript, and PowerShell. 
                 I’m also into gaming and my favorite game is probably BeamNG.drive. 
                 I love retro tech as well - especially Apple's PowerPC Macs of the 90s-2000s. 
-                When I’m not busy with tech stuff, I’m probably listening to music - mainly new wave, rock, or metal. 
+                Music-wise, I like new wave/synthpop, alt/indie/punk rock, nu metal, and sometimes modern country/pop. 
                 Check out the last.fm widget below!
             </p>
         </div>
