@@ -79,9 +79,9 @@
 **6000 Series**
 - Radeon RX 6600 - $120 (On Par with 3060 12GB)
 - Radeon RX 6600 XT - $140
-- Radeon RX 6650 XT/7600 - $160 (On Par with 4060)
+- Radeon RX 6650 XT/7600 - $160 (On Par with RTX 4060)
 - Radeon RX 6700 - $160 (6650 XT with 10GB VRAM)
-- Radeon RX 6700 XT - $220
+- Radeon RX 6700 XT - $190-220 (Similar to RTX 3060 Ti
 - Radeon RX 6750 XT - $240
 - Radeon RX 6800 - $280-300
 - Radeon RX 6800 XT - $330 (Faster than RTX 4070)
