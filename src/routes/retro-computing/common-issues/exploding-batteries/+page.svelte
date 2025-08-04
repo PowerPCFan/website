@@ -6,20 +6,20 @@
 
 <h1 style="font-size: 45px">Leaking and Exploding PRAM Batteries</h1>
 <h1 style="font-size: 35px">Your old computer might be rotting away!</h1>
-<p>If you have an old Mac (or PC!) sitting away in your attic or basement, it could be rotting away right now due to the PRAM battery leaking or exploding all over the logic board!</p>
+<p>If you have an old Mac sitting away in your attic or basement, it could be rotting away right now due to the PRAM battery leaking or exploding all over the logic board!</p>
 <p>Starting in the 80s, Apple starting using 3.6V 1/2 AA batteries to back-up the system settings of all Apple's Macintosh and IIGS computers. These batteries were used up until the mid 2000s when they were replaced with coin cell batteries.</p>
 <p>When these batteries leak, they cause MAJOR damage to the motherboard of the computer! Most variants leak slowly, but red Maxell Super Lithium batteries are known to rapid-fire "explode" and spray battery guts all over the board, leaving carnage, a dead computer, and a mess behind.</p>
 <h3>You should remove any battery found in a vintage Mac, regardless of brand. The information below on which batteries leak more than others is just for interest's sake. All batteries can and will leak.</h3>
 
 <h1 class="section-spacing">Know Your Variants!</h1>
-<p><span class="bold">Several different brands of these batteries were found in old Mac computers. Some leak more than others, but all old batteries should be removed, regardless of brand.</span></p>
+<p><strong>Several different brands of these batteries were found in old Mac computers. Some leak more than others, but all old batteries should be removed, regardless of brand.</strong></p>
 
 <div class="brand-section">
 <h3>Tadiran</h3>
-<p><span class="bold">Rarity:</span> Common</p>
-<p><span class="bold">Spiciness Rating:</span> 3/5</p>
-<p><span class="bold">Longevity Rating:</span> 3/5</p>
-<p><span class="bold">Still in production?:</span> Yes</p>
+<p><strong>Rarity:</strong> Common</p>
+<p><strong>Spiciness Rating:</strong> 3/5</p>
+<p><strong>Longevity Rating:</strong> 3/5</p>
+<p><strong>Still in production?:</strong> Yes</p>
 <p>
     Tadiran batteries are found in Macs starting at the time when Apple switched to using battery holders instead of direct soldering, until the 1/2AA batteries were phased out. They don't leak very often, but they have in many cases leaked just as bad as other brands. However, this is likely skewed by how common they are. A lot of people have also run into ones that still hold charge as well, though will far more dead ones to match, as is expected for decades old batteries. Still, have to give them
     credit for holding charge for that long.
@@ -31,12 +31,12 @@
 
 <div class="brand-section">
 <h3>Maxell</h3>
-<p><span class="bold">Rarity:</span> Common</p>
-<p><span class="bold">Spiciness Rating:</span> 5/5</p>
-<p><span class="bold">Longevity Rating:</span> 1/5</p>
-<p><span class="bold">Still in production?:</span> No</p>
+<p><strong>Rarity:</strong> Common</p>
+<p><strong>Spiciness Rating:</strong> 5/5</p>
+<p><strong>Longevity Rating:</strong> 1/5</p>
+<p><strong>Still in production?:</strong> No</p>
 <p>
-    Maxell batteries are also very common, starting in Macs at the same time as the Tadiran batteries, through the late 1990s. They appear to be the first that have started to leak, beginning in the mid 2000s. Nowadays, you're more likely to see 10 exploded Maxell batteries in a week than 5 intact ones (in a week.) They've got the worst reputation out of all the major brands, but others have begun to leak just as bad recently as they all age. I've only seen an example of <span class="bold">one</span> of these
+    Maxell batteries are also very common, starting in Macs at the same time as the Tadiran batteries, through the late 1990s. They appear to be the first that have started to leak, beginning in the mid 2000s. Nowadays, you're more likely to see 10 exploded Maxell batteries in a week than 5 intact ones (in a week.) They've got the worst reputation out of all the major brands, but others have begun to leak just as bad recently as they all age. I've only seen an example of <strong>one</strong> of these
     batteries that still held charge, giving it a very poor longevity rating, compared to the Tadiran batteries.
 </p>
 <img src="/images/issues/exploding_batteries/batteries_maxell_intact.jpg" alt="intact maxell battery" title="A rare intact Maxell battery with a date code of March 1991" width="453" height="604" />
@@ -46,10 +46,10 @@
 
 <div class="brand-section">
 <h3>Saft</h3>
-<p><span class="bold">Rarity:</span> Common</p>
-<p><span class="bold">Spiciness Rating:</span> 4/5</p>
-<p><span class="bold">Longevity Rating:</span> 1/5</p>
-<p><span class="bold">Still in production?:</span> Yes</p>
+<p><strong>Rarity:</strong> Common</p>
+<p><strong>Spiciness Rating:</strong> 4/5</p>
+<p><strong>Longevity Rating:</strong> 1/5</p>
+<p><strong>Still in production?:</strong> Yes</p>
 <p>
     Saft batteries became common in the mid-late 1990s, and are rarely found in earlier machines, but are quite common in your early G3 era systems. They have begun to gain a pretty poor reputation in recent years, as people have begun to find G3 era systems with those batteries - exploded, just like the Maxells. I've gone from seeing no posts online about leaky Saft batteries to seemingly a new one every month now, so it's safe to say that these are becoming the new Maxells as they pass the
     two-decade mark. They are a popular choice for replacements, as Saft still produces them. Buying a new one shouldn't be an issue (unless you leave it installed for 20 years), although I'd still prefer a Tadiran battery because they seem to hold up better.
@@ -60,10 +60,10 @@
 
 <div class="brand-section">
 <h3>VARTA</h3>
-<p><span class="bold">Rarity:</span> Common</p>
-<p><span class="bold">Spiciness Rating:</span> 1/5</p>
-<p><span class="bold">Longevity Rating:</span> 3/5</p>
-<p><span class="bold">Still in production?:</span> Yes</p>
+<p><strong>Rarity:</strong> Common</p>
+<p><strong>Spiciness Rating:</strong> 1/5</p>
+<p><strong>Longevity Rating:</strong> 3/5</p>
+<p><strong>Still in production?:</strong> Yes</p>
 <p>
     Contrary to their NiCad and NiMH clock batteries, their Lithium batteries have held up very well with a good reputation for nearly never leaking. These batteries are found (from the factory) exclusively on early Mac II and SE systems without battery holders (soldered), and were the main choice for such systems. In addition, like the Tadiran batteries, many have found these VARTA batteries still working today, which is always surprising. Of course, the majority are dead. I have heard one account
     of these leaking, so like any 30 year old battery, you can't trust them. Still, good job Varta! You can still purchase 1/2AA Varta batteries today, though they are slightly different to the originals, with an unrecognizable casing, but otherwise just about the same.
@@ -74,10 +74,10 @@
 
 <div class="brand-section">
 <h3>Sonnenschein</h3>
-<p><span class="bold">Rarity:</span> Rare</p>
-<p><span class="bold">Spiciness Rating:</span> 2/5? Not enough data.</p>
-<p><span class="bold">Longevity Rating:</span> NO DATA</p>
-<p><span class="bold">Still in production?:</span> Maybe? (See below)</p>
+<p><strong>Rarity:</strong> Rare</p>
+<p><strong>Spiciness Rating:</strong> 2/5? Not enough data.</p>
+<p><strong>Longevity Rating:</strong> NO DATA</p>
+<p><strong>Still in production?:</strong> Maybe? (See below)</p>
 <p>
     Sonnenschein batteries were found in various mac models in the early 1990s, but they were never very common. I haven't heard many accounts of them leaking, but at least one has reported that one went nuclear just like the Maxells do, so it can definitely happen. I have no data on their longevity. Sonnenchein does not have a good internet presence, but I was able to find eBay listings for new 1/2AA batteries from them, so they may still be in production. The photos in the listing I found show a
     2018 manufacture date, but it's likely that the bulk listing in question has been up for a few years anyway.
@@ -89,10 +89,10 @@
 
 <div class="brand-section">
 <h3>The Unknown Black Battery #1</h3>
-<p><span class="bold">Rarity:</span> Extremely Rare</p>
-<p><span class="bold">Spiciness Rating:</span> NO DATA</p>
-<p><span class="bold">Longevity Rating:</span> NO DATA</p>
-<p><span class="bold">Still in production?:</span> Unknown</p>
+<p><strong>Rarity:</strong> Extremely Rare</p>
+<p><strong>Spiciness Rating:</strong> NO DATA</p>
+<p><strong>Longevity Rating:</strong> NO DATA</p>
+<p><strong>Still in production?:</strong> Unknown</p>
 <p>Well, I only confirmed the existence of these batteries a few days ago. I'd heard accounts of a brandless black battery before, but assumed they simply missed the brand on a VARTA battery somehow. Nope, they exist. All I can confirm is that they were used in the SE/30 at least, and during 1989, at least. I've never heard of one leak, but I've seen two total mentions of it on the internet ever, so I really have no data whatsoever on them.</p>
 <img src="/images/issues/exploding_batteries/blackbattery_2.jpg" alt="black battery" />
 <div class="image-caption">Images courtesy of @lma114 on the 68kMLA forums.</div>
@@ -100,20 +100,16 @@
 
 <div class="brand-section">
 <h3>The Unknown Black Battery #2 - Duracell, Unknown Black #1, or mysterious Varta battery?</h3>
-<p><span class="bold">Rarity:</span> Extremely Rare</p>
-<p><span class="bold">Spiciness Rating:</span> NO DATA (possibly 3/5)</p>
-<p><span class="bold">Longevity Rating:</span> NO DATA (possibly 2/5)</p>
-<p><span class="bold">Still in production?:</span>Most likely</p>
+<p><strong>Rarity:</strong> Extremely Rare</p>
+<p><strong>Spiciness Rating:</strong> NO DATA (possibly 3/5)</p>
+<p><strong>Longevity Rating:</strong> NO DATA (possibly 2/5)</p>
+<p><strong>Still in production?:</strong>Most likely</p>
 <p>I only confirmed that these batteries existed a few minutes ago. I've only heard of one leak, but I've seen two total mentions of it on the internet ever, so I really have no data on them.</p>
 <img src="/images/issues/exploding_batteries/duracell.png" alt="black battery #2" width="30%" height="30%" />
 <div class="image-caption">Images courtesy of an Apple user in the Apple Support community.</div>
 </div>
 
 <style lang="scss">
-    .bold {
-        font-weight: bold;
-    }
-    
     .section-spacing {
         margin-top: 2rem;
     }

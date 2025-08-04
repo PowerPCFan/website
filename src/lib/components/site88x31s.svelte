@@ -27,6 +27,9 @@
         <a href="https://www.rarlab.com/download.htm">
             <img alt="WinRAR" src="/images/88x31/winrar.gif" />
         </a>
+        <a href="https://www.frii.site">
+            <img alt="frii.site" src="/images/88x31/frii-site.png" />
+        </a>
     </div>
 </div>
 
