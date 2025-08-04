@@ -53,7 +53,7 @@
     <div class="card-content">
         {#if bestImage}
         <div class="album-art">
-            <img loading="lazy" src={bestImage} alt="Album art for {albumName}" />
+            <img loading="lazy" src={bestImage} onclick={() => window.open(bestImage, '_blank')} alt="Album art for {albumName}" />
         </div>
         {/if}
         
@@ -154,6 +154,13 @@
             height: 80px;
             border-radius: 8px;
             object-fit: cover;
+
+            transition: transform 0.2s ease;
+
+            &:hover {
+                cursor: pointer;
+                transform: scale(1.05);
+            }
         }
     }
     
@@ -173,7 +180,7 @@
                 transition: color 0.2s ease;
                 
                 &:hover {
-                    color: lighten(g.$link, 25);
+                    color: lighten(g.$link, 20);
                     text-decoration: underline;
                 }
             }

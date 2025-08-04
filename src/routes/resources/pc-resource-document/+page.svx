@@ -20,6 +20,8 @@
 
 <SmallAccordion title="Nvidia GPU Price Guide">
 
+##### *Last updated: August 2025*
+
 **10 Series**
 - GeForce GTX 1060 - $60
 - GeForce GTX 1070 - $70-80
@@ -66,6 +68,8 @@
 
 <SmallAccordion title="AMD GPU Price Guide">
 
+##### *Last updated: August 2025*
+
 **500 Series**
 - Radeon RX 580 8GB - $50
 
@@ -95,13 +99,15 @@
 
 <SmallAccordion title="AMD CPU Price Guide">
 
+##### *Last updated: August 2025*
+
 **Ryzen 3**
 
-I wouldn't recommend any Ryzen 3 CPUs
+I wouldn't recommend any Ryzen 3 CPUs.
 
 **Ryzen 5**
 - Ryzen 5 2600 - $35
-- Ryzen 5 3600 - $50
+- Ryzen 5 3600 - $45-55
 - Ryzen 5 5500 - $55
 - Ryzen 5 5600 - $70
 - Ryzen 5 7500f - $115
@@ -130,9 +136,9 @@ I wouldn't recommend any Ryzen 3 CPUs
 - Ryzen 9 9950x - $400
 
 **X3D CPUs**
-- Ryzen 7 7800x3D - $300
-- Ryzen 7 9800x3D - $400
-- Ryzen 9 9950x3D - $600
+- Ryzen 7 7800X3D - $300
+- Ryzen 7 9800X3D - $400
+- Ryzen 9 9950X3D - $600
 
 </SmallAccordion>
 
@@ -395,7 +401,10 @@ Note - this list is quite old but it still applies to modern Windows versions fo
     h1 { font-size: 2.25rem; }
     h2 { font-size: 1.75rem; }
     h3 { font-size: 1.4rem; }
-    h4 { font-size: 1.15rem; }
+    h4 { font-size: 1.2rem; }
+
+    h5 { font-size: 1.05rem; margin-top: 0; margin-bottom: 1rem; font-weight: 600; }
+    h6 { font-size: 0.9rem; margin-top: 0; margin-bottom: 1rem; font-weight: 600; }
 
     p, ul, ol {
         margin-top: 0;
