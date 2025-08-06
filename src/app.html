@@ -32,8 +32,10 @@
                 margin: 0;
                 background-color: var(--dark);
                 font-family: var(--stack);
+                font-variant-ligatures: no-contextual; /* disable smart replacement of 'x' for '×' when 'x' is typed between two numbers */
                 color: var(--light);
 
+                /* font clarity improvements */
                 -webkit-font-smoothing: antialiased;
                 -moz-osx-font-smoothing: grayscale;
                 text-rendering: optimizeLegibility;
