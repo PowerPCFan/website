@@ -23,7 +23,7 @@
     @use '/static/scss/global.scss' as g;
 
     .accordion {
-        border-left: 2px solid g.$border;
+        border-left: 2px solid darken(g.$border, 15);
         padding-left: 1rem;
         margin-bottom: 0.5rem;
     }
