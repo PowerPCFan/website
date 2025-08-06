@@ -18,6 +18,8 @@
 
 ### PC Part Tier Lists, Comparison Tables, Buyers Guides
 
+#### GPU Price Guides
+
 <SmallAccordion title="Nvidia GPU Price Guide">
 
 ##### *Last updated: August 2025*
@@ -43,9 +45,10 @@
 **30 Series**
 - GeForce RTX 3050 (6GB) - Please Don't &#128557;
 - GeForce RTX 3050 - $100
-- GeForce RTX 3060 12GB- $150-170
-- GeForce RTX 3060 Ti - $180-200
-- GeForce RTX 3070 - $240
+- GeForce RTX 3060 12GB - $160-180
+- GeForce RTX 3060 Ti - $190-210
+- GeForce RTX 3070 - $220-240
+- GeForce RTX 3070 Ti - $250-300
 - GeForce RTX 3080 - $330
 - GeForce RTX 3080 12GB - $350
 - GeForce RTX 3080 Ti - $450
@@ -57,9 +60,9 @@
 - GeForce RTX 4060 Ti - $250
 - GeForce RTX 4060 Ti 16GB - $280-300
 - GeForce RTX 4070 - $375
-- GeForce RTX 4070 Super - $450
+- GeForce RTX 4070 Super - $450-$500
 - GeForce RTX 4070 Ti - $500
-- GeForce RTX 4070 Ti Super - $650-700
+- GeForce RTX 4070 Ti Super - $640-700
 - GeForce RTX 4080 - $800
 - GeForce RTX 4080 Super - $800
 - GeForce RTX 4090 - &lt;$1800
@@ -81,7 +84,7 @@
 - Radeon RX 6600 XT - $140
 - Radeon RX 6650 XT/7600 - $160 (On Par with RTX 4060)
 - Radeon RX 6700 - $160 (6650 XT with 10GB VRAM)
-- Radeon RX 6700 XT - $190-220 (Similar to RTX 3060 Ti
+- Radeon RX 6700 XT - $190-220 (Similar to RTX 3060 Ti)
 - Radeon RX 6750 XT - $240
 - Radeon RX 6800 - $280-300
 - Radeon RX 6800 XT - $330 (Faster than RTX 4070)
@@ -96,6 +99,8 @@
 - Radeon RX 7900 XTX - $800 (Faster than RTX 4080 / 4080 Super)
 
 </SmallAccordion>
+
+#### CPU Price Guides
 
 <SmallAccordion title="AMD CPU Price Guide">
 
@@ -139,6 +144,42 @@ I wouldn't recommend any Ryzen 3 CPUs.
 - Ryzen 7 7800X3D - $300
 - Ryzen 7 9800X3D - $400
 - Ryzen 9 9950X3D - $600
+
+</SmallAccordion>
+
+#### RAM Price Guides
+
+<SmallAccordion title="DDR4 RAM Price Guide">
+
+##### *Last updated: August 2025*
+
+**16GB**
+- 2x8GB 3200MHz - $18-24
+- 1x16GB 3200MHz - please don't
+
+**32GB**
+- 2x16GB 3200MHz - $40-45 (can go up to ~$50 if it's RGB)
+
+</SmallAccordion>
+
+<SmallAccordion title="DDR5 RAM Price Guide">
+
+##### *Last updated: August 2025*
+
+**32GB**
+- 2x16GB 6000MHz - $60-80
+
+</SmallAccordion>
+
+#### Storage Price Guides
+
+<SmallAccordion title="M.2 NVMe SSD Price Guide">
+
+##### *Last updated: August 2025*
+
+- **512GB** - $20-25
+- **1TB** - $35-45
+- **2TB** - $65-80
 
 </SmallAccordion>
 
