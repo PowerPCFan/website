@@ -12,6 +12,12 @@
     let albumName: string | undefined = $state();
     let bestImage: string | undefined = $state();
 
+    function open_thing_in_new_tab(thing: string | undefined) {
+        if (thing) {
+            window.open(thing, '_blank');
+        }
+    }
+
     onMount(async () => {
         const song = await getLatestSongVars(username);
 
@@ -53,7 +59,9 @@
     <div class="card-content">
         {#if bestImage}
         <div class="album-art">
-            <img loading="lazy" src={bestImage} onclick={() => window.open(bestImage, '_blank')} alt="Album art for {albumName}" />
+            <button title="Click to open album cover in new tab" id="album-art-click" onclick={() => open_thing_in_new_tab(bestImage)} onkeydown={(e) => { if (e.key.toLowerCase() === 'enter') open_thing_in_new_tab(bestImage); }}>
+                <img loading="lazy" src={bestImage} alt="Album art for {albumName}" />
+            </button>
         </div>
         {/if}
         
@@ -81,7 +89,7 @@
     
     .now-playing-card {
         background: g.$dark;
-        border: 2px solid g.$border;
+        border: 1px solid g.$border;
         border-radius: 12px;
         padding: 1.5rem;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
@@ -149,17 +157,25 @@
     .album-art {
         flex-shrink: 0;
         
-        img {
-            width: 80px;
-            height: 80px;
-            border-radius: 8px;
-            object-fit: cover;
+        #album-art-click {
+            all: unset;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
 
             transition: transform 0.2s ease;
 
             &:hover {
                 cursor: pointer;
-                transform: scale(1.05);
+                transform: scale(1.08);
+            }
+        
+            img {
+                width: 80px;
+                height: 80px;
+                border-radius: 8px;
+                object-fit: cover;
             }
         }
     }
