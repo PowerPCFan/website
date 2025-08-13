@@ -28,13 +28,6 @@
             text-align: center;
             font-size: 25px;
             display: block;
-            color: g.$link;
-            transition: color 0.15s ease;
-        
-            &:hover {
-                color: darken(g.$link, 25);
-                cursor: pointer;
-            }
         }
     }
 </style>

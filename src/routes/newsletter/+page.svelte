@@ -33,13 +33,4 @@
         margin-right: auto;
         display: block;
     }
-
-    a {
-        color: g.$link;
-        transition: color 0.2s ease;
-
-        &:hover {
-            color: lighten(g.$link, 25);
-        }
-    }
 </style>

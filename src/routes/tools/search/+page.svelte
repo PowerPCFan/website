@@ -22,10 +22,5 @@
         margin-top: 1.5rem;
         text-align: center;
         font-size: 25px;
-        
-        a {
-            color: g.$link;
-            text-decoration: underline;
-        }
     }
 </style>
