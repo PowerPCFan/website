@@ -30,8 +30,5 @@
         text-align: center;
         font-size: 25px;
         text-decoration: none;
-        a {
-            color: g.$link;
-        }
     }
 </style>

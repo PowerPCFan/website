@@ -94,7 +94,5 @@ Follow the exact same process as Windows 10 but ensure that Secure Boot is enabl
     a {
         text-align: left;
         margin: 0;
-        text-decoration: underline;
-        color: g.$link;
     }
 </style>

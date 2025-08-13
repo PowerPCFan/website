@@ -189,17 +189,6 @@
             font-weight: 600;
             line-height: 1.3;
             margin-bottom: 0.25rem;
-            
-            a {
-                color: g.$link;
-                text-decoration: none;
-                transition: color 0.2s ease;
-                
-                &:hover {
-                    color: lighten(g.$link, 20);
-                    text-decoration: underline;
-                }
-            }
         }
         
         .artist-name {

@@ -49,6 +49,21 @@
                 margin: 0;
                 padding: 0;
             }
+
+            a {
+                /* font-size: 1rem; */
+                font-size: inherit;
+                text-decoration: none;
+                color: var(--link);
+
+                transition: color 0.15s ease;
+            }
+
+            a:hover {
+                color: color-mix(in srgb, var(--link), white 25%);
+                text-decoration: underline;
+                text-underline-offset: 2px;
+            }
         </style>
      </head>
     <body data-sveltekit-preload-data="hover">

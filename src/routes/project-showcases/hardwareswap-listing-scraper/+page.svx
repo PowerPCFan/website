@@ -1,0 +1,39 @@
+<script lang="ts">
+    import Title from "$lib/components/title.svelte";
+</script>
+
+<Title title="HardwareSwap Listing Scraper"></Title>
+
+# HardwareSwap Listing Scraper
+
+## GitHub Repo
+[PowerPCFan/hardwareswap-listing-scraper](https://github.com/PowerPCFan/hardwareswap-listing-scraper)
+
+## Features
+### Overview
+The HardwareSwap Listing Scraper is a tool that retrieves listings in real time from [r/HardwareSwap](https://reddit.com/r/hardwareswap).
+
+### Features
+#### Firehose Mode
+This mode retrieves every post made on r/hardwareswap in real time.
+
+#### Match Mode
+This mode retrieves posts that match your criteria. For example, if you're looking for an NVIDIA GeForce RTX 4080, you can set that to your match mode criteria and the script will retrieve listings of that item.
+
+#### Notifications
+There are multiple ways to receive notifications for new listings:
+- Webhook
+  - You can set up the script to send messages to a webhook when a listing is retrieved.
+- Push Notifications
+  - You can set up the script to send push notifications to the 'ntfy' app on any computer or phone. (this is very convenient!)
+- SMS messages
+  - You can set up the script to send SMS messages when a listing is retrieved, using a Gmail account through an email-to-SMS gateway.
+
+#### Short URLs
+There are multiple URL shorteners available:
+
+- https://tinyurl.com
+- https://sl.expect.ovh
+- https://sl.powerpcfan.xyz
+
+You can set these up to shorten the long reddit.com links for easier sharing.

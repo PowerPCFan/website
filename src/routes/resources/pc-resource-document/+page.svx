@@ -458,21 +458,6 @@ Note - this list is quite old but it still applies to modern Windows versions fo
     margin-top: -1rem;
     }
 
-
-    a {
-        font-size: 1rem;
-        text-decoration: none;
-        color: g.$link;
-
-        transition: color 0.2s ease;
-
-        &:hover {
-            color: lighten(g.$link, 20);
-            text-decoration: underline;
-            text-underline-offset: 2px;
-        }
-    }
-
     img {
         width: auto;
         max-width: 100%;

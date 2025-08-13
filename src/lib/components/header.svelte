@@ -12,11 +12,9 @@
             </div>
         </div>
         <div class="navbar-item navbar-dropdown">
-            <span class="navbar-dropdown-trigger">Retro Computing <i id="chevron" class="fa-solid fa-circle-chevron-down"></i></span>
+            <span class="navbar-dropdown-trigger">Project Showcases <i id="chevron" class="fa-solid fa-circle-chevron-down"></i></span>
             <div class="navbar-dropdown-menu">
-                <a class="navbar-dropdown-item" href="/retro-computing/start-retro-computing/">Get Started with Retro Computing</a>
-                <a class="navbar-dropdown-item" href="/retro-computing/good-sites/">Good Sites for Old Macs</a>
-                <a class="navbar-dropdown-item" href="/retro-computing/common-issues/">Common Issues with Old Macs</a>
+                <a class="navbar-dropdown-item" href="/project-showcases/hardwareswap-listing-scraper/">HardwareSwap Listing Scraper</a>
             </div>
         </div>
         <div class="navbar-item navbar-dropdown">
@@ -24,6 +22,14 @@
             <div class="navbar-dropdown-menu">
                 <a class="navbar-dropdown-item" href="/tools/touch-tones/">Phone Touch Tone Simulator</a>
                 <a class="navbar-dropdown-item" href="/tools/search/">Search Engines</a>
+            </div>
+        </div>
+        <div class="navbar-item navbar-dropdown">
+            <span class="navbar-dropdown-trigger">Retro Computing <i id="chevron" class="fa-solid fa-circle-chevron-down"></i></span>
+            <div class="navbar-dropdown-menu">
+                <a class="navbar-dropdown-item" href="/retro-computing/start-retro-computing/">Get Started with Retro Computing</a>
+                <a class="navbar-dropdown-item" href="/retro-computing/good-sites/">Good Sites for Old Macs</a>
+                <a class="navbar-dropdown-item" href="/retro-computing/common-issues/">Common Issues with Old Macs</a>
             </div>
         </div>
     </nav>
