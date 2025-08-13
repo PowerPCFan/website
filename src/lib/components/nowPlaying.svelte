@@ -11,6 +11,11 @@
     let artistName: string | undefined = $state();
     let albumName: string | undefined = $state();
     let bestImage: string | undefined = $state();
+    let errorCode: string | undefined = $state();
+
+    const THROW_ERROR_FOR_DEBUG = false; // simulates http error 500
+    const MAX_RETRIES = 3; // amount of retry attempts
+    const RETRY_DELAY_MS = 1000; // delay between retries, in millseconds.
 
     function open_thing_in_new_tab(thing: string | undefined) {
         if (thing) {
@@ -18,15 +23,46 @@
         }
     }
 
-    onMount(async () => {
-        const song = await getLatestSongVars(username);
+    async function sleep(ms: number) { return new Promise(r => setTimeout(r, ms)); }
 
-        isNowPlaying = song.isNowPlaying;
-        trackName = song.trackName;
-        trackUrl = song.trackUrl;
-        artistName = song.artistName;
-        albumName = song.albumName;
-        bestImage = song.images.best;
+    async function loadSongWithRetry() {
+        let attempt = 0;
+        let lastErrorCode: string | undefined;
+        while (attempt < MAX_RETRIES) {
+            if (THROW_ERROR_FOR_DEBUG) {
+                // Simulate a 500 error for this attempt
+                lastErrorCode = '500';
+            } else {
+                try {
+                    const song = await getLatestSongVars(username);
+                    if (!song.errorCode) {
+                        // Success
+                        errorCode = undefined;
+                        isNowPlaying = song.isNowPlaying;
+                        trackName = song.trackName;
+                        trackUrl = song.trackUrl;
+                        artistName = song.artistName;
+                        albumName = song.albumName;
+                        bestImage = song.images.best;
+                        return true;
+                    } else {
+                        lastErrorCode = song.errorCode;
+                    }
+                } catch (e) {
+                    lastErrorCode = 'INTERNAL_ERROR';
+                }
+            }
+            attempt++;
+            if (attempt < MAX_RETRIES) {
+                await sleep(RETRY_DELAY_MS);
+            }
+        }
+        errorCode = lastErrorCode;
+        return false;
+    }
+
+    onMount(async () => {
+        await loadSongWithRetry();
         isLoading = false;
     });
 </script>
@@ -36,6 +72,16 @@
     <div class="card-header">
         <div class="status-indicator loading"></div>
         <h3 class="status-text">Loading last.fm status...</h3>
+    </div>
+</div>
+{:else if errorCode}
+<div class="now-playing-card error" aria-live="polite">
+    <div class="card-header">
+        <div class="status-indicator error" aria-hidden="true"></div>
+        <h3 class="status-text">Error loading last.fm data</h3>
+    </div>
+    <div class="card-content">
+        <div class="generic-error">Please try again later.</div>
     </div>
 </div>
 {:else if trackName && artistName}
@@ -86,6 +132,8 @@
 
 <style lang="scss">
     @use '/static/scss/global.scss' as g;
+
+    $error: #d9534f;
     
     .now-playing-card {
         background: g.$dark;
@@ -94,8 +142,12 @@
         padding: 1.5rem;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         max-width: 400px;
+
+        &.error {
+            border-color: $error;
+        }
     }
-    
+
     .card-header {
         display: flex;
         align-items: center;
@@ -112,6 +164,10 @@
             &.loading {
                 background: g.$border;
                 animation: pulse 1s linear infinite;
+            }
+
+            &.error {
+                background: $error;
             }
         }
 
@@ -204,6 +260,11 @@
             font-style: italic;
         }
     }
+    .generic-error {
+        font-size: 0.85rem;
+        color: g.$border;
+        font-style: italic;
+    }
     
     @keyframes bounce {
         0%, 100% { transform: scaleY(0.3); }
@@ -220,7 +281,7 @@
             transform: scale(1.2);
         }
     }
-    
+
     @media (max-width: 480px) {
         .now-playing-card {
             padding: 1rem;
