@@ -10,4 +10,10 @@
     "[svelte]": {
         "editor.defaultFormatter": "svelte.svelte-vscode"
     },
+
+    // chatgpt told me to add this since i was having intellisense issues and high disk usage
+    "files.watcherExclude": {
+        "**/node_modules/**": true,
+        "**/.svelte-kit/**": true
+    },
 }
