@@ -2,6 +2,7 @@
     import Title from "$lib/components/title.svelte";
     import Site88x31s from "$lib/components/site88x31s.svelte";
     import NowPlaying from "$lib/components/nowPlaying.svelte";
+    import VscodeStatus from "$lib/components/vscodeStatus.svelte";
 </script>
 
 <Title title="Home" />
@@ -24,6 +25,11 @@
         <h2>last.fm</h2>
         <hr />
         <NowPlaying username="PowerPCFan" />
+
+        <h2 style="margin-bottom: 0px;">VSCode Status</h2>
+        <sub>Note: this currently has a bug where it says I'm always online. I'm working on a better solution because the plugin I'm using at the moment isn't great.</sub>
+        <hr />
+        <VscodeStatus />
 
         <h2>Links</h2>
         <hr />
