@@ -26,7 +26,9 @@
         <hr />
         <NowPlaying username="PowerPCFan" />
 
-        <h2>VSCode Status</h2>
+        <h2 style="margin-bottom: 0px;">VSCode Status</h2>
+        <span style="font-size: 0.9rem; margin-top: 0.35rem; display: block;">Note: the current solution I'm using is pretty unreliable. Working on a fix.</span>
+
         <hr />
         <VscodeStatus />
 
