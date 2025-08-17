@@ -20,11 +20,6 @@
         font-size: 40px;
     }
 
-    hr {
-        border-color: g.$border;
-        width: 95vw;
-    }
-
     #links {
         margin-top: 2rem;
         text-align: center;

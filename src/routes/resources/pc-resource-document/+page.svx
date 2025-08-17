@@ -466,9 +466,4 @@ Note - this list is quite old but it still applies to modern Windows versions fo
         display: block;
         object-fit: contain;
     }
-
-    hr {
-        background-color: transparent;
-        border: 1px solid g.$border;
-    }
 </style>

@@ -21,7 +21,7 @@
             <span class="navbar-dropdown-trigger">Tools <i id="chevron" class="fa-solid fa-circle-chevron-down"></i></span>
             <div class="navbar-dropdown-menu">
                 <a class="navbar-dropdown-item" href="/tools/touch-tones/">Phone Touch Tone Simulator</a>
-                <a class="navbar-dropdown-item" href="/tools/search/">Search Engines</a>
+                <!-- <a class="navbar-dropdown-item" href="/tools/search/">Search Engines</a> -->
             </div>
         </div>
         <div class="navbar-item navbar-dropdown">
