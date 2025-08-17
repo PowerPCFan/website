@@ -3,6 +3,7 @@
     import Site88x31s from "$lib/components/site88x31s.svelte";
     import NowPlaying from "$lib/components/nowPlaying.svelte";
     import VscodeStatus from "$lib/components/vscodeStatus.svelte";
+
 </script>
 
 <Title title="Home" />
@@ -26,11 +27,11 @@
         <hr />
         <NowPlaying username="PowerPCFan" />
 
-        <h2 style="margin-bottom: 0px;">VSCode Status</h2>
-        <span style="font-size: 0.9rem; margin-top: 0.35rem; display: block;">Note: the current solution I'm using is pretty unreliable. Working on a fix.</span>
+        <!-- <h2 style="margin-bottom: 0px;">VSCode Status</h2> -->
+        <!-- <span style="font-size: 0.9rem; margin-top: 0.35rem; display: block;">Note: the current solution I'm using is pretty unreliable. Working on a fix.</span> -->
 
-        <hr />
-        <VscodeStatus />
+        <!-- <hr /> -->
+        <!-- <VscodeStatus /> -->
 
         <h2>Links</h2>
         <hr />

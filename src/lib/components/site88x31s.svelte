@@ -1,33 +1,36 @@
 <div class="box-88x31">
     <div class="grid-88x31">
-        <a href="https://www.apple.com/mac/">
+        <a target="_blank" href="https://www.powerpcfan.xyz">
+            <img alt="PowerPCFan" src="/images/88x31/powerpcfan-88x31-new.png" />
+        </a>
+        <a target="_blank" href="https://www.apple.com/mac/">
             <img alt="Made with Macintosh" src="/images/88x31/madewithmac.gif" />
         </a>
-        <a href="https://www.mozilla.org/en-US/firefox/new">
+        <a target="_blank" href="https://www.mozilla.org/en-US/firefox/new">
             <img alt="Tested on Firefox" src="/images/88x31/firefox.gif" />
         </a>
-        <a href="https://amazon.com">
+        <a target="_blank" href="https://amazon.com">
             <img alt="Amazon.com" src="/images/88x31/amazon.gif" />
         </a>
-        <a href="https://google.com">
+        <a target="_blank" href="https://google.com">
             <img alt="Google" src="/images/88x31/google.gif" />
         </a>
-        <a href="https://en.wikipedia.org/wiki/Netscape_Navigator">
+        <a target="_blank" href="https://en.wikipedia.org/wiki/Netscape_Navigator">
             <img alt="Netscape Navigator" src="/images/88x31/netscape.gif" />
         </a>
-        <a href="https://www.nvidia.com/en-us/">
+        <a target="_blank" href="https://www.nvidia.com/en-us/">
             <img alt="Nvidia" src="/images/88x31/nvidia.gif" />
         </a>
-        <a href="https://en.wikipedia.org/wiki/Sun_Microsystems">
+        <a target="_blank" href="https://en.wikipedia.org/wiki/Sun_Microsystems">
             <img alt="Sun Microsystems" src="/images/88x31/sun.gif" />
         </a>
-        <a href="https://en.wikipedia.org/wiki/Windows_Media_Player">
+        <a target="_blank" href="https://en.wikipedia.org/wiki/Windows_Media_Player">
             <img alt="Windows Media Player" src="/images/88x31/windowsmediaplayer.gif" />
         </a>
-        <a href="https://www.rarlab.com/download.htm">
+        <a target="_blank" href="https://www.rarlab.com/download.htm">
             <img alt="WinRAR" src="/images/88x31/winrar.gif" />
         </a>
-        <a href="https://www.frii.site">
+        <a target="_blank" href="https://www.frii.site">
             <img alt="frii.site" src="/images/88x31/frii-site.png" />
         </a>
     </div>
