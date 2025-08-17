@@ -20,6 +20,16 @@
         <style>
             @import '/scss/global.css';
 
+            /* debug styles - uncomment for debug */
+            
+            /* * {
+                outline: 1px limegreen solid;
+            }
+
+            *:hover {
+                outline-color: red;
+            } */
+
             html {
                 height: 100%;
                 width: 100%;
@@ -60,6 +70,11 @@
 
             a:hover {
                 color: color-mix(in srgb, var(--link), white 25%);
+                text-decoration: underline;
+                text-underline-offset: 2px;
+            }
+
+            .ul {
                 text-decoration: underline;
                 text-underline-offset: 2px;
             }

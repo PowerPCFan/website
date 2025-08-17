@@ -67,10 +67,6 @@
 <style lang="scss">
     @use "/static/scss/global.scss" as g;
 
-    .ul {
-        text-decoration: underline;
-    }
-
     #page-container {
         margin: 0.5rem;
         display: flex;
@@ -117,6 +113,8 @@
                     display: flex;
                     align-items: center;
                     flex-direction: row;
+
+                    width: fit-content;
 
                     .font-awesome-icon, .fa-solid {
                         font-size: 2.2rem;
