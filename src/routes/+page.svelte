@@ -85,18 +85,13 @@
         }
 
         .container-thing {
-            border: 2px g.$border solid;
+            border: 1px g.$border solid;
             border-radius: 0.5rem;
             padding: 0.5rem 2.5rem 1rem 2.5rem;
+            // box-shadow: 0 0 0.8rem rgba(g.$border, 0.2);
 
             // max-width: 50vw;
             max-width: clamp(275px, 80vw, 800px);
-
-            hr {
-                color: g.$border !important;
-                background-color: g.$border !important;
-                border-color: g.$border !important;
-            }
 
             p {
                 text-wrap: normal;
