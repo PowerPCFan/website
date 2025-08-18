@@ -16,7 +16,7 @@
     const THROW_ERROR_FOR_DEBUG = false; // simulates http error 500
     const MAX_RETRIES = 3; // amount of retry attempts
     const RETRY_DELAY_MS = 1000; // delay between retries, in millseconds
-    const pollInterval = 10000;
+    const pollInterval = 30000; // 30 seconds
 
     function open_thing_in_new_tab(thing: string | undefined) {
         if (thing) {
