@@ -3,7 +3,7 @@
 
     const MAX_RETRIES = 3;
     const RETRY_DELAY_MS = 1000;
-    const pollInterval = 10000;
+    const pollInterval = 30000; // 30 seconds
     const API_URL = 'https://vscode.snehasish.xyz/api/users/17552586880985304878';
 
     // base64 because yes.

@@ -3,7 +3,6 @@
     import Site88x31s from "$lib/components/site88x31s.svelte";
     import NowPlaying from "$lib/components/nowPlaying.svelte";
     import VscodeStatus from "$lib/components/vscodeStatus.svelte";
-
 </script>
 
 <Title title="Home" />
@@ -11,7 +10,7 @@
 <div id="page-container">
     <h1 id="page-title">Welcome to PowerPCFan's Website</h1>
     <div class="container-thing">
-        <h2>About Me</h2>
+        <h2>about me</h2>
         <hr />
         <div class="about-me">
             <p>
@@ -33,7 +32,7 @@
         <!-- <hr /> -->
         <!-- <VscodeStatus /> -->
 
-        <h2>Links</h2>
+        <h2>links</h2>
         <hr />
         <div class="links">
             <a class="link" href="https://github.com/PowerPCFan/" target="_blank">
