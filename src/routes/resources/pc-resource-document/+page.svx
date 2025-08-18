@@ -18,7 +18,7 @@
 
 ### PC Part Tier Lists, Comparison Tables, Buyers Guides
 
-#### GPU Price Guides
+#### Used/New GPU Price Guides
 
 <SmallAccordion title="Nvidia GPU Price Guide">
 
@@ -100,7 +100,7 @@
 
 </SmallAccordion>
 
-#### CPU Price Guides
+#### Used/New CPU Price Guides
 
 <SmallAccordion title="AMD CPU Price Guide">
 
