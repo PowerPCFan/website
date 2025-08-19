@@ -1,9 +1,9 @@
 <script lang="ts">
-    let { children } = $props();
+    let { inlineStyles = "", children } = $props();
 </script>
 
 
-<h3 class="status-text">{@render children()}</h3>
+<h3 class="status-text" style={inlineStyles}>{@render children()}</h3>
 
 
 <style lang="scss">

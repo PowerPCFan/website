@@ -50,7 +50,11 @@
                 padding: 0;
             }
 
-            a {
+            button.anchor-tag-styles {
+                all: unset;
+            }
+
+            a, button.anchor-tag-styles {
                 font-size: inherit;
                 text-decoration: none;
                 color: var(--link);
@@ -58,10 +62,11 @@
                 transition: color 0.15s ease;
             }
 
-            a:hover {
+            a:hover, button.anchor-tag-styles:hover {
                 color: color-mix(in srgb, var(--link), white 25%);
                 text-decoration: underline;
                 text-underline-offset: 2px;
+                cursor: pointer;
             }
 
             .ul {

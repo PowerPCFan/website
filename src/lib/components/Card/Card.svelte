@@ -16,7 +16,7 @@
         border: 1px solid g.$border;
         border-radius: 12px;
         padding: 1.5rem;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 0.5rem 0.75rem rgba(0, 0, 0, 0.4);
         max-width: 400px;
 
         &.error {
