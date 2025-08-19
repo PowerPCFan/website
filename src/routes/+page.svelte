@@ -1,10 +1,10 @@
 <script lang="ts">
     import Title from "$lib/components/title.svelte";
     import Site88x31s from "$lib/components/site88x31s.svelte";
-    import NowPlaying from "$lib/components/nowPlaying.svelte";
-    import LocalTime from "$lib/components/localTime.svelte";
-    import SwatchInternetTime from "$lib/components/SwatchInternetTime.svelte";
-    import Y2K38Countdown from "$lib/components/Y2K38Countdown.svelte";
+    import NowPlaying from "$lib/components/Widgets/NowPlaying.svelte";
+    import TimeWidget from "$lib/components/Widgets/TimeWidget.svelte";
+    import Countdown from "$lib/components/Widgets/Countdown.svelte";
+    import Pet from "$lib/components/Widgets/Pet.svelte";
 
     let xp: boolean = $state(true);
 </script>
@@ -43,34 +43,21 @@
             </div>
 
             <div class="widget">
-                <h2>local time</h2>
+                <h2>time</h2>
                 <!-- <hr /> -->
-                <LocalTime />
+                <TimeWidget />
             </div>
 
             <div class="widget">
-                <h2>swatch internet time</h2>
+                <h2>countdowns</h2>
                 <!-- <hr /> -->
-                <SwatchInternetTime />
+                <Countdown />
             </div>
 
             <div class="widget">
-                <h2>Y2K38 countdown</h2>
+                <h2>buddy the gifypet</h2>
                 <!-- <hr /> -->
-                <Y2K38Countdown />
-            </div>
-
-            <div class="widget">
-                <h2>gifypet</h2>
-                <!-- <hr /> -->
-                <iframe 
-                    title="GifyPet" 
-                    width="314" 
-                    height="321" 
-                    scrolling="no" 
-                    src="https://gifypet.neocities.org/pet/pet.html?name=Buddy&dob=1755619147&gender=m&element=Air&pet=dog.gif&map=forest.jpg&background=paper.jpg&tablecolor=black&textcolor=black" 
-                    frameborder="0">
-                </iframe>
+                <Pet />
             </div>
         </div>
 
@@ -194,10 +181,10 @@
     .widget-grid {
         display: grid;
         gap: 16px;
+        align-items: stretch;
         grid-template-columns: repeat(
             auto-fit,
             minmax(clamp(200px, 100%, 400px), 1fr)
         );
     }
-
 </style>

@@ -1,8 +1,8 @@
 <script lang="ts">
-    let { children } = $props();
+    let { inlineStyles = "", children } = $props();
 </script>
 
-<div class="card-content">
+<div class="card-content" style={inlineStyles}>
     {@render children()}
 </div>
 
