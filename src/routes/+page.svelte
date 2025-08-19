@@ -7,6 +7,15 @@
 
 <Title title="Home" />
 
+<noscript>
+    <center>
+        <h1 style="margin-inline: 1rem;">
+            Warning: Your browser does not support JavaScript.
+            Some pages on this website require JavaScript to function properly.
+        </h1>
+    </center>
+</noscript>
+
 <div id="page-container">
     <h1 id="page-title">Welcome to PowerPCFan's Website</h1>
     <div class="container-thing">
