@@ -1,9 +1,9 @@
 <script lang="ts">
-    let { error = false, children } = $props();
+    let { error = false, inlineStyles = "", children } = $props();
 </script>
 
 
-<div class="card {error ? 'error' : ''}">
+<div class="card {error ? 'error' : ''}" style="{inlineStyles}">
     {@render children()}
 </div>
 

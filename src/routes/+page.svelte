@@ -3,6 +3,10 @@
     import Site88x31s from "$lib/components/site88x31s.svelte";
     import NowPlaying from "$lib/components/nowPlaying.svelte";
     import LocalTime from "$lib/components/localTime.svelte";
+    import SwatchInternetTime from "$lib/components/SwatchInternetTime.svelte";
+    import Y2K38Countdown from "$lib/components/Y2K38Countdown.svelte";
+
+    let xp: boolean = $state(true);
 </script>
 
 <Title title="Home" />
@@ -16,9 +20,9 @@
     </center>
 </noscript>
 
-<div id="page-container">
+<div id="page-container" class="{xp ? 'xp' : ''}">
     <h1 id="page-title">Welcome to PowerPCFan's Website</h1>
-    <div class="container-thing">
+    <div class="container-thing{xp ? ' xp' : ''}">
         <h2>about me</h2>
         <hr />
         <div class="about-me">
@@ -27,16 +31,48 @@
                 I’m also into gaming and my favorite game is probably BeamNG.drive.
                 I love retro tech as well - especially Apple's PowerPC Macs of the 90s-2000s.
                 Music-wise, I like new wave/synthpop, alt/indie/punk rock, nu-metal, and sometimes modern country and pop.
+                Check out some of my widgets below.
             </p>
         </div>
 
-        <h2>last.fm</h2>
-        <hr />
-        <NowPlaying username="PowerPCFan" />
+        <div class="widget-grid">
+            <div class="widget">
+                <h2>last.fm</h2>
+                <!-- <hr /> -->
+                <NowPlaying username="PowerPCFan" />
+            </div>
 
-        <h2>local time</h2>
-        <hr />
-        <LocalTime />
+            <div class="widget">
+                <h2>local time</h2>
+                <!-- <hr /> -->
+                <LocalTime />
+            </div>
+
+            <div class="widget">
+                <h2>swatch internet time</h2>
+                <!-- <hr /> -->
+                <SwatchInternetTime />
+            </div>
+
+            <div class="widget">
+                <h2>Y2K38 countdown</h2>
+                <!-- <hr /> -->
+                <Y2K38Countdown />
+            </div>
+
+            <div class="widget">
+                <h2>gifypet</h2>
+                <!-- <hr /> -->
+                <iframe 
+                    title="GifyPet" 
+                    width="314" 
+                    height="321" 
+                    scrolling="no" 
+                    src="https://gifypet.neocities.org/pet/pet.html?name=Buddy&dob=1755619147&gender=m&element=Air&pet=dog.gif&map=forest.jpg&background=paper.jpg&tablecolor=black&textcolor=black" 
+                    frameborder="0">
+                </iframe>
+            </div>
+        </div>
 
         <h2>links</h2>
         <hr />
@@ -66,6 +102,10 @@
         <h2>88&times;31s</h2>
         <hr />
         <Site88x31s />
+
+        <div id="toggle-button-wrapper">
+            <button onclick={(() => {xp = !xp})}>you found the secret button! click me to toggle page theme</button>
+        </div>
     </div>
 </div>
 
@@ -73,11 +113,16 @@
     @use "/static/scss/global.scss" as g;
 
     #page-container {
-        margin: 0.5rem;
+        padding: 0.5rem;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+
+        &.xp {
+            background-image: url('/images/bliss.jpg');
+            background-size: cover;
+        }
 
         #page-title {
             font-size: 3rem;
@@ -91,8 +136,12 @@
             padding: 0.5rem 2.5rem 1rem 2.5rem;
             // box-shadow: 0 0 0.8rem rgba(g.$border, 0.2);
 
-            // max-width: 50vw;
-            max-width: clamp(275px, 80vw, 800px);
+            max-width: clamp(275px, 80vw, 900px);
+
+            &.xp {
+                background-color: rgba(g.$dark, 0.8);
+                border-radius: 2rem;
+            }
 
             p {
                 text-wrap: normal;
@@ -129,4 +178,26 @@
             }
         }
     }
+
+    #toggle-button-wrapper {
+        text-align: center;
+        width: 100%;
+        margin-inline: auto;
+        margin-block: 1.5rem 0;
+
+        button {
+            font-family: g.$stack;
+            font-size: 0.8rem;
+        }
+    }
+
+    .widget-grid {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(
+            auto-fit,
+            minmax(clamp(200px, 100%, 400px), 1fr)
+        );
+    }
+
 </style>

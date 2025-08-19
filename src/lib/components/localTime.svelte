@@ -5,9 +5,9 @@
     import CardHeader from '$lib/components/Card/CardHeader.svelte';
     import StatusText from '$lib/components/Card/Utilities/StatusText.svelte';
 
-    let time = "loading...";
+    let time = $state("loading...");
     let timezone = "America/New_York"
-    let am = true;
+    let am = $state(true);
 
     function updateTime() {
         const now = new Date();
