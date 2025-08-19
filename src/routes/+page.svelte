@@ -2,7 +2,7 @@
     import Title from "$lib/components/title.svelte";
     import Site88x31s from "$lib/components/site88x31s.svelte";
     import NowPlaying from "$lib/components/nowPlaying.svelte";
-    import VscodeStatus from "$lib/components/vscodeStatus.svelte";
+    import LocalTime from "$lib/components/localTime.svelte";
 </script>
 
 <Title title="Home" />
@@ -14,11 +14,10 @@
         <hr />
         <div class="about-me">
             <p>
-                Hi, I’m Charlie! I love computers - whether it's building and selling PCs, messing around with hardware, or coding. My favorite languages are Python, Svelte, TypeScript, and PowerShell.
+                Hi, I’m Charlie! I love computers - whether it's building and selling PCs, messing around with hardware, or coding &lpar;usually Python, Svelte, TypeScript, and PowerShell&rpar;.
                 I’m also into gaming and my favorite game is probably BeamNG.drive.
                 I love retro tech as well - especially Apple's PowerPC Macs of the 90s-2000s.
                 Music-wise, I like new wave/synthpop, alt/indie/punk rock, nu-metal, and sometimes modern country and pop.
-                Check out the last.fm widget below!
             </p>
         </div>
 
@@ -26,11 +25,9 @@
         <hr />
         <NowPlaying username="PowerPCFan" />
 
-        <!-- <h2 style="margin-bottom: 0px;">VSCode Status</h2> -->
-        <!-- <span style="font-size: 0.9rem; margin-top: 0.35rem; display: block;">Note: the current solution I'm using is pretty unreliable. Working on a fix.</span> -->
-
-        <!-- <hr /> -->
-        <!-- <VscodeStatus /> -->
+        <h2>local time</h2>
+        <hr />
+        <LocalTime />
 
         <h2>links</h2>
         <hr />
