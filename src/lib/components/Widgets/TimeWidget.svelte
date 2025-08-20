@@ -81,10 +81,10 @@
 
 <Card>
     <CardHeader>
-        <StatusText>{swatchTimeMode ? 'Swatch Time' : 'Local Time in ' + localTimeTimezone}</StatusText>
+        <StatusText inlineStyles="text-transform: none;">{swatchTimeMode ? 'Swatch Internet Time' : 'Local Time (' + localTimeTimezone + ')'}</StatusText>
     </CardHeader>
     <CardContent inlineStyles="flex-direction: column;">
-        <StatusText inlineStyles="text-transform: none; font-style: italic;"><button class="anchor-tag-styles" onclick={toggleMode}>{swatchTimeMode ? 'Switch to Local Time' : 'Switch to Swatch Time'}</button></StatusText>
+        <StatusText inlineStyles="text-transform: none; font-style: italic;"><button class="anchor-tag-styles" onclick={toggleMode}>{swatchTimeMode ? 'Switch to Local Time' : 'Switch to Swatch Internet Time'}</button></StatusText>
         <h2 class="time">{swatchTimeMode ? swatchTime : localTime} {swatchTimeMode ? '' : localTimeEmoji}</h2>
     </CardContent>
 </Card>
