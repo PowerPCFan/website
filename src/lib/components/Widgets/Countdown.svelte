@@ -49,25 +49,25 @@
 
 <Card>
     <CardHeader inlineStyles="margin-bottom: 0.25rem;">
-        <StatusText>Countdown to Y2K38</StatusText>
+        <StatusText inlineStyles="text-transform: none;">Countdown to Y2K38</StatusText>
     </CardHeader>
     <CardContent>
         <h3 class="countdown">{y2k38countdown}</h3>
     </CardContent>
     <CardHeader inlineStyles="margin-bottom: 0.25rem; margin-top: 1rem;">
-        <StatusText>Countdown to NTP date rollover</StatusText>
+        <StatusText inlineStyles="text-transform: none;">Countdown to NTP date rollover</StatusText>
     </CardHeader>
     <CardContent>
         <h3 class="countdown">{ntpCountdown}</h3>
     </CardContent>
     <CardHeader inlineStyles="margin-bottom: 0.25rem; margin-top: 1rem;">
-        <StatusText>Countdown to Y2106</StatusText>
+        <StatusText inlineStyles="text-transform: none;">Countdown to Y2106</StatusText>
     </CardHeader>
     <CardContent>
         <h3 class="countdown">{y2106countdown}</h3>
     </CardContent>
     <CardHeader inlineStyles="margin-bottom: 0.25rem; margin-top: 1rem;">
-        <StatusText>Countdown to FAT filesystem date rollover</StatusText>
+        <StatusText inlineStyles="text-transform: none;">Countdown to FAT filesystem date rollover</StatusText>
     </CardHeader>
     <CardContent>
         <h3 class="countdown">{fatCountdown}</h3>
