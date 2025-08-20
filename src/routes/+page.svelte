@@ -5,6 +5,7 @@
     import TimeWidget from "$lib/components/Widgets/TimeWidget.svelte";
     import Countdown from "$lib/components/Widgets/Countdown.svelte";
     import Pet from "$lib/components/Widgets/Pet.svelte";
+    import BrowserStats from "$lib/components/Widgets/BrowserStats.svelte";
 
     let xp: boolean = $state(true);
 </script>
@@ -58,6 +59,12 @@
                 <h2>buddy the gifypet</h2>
                 <!-- <hr /> -->
                 <Pet />
+            </div>
+
+            <div class="widget">
+                <h2>browser stats</h2>
+                <!-- <hr /> -->
+                <BrowserStats />
             </div>
         </div>
 
