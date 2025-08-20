@@ -56,12 +56,12 @@
 - GeForce RTX 3090 Ti - $700
 
 **40 Series**
-- GeForce RTX 4060 - $200-220
+- GeForce RTX 4060 - $200-250
 - GeForce RTX 4060 Ti - $250
 - GeForce RTX 4060 Ti 16GB - $280-300
 - GeForce RTX 4070 - $375
 - GeForce RTX 4070 Super - $450-$500
-- GeForce RTX 4070 Ti - $500
+- GeForce RTX 4070 Ti - $500-$550
 - GeForce RTX 4070 Ti Super - $640-700
 - GeForce RTX 4080 - $800
 - GeForce RTX 4080 Super - $800
