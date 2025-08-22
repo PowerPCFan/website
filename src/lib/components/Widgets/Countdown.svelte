@@ -47,7 +47,7 @@
 </script>
 
 
-<Card>
+<Card height_100percent>
     <CardHeader inlineStyles="margin-bottom: 0.25rem;">
         <StatusText inlineStyles="text-transform: none;">Countdown to Y2K38</StatusText>
     </CardHeader>
