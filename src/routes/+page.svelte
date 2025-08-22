@@ -6,6 +6,7 @@
     import Countdown from "$lib/components/Widgets/Countdown.svelte";
     import Pet from "$lib/components/Widgets/Pet.svelte";
     import BrowserStats from "$lib/components/Widgets/BrowserStats.svelte";
+    import VSCodeStatus from "$lib/components/Widgets/VSCodeStatus.svelte";
 
     let xp: boolean = $state(true);
 </script>
@@ -41,6 +42,11 @@
                 <h2>last.fm</h2>
                 <!-- <hr /> -->
                 <NowPlaying username="PowerPCFan" />
+            </div>
+
+            <div class="widget">
+                <h2>vscode status</h2>
+                <VSCodeStatus userId="6231517423728874" />
             </div>
 
             <div class="widget">

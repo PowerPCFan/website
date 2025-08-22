@@ -1,7 +1,7 @@
 <script lang="ts">
-    let { loading = false, error = false } = $props();
+    let { loading = false, error = false, green = false } = $props();
 
-    const classes = `status-indicator${loading ? ' loading' : ''}${error ? ' error' : ''}`;
+    const classes = `status-indicator${loading ? ' loading' : ''}${error ? ' error' : ''}${green ? ' green' : ''}`;
 </script>
 
 
@@ -36,6 +36,10 @@
 
         &.error {
             background: g.$red;
+        }
+
+        &.green {
+            background: g.$green;
         }
     }
 </style>
