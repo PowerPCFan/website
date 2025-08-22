@@ -151,7 +151,7 @@
 
 <svelte:window on:resize={refresh} />
 
-<Card>
+<Card height_100percent>
     <CardHeader inlineStyles="margin-bottom: 0.25rem;">
         <StatusText inlineStyles="text-transform: none;">Operating System</StatusText>
     </CardHeader>

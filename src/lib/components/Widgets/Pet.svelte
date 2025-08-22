@@ -3,7 +3,7 @@
     import CardContent from '$lib/components/Card/CardContent.svelte';
 </script>
 
-<Card>
+<Card height_100percent>
     <CardContent>
         <!-- background is set to example.com to trick it into being transparent -->
         <iframe

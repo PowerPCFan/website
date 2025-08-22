@@ -200,4 +200,11 @@
             minmax(clamp(200px, 100%, 400px), 1fr)
         );
     }
+
+    .widget {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        flex-direction: column;
+    }
 </style>

@@ -11,13 +11,10 @@
 
     let swatchTime: string = $state('000.00');
 
-    let swatchTimeMode = $state(false);
+    let utcTime: string = $state("loading...");
+    let utcTimeEmoji: string = $state("");
 
-    function toggleMode() {
-        swatchTimeMode = !swatchTimeMode;
-    }
-
-    function getLocalTimeEmoji(timeStr: string) {
+    function getTimeEmoji(timeStr: string) {
         const [time, modifier] = timeStr.split(' ');
         let [hours, minutes] = time.split(':').map(Number);
 
@@ -42,7 +39,19 @@
             hour12: true // 12 hour time my beloved
         }).format(now);
 
-        localTimeEmoji = getLocalTimeEmoji(localTime);
+        localTimeEmoji = getTimeEmoji(localTime);
+    }
+
+    function updateUTCTime() {
+        const now = new Date();
+        utcTime = new Intl.DateTimeFormat("en-US", {
+            timeZone: "UTC",
+            hour: "numeric",
+            minute: "2-digit",
+            hour12: true
+        }).format(now);
+
+        utcTimeEmoji = getTimeEmoji(utcTime);
     }
 
     function updateSwatchTime() {
@@ -70,22 +79,36 @@
     onMount(() => {
         updateLocalTime();
         updateSwatchTime();
+        updateUTCTime();
         const ltInterval = setInterval(updateLocalTime, 60 * 1000);
         const sInterval = setInterval(updateSwatchTime, 864);
+        const uInterval = setInterval(updateUTCTime, 60 * 1000);
         return () => {
             clearInterval(ltInterval);
             clearInterval(sInterval);
+            clearInterval(uInterval);
         };
     });
 </script>
 
-<Card>
-    <CardHeader>
-        <StatusText inlineStyles="text-transform: none;">{swatchTimeMode ? 'Swatch Internet Time' : 'Local Time (' + localTimeTimezone + ')'}</StatusText>
+<Card height_100percent>
+    <CardHeader inlineStyles="margin-bottom: 0.35rem;">
+        <StatusText inlineStyles="text-transform: none; font-size: 1.1rem;">Local Time &lpar;{localTimeTimezone}&rpar;</StatusText>
     </CardHeader>
     <CardContent inlineStyles="flex-direction: column;">
-        <StatusText inlineStyles="text-transform: none; font-style: italic;"><button class="anchor-tag-styles" onclick={toggleMode}>{swatchTimeMode ? 'Switch to Local Time' : 'Switch to Swatch Internet Time'}</button></StatusText>
-        <h2 class="time">{swatchTimeMode ? swatchTime : localTime} {swatchTimeMode ? '' : localTimeEmoji}</h2>
+        <h2 class="time">{localTime}{localTime == 'loading...' ? '' : ' ' + localTimeEmoji}</h2>
+    </CardContent>
+    <CardHeader inlineStyles="margin-bottom: 0.35rem; margin-top: 1.5rem;">
+        <StatusText inlineStyles="text-transform: none; font-size: 1.1rem;">UTC Time</StatusText>
+    </CardHeader>
+    <CardContent inlineStyles="flex-direction: column;">
+        <h2 class="time">{utcTime}{utcTime == 'loading...' ? '' : ' ' + utcTimeEmoji}</h2>
+    </CardContent>
+    <CardHeader inlineStyles="margin-bottom: 0.35rem; margin-top: 1.5rem;">
+        <StatusText inlineStyles="text-transform: none; font-size: 1.1rem;">Swatch Internet Time</StatusText>
+    </CardHeader>
+    <CardContent inlineStyles="flex-direction: column;">
+        <h2 class="time">{swatchTime}</h2>
     </CardContent>
 </Card>
 

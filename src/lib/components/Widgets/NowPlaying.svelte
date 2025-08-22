@@ -78,14 +78,14 @@
 </script>
 
 {#if isLoading}
-<Card>
+<Card height_100percent>
     <CardHeader>
         <CircularStatusIndicator loading />
         <StatusText>Loading last.fm status...</StatusText>
     </CardHeader>
 </Card>
 {:else if errorCode}
-<Card error>
+<Card height_100percent error>
     <CardHeader>
         <CircularStatusIndicator error />
         <StatusText>Error loading last.fm data</StatusText>
@@ -95,7 +95,7 @@
     </CardContent>
 </Card>
 {:else if trackName && artistName}
-<Card>
+<Card height_100percent>
     <CardHeader>
         {#if isNowPlaying}
             <MusicBars />
