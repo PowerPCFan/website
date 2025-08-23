@@ -258,8 +258,8 @@
         flex-shrink: 0;
         
         img {
-            width: 95px;
-            height: 95px;
+            width: 90px;
+            height: 90px;
             border-radius: 8px;
             object-fit: contain;
             padding: 0px;
