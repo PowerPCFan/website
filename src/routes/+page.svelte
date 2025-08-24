@@ -46,7 +46,7 @@
 
             <div class="widget">
                 <h2>vscode status</h2>
-                <VSCodeStatus userId="6231517423728874" />
+                <VSCodeStatus userId="3818207096435605" />
             </div>
 
             <div class="widget">

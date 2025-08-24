@@ -232,7 +232,7 @@
     </CardHeader>
     <CardContent>
         <div class="language-icon">
-            <img loading="lazy" src="https://raw.githubusercontent.com/PowerPCFan/vscode-status-extension/refs/heads/master/assets/icons/vscode.png" alt="VSCode logo" />
+            <img loading="lazy" src="https://raw.githubusercontent.com/PowerPCFan/vscode-status-api/refs/heads/master/assets/icons/vscode.png" alt="VSCode logo" />
         </div>
         <div class="status-info">
             <div class="details">
