@@ -12,14 +12,15 @@
     @use '/static/scss/global.scss' as g;
 
     .card {
-        background: g.$dark;
+        // background: g.$dark;
+        background-color: rgba(g.$dark, 0.8);
         border: 1px solid g.$border;
         border-radius: 12px;
         padding: 1.5rem;
         box-shadow: 0.3rem 0.3rem 0.75rem 0 rgba(0, 0, 0, 0.3);
         max-width: 400px;
 
-        transition: box-shadow 0.2s ease-in-out;
+        transition: box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
 
         &.error {
             border-color: g.$red;
@@ -27,6 +28,7 @@
 
         &:hover {
             box-shadow: 0.5rem 0.5rem 0.9rem 0 rgba(0, 0, 0, 0.3);
+            background-color: rgba(g.$dark, 0.9);
         }
     }
 
