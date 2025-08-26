@@ -1,47 +1,3 @@
-<!-- <script lang="ts">
-    import { onMount } from 'svelte';
-    import Card from '$lib/components/Card/Card.svelte';
-    import CardContent from '$lib/components/Card/CardContent.svelte';
-    import CardHeader from '$lib/components/Card/CardHeader.svelte';
-    import StatusText from '$lib/components/Card/Utilities/StatusText.svelte';
-
-    let userAgent: string = $state('');
-    let viewportSize: string = $state('');
-
-    function refresh() {
-        userAgent = navigator?.userAgent;
-        viewportSize = `${window?.innerWidth} x ${window?.innerHeight}`;
-    }
-
-    onMount(() => {
-        refresh(); // initial load
-    });
-</script>
-
-<svelte:window on:resize={refresh} />
-
-<Card>
-    <CardHeader inlineStyles="margin-bottom: 0.25rem;">
-        <StatusText inlineStyles="text-transform: none;">User Agent</StatusText>
-    </CardHeader>
-    <CardContent>
-        <h3 class="text">{userAgent}</h3>
-    </CardContent>
-    <CardHeader inlineStyles="margin-bottom: 0.25rem; margin-top: 1rem;">
-        <StatusText inlineStyles="text-transform: none;">Browser Viewport Size</StatusText>
-    </CardHeader>
-    <CardContent>
-        <h3 class="text">{viewportSize}</h3>
-    </CardContent>
-</Card>
-
-<style>
-    .text {
-        margin-block: 0;
-        font-weight: 600;
-    }
-</style> -->
-
 <script lang="ts">
     import { onMount } from 'svelte';
     import Card from '$lib/components/Card/Card.svelte';
@@ -59,9 +15,8 @@
         osVersion: string;
     }
 
-    // found this in some random jsfiddle and i told chatgpt to clean it up and simplify it and typescript-ify it
     async function detectOS(): Promise<Jscd> {
-        const unknown = "-";
+        const unknown = "";
         const nAgt = navigator.userAgent;
 
         let os: string = unknown;
@@ -121,15 +76,12 @@
 
     async function getOS(): Promise<string> {
         const { os, osVersion } = await detectOS();
-        return `${os} ${osVersion}`;
-    }
-
-    function capitalizeFirstLetter(string: string): string {
-        return string.charAt(0).toUpperCase() + string.slice(1);
+        return `${os}${osVersion ? ' ' + osVersion : ''}`;
     }
 
     let os: string = $state('');
     let browserUserAgent: string = $state('');
+    let batteryPercentage: string = $state('');
     let viewportSize: string = $state('');
     let screenResolution: string = $state('');
     let timezone: string = $state('');
@@ -138,6 +90,7 @@
     async function refresh() {
         os = await getOS();
         browserUserAgent = navigator.userAgent || navigator.appVersion;
+        batteryPercentage = `${((navigator as any).getBattery ? await (navigator as any).getBattery().then((battery: any) => battery.level * 100) : 100).toString()}%`;
         viewportSize = `${window.innerWidth} x ${window.innerHeight}`;
         screenResolution = `${(screen.width) * (window.devicePixelRatio || 1)} x ${(screen.height) * (window.devicePixelRatio || 1)} (${screen.colorDepth} bits)`;
         timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -161,6 +114,11 @@
         <StatusText inlineStyles="text-transform: none;">Browser User Agent</StatusText>
     </CardHeader>
     <CardContent><h3 class="text">{browserUserAgent}</h3></CardContent>
+
+    <CardHeader inlineStyles="margin-bottom: 0.25rem; margin-top: 1rem;">
+        <StatusText inlineStyles="text-transform: none;">Battery Percentage</StatusText>
+    </CardHeader>
+    <CardContent><h3 class="text">{batteryPercentage}</h3></CardContent>
 
     <CardHeader inlineStyles="margin-bottom: 0.25rem; margin-top: 1rem;">
         <StatusText inlineStyles="text-transform: none;">Viewport Size</StatusText>
