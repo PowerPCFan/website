@@ -129,10 +129,12 @@
     </CardHeader>
     <CardContent><h3 class="text">{browserUserAgent}</h3></CardContent>
 
-    <CardHeader inlineStyles="margin-bottom: 0.25rem; margin-top: 1rem;">
-        <StatusText inlineStyles="text-transform: none;">Battery Percentage</StatusText>
-    </CardHeader>
-    <CardContent><h3 class="text">{batteryPercentage}</h3></CardContent>
+    {#if batteryPercentageSupported}
+        <CardHeader inlineStyles="margin-bottom: 0.25rem; margin-top: 1rem;">
+            <StatusText inlineStyles="text-transform: none;">Battery Percentage</StatusText>
+        </CardHeader>
+        <CardContent><h3 class="text">{batteryPercentage}</h3></CardContent>
+    {/if}
 
     <CardHeader inlineStyles="margin-bottom: 0.25rem; margin-top: 1rem;">
         <StatusText inlineStyles="text-transform: none;">Viewport Size</StatusText>
