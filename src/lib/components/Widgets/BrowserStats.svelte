@@ -79,8 +79,22 @@
         return `${os}${osVersion ? ' ' + osVersion : ''}`;
     }
 
+    async function getBatteryPercentage(): Promise<[boolean, string]> {
+        const nav = navigator as any
+        if (!nav.getBattery) return [false, '']
+
+        try {
+            const battery = await nav.getBattery()
+            const batteryLevel = (battery.level * 100).toFixed(0)
+            return [true, `${batteryLevel}%`]
+        } catch (e) {
+            return [false, '']
+        }
+    }
+
     let os: string = $state('');
     let browserUserAgent: string = $state('');
+    let batteryPercentageSupported: boolean = $state(false);
     let batteryPercentage: string = $state('');
     let viewportSize: string = $state('');
     let screenResolution: string = $state('');
@@ -90,7 +104,7 @@
     async function refresh() {
         os = await getOS();
         browserUserAgent = navigator.userAgent || navigator.appVersion;
-        batteryPercentage = `${((navigator as any).getBattery ? await (navigator as any).getBattery().then((battery: any) => battery.level * 100) : 100).toString()}%`;
+        [batteryPercentageSupported, batteryPercentage] = await getBatteryPercentage();
         viewportSize = `${window.innerWidth} x ${window.innerHeight}`;
         screenResolution = `${(screen.width) * (window.devicePixelRatio || 1)} x ${(screen.height) * (window.devicePixelRatio || 1)} (${screen.colorDepth} bits)`;
         timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
