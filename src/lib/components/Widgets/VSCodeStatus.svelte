@@ -17,6 +17,7 @@
     let gitBranch: string | undefined = $state();
     let gitRepo: string | undefined = $state();
     let isDebugging: boolean | undefined = $state(false);
+    let isIdling: boolean | undefined = $state(false);
     let language: string | undefined = $state();
     let languageIcon: string | undefined = $state();
     let workspace: string | undefined = $state();
@@ -42,6 +43,7 @@
             gitBranch: string;
             gitRepo: string;
             isDebugging: boolean;
+            isIdling: boolean;
             language: string;
             languageIcon: string;
             timestamp: number;
@@ -106,6 +108,7 @@
                 gitBranch: status.gitBranch,
                 gitRepo: status.gitRepo,
                 isDebugging: status.isDebugging,
+                isIdling: status.isIdling,
                 language: status.language,
                 languageIcon: status.languageIcon,
                 workspace: status.workspace,
@@ -143,6 +146,7 @@
                         gitBranch = status.gitBranch;
                         gitRepo = status.gitRepo;
                         isDebugging = status.isDebugging;
+                        isIdling = status.isIdling;
                         language = status.language;
                         languageIcon = status.languageIcon;
                         workspace = status.workspace;
@@ -189,6 +193,23 @@
     </CardHeader>
     <CardContent>
         <div class="generic-error">Please try again later.</div>
+    </CardContent>
+</Card>
+{:else if isIdling}
+<Card height_100percent>
+    <CardHeader>
+        <CircularStatusIndicator yellow />
+        <StatusText>Idling</StatusText>
+    </CardHeader>
+    <CardContent>
+        <div class="language-icon">
+            <img loading="lazy" src={languageIcon} alt="Icon" />
+        </div>
+        <div class="status-info">
+            <div class="details">
+                <span class="semi-bold">Idling</span>
+            </div>
+        </div>
     </CardContent>
 </Card>
 {:else if isActive && details && workspace}
