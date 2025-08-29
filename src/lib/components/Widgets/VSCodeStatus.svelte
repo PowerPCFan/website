@@ -16,6 +16,7 @@
     let fileName: string | undefined = $state();
     let gitBranch: string | undefined = $state();
     let gitRepo: string | undefined = $state();
+    let isDebugging: boolean | undefined = $state(false);
     let language: string | undefined = $state();
     let languageIcon: string | undefined = $state();
     let workspace: string | undefined = $state();
@@ -104,6 +105,7 @@
                 fileName: status.fileName,
                 gitBranch: status.gitBranch,
                 gitRepo: status.gitRepo,
+                isDebugging: status.isDebugging,
                 language: status.language,
                 languageIcon: status.languageIcon,
                 workspace: status.workspace,
@@ -140,6 +142,7 @@
                         fileName = status.fileName;
                         gitBranch = status.gitBranch;
                         gitRepo = status.gitRepo;
+                        isDebugging = status.isDebugging;
                         language = status.language;
                         languageIcon = status.languageIcon;
                         workspace = status.workspace;
@@ -205,7 +208,7 @@
         <div class="status-info">
             {#if fileName}
             <div class="details">
-                <span class="normal-weight">Editing</span> <span class="semi-bold">{fileName}</span>
+                <span class="normal-weight">{isDebugging ? 'Debugging' : 'Editing'}</span> <span class="semi-bold">{fileName}</span>
             </div>
             {/if}
             {#if language}

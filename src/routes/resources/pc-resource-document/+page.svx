@@ -141,6 +141,7 @@ I wouldn't recommend any Ryzen 3 CPUs.
 - Ryzen 9 9950x - $400
 
 **X3D CPUs**
+- Ryzen 5 7600X3D - $230(?)
 - Ryzen 7 7800X3D - $300
 - Ryzen 7 9800X3D - $400
 - Ryzen 9 9950X3D - $600
