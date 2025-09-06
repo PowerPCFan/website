@@ -1,6 +1,7 @@
 <header>
     <nav>
         <a class="navbar-item" href="/">Home</a>
+        <a class="navbar-item" href="https://www.jawa.gg/sp/184151/charlies-computers">Jawa.gg</a>
         <a class="navbar-item" href="https://blog.powerpcfan.xyz">Blog</a>
         <a class="navbar-item" href="https://sl.powerpcfan.xyz">URL Shortener</a>
         <!-- <a class="navbar-item" href="/newsletter">Newsletter</a> -->
