@@ -22,10 +22,10 @@
 
 <SmallAccordion title="Nvidia GPU Price Guide">
 
-##### *Last updated: August 2025*
+##### *Last updated: September 2025*
 
 **10 Series**
-- GeForce GTX 1060 - $60
+- GeForce GTX 1060 - $50
 - GeForce GTX 1070 - $70-80
 - GeForce GTX 1080 - $90
 - GeForce GTX 1080 Ti - $100-120
@@ -46,32 +46,36 @@
 - GeForce RTX 3050 (6GB) - Please Don't &#128557;
 - GeForce RTX 3050 - $100
 - GeForce RTX 3060 12GB - $160-180
-- GeForce RTX 3060 Ti - $190-210
-- GeForce RTX 3070 - $220-240
-- GeForce RTX 3070 Ti - $250-300
+- GeForce RTX 3060 Ti - $180-200
+- GeForce RTX 3070 - $220-230
+- GeForce RTX 3070 Ti - $250
 - GeForce RTX 3080 - $330
-- GeForce RTX 3080 12GB - $350
+- GeForce RTX 3080 (12GB) - $350
 - GeForce RTX 3080 Ti - $450
-- GeForce RTX 3090 - $550-600
+- GeForce RTX 3090 - $600
 - GeForce RTX 3090 Ti - $700
 
 **40 Series**
 - GeForce RTX 4060 - $200-250
 - GeForce RTX 4060 Ti - $250
 - GeForce RTX 4060 Ti 16GB - $280-300
-- GeForce RTX 4070 - $375
-- GeForce RTX 4070 Super - $450-$500
-- GeForce RTX 4070 Ti - $500-$550
-- GeForce RTX 4070 Ti Super - $640-700
-- GeForce RTX 4080 - $800
-- GeForce RTX 4080 Super - $800
-- GeForce RTX 4090 - &lt;$1800
+- GeForce RTX 4070 - $380-410
+- GeForce RTX 4070 Super - $450-$475
+- GeForce RTX 4070 Ti - $500-$525
+- GeForce RTX 4070 Ti Super - $650-675
+- GeForce RTX 4080 - $775
+- GeForce RTX 4080 Super - $775
+- GeForce RTX 4090 - &lt;$1750
+
+**50 Series**
+
+MSRP or lower
 
 </SmallAccordion>
 
 <SmallAccordion title="AMD GPU Price Guide">
 
-##### *Last updated: August 2025*
+##### *Last updated: September 2025*
 
 **500 Series**
 - Radeon RX 580 8GB - $50
@@ -98,13 +102,17 @@
 - Radeon RX 7900 XT - $600 (On Par with RTX 4070 Ti Super)
 - Radeon RX 7900 XTX - $800 (Faster than RTX 4080 / 4080 Super)
 
+**9000 Series**
+
+MSRP or lower
+
 </SmallAccordion>
 
 #### Used/New CPU Price Guides
 
 <SmallAccordion title="AMD CPU Price Guide">
 
-##### *Last updated: August 2025*
+##### *Last updated: September 2025*
 
 **Ryzen 3**
 
@@ -116,8 +124,8 @@ I wouldn't recommend any Ryzen 3 CPUs.
 - Ryzen 5 5500 - $55
 - Ryzen 5 5600 - $70
 - Ryzen 5 7500f - $115
-- Ryzen 5 7600 - $135
-- Ryzen 5 7600x - $145
+- Ryzen 5 7600 - $130
+- Ryzen 5 7600x - $140
 - Ryzen 5 9600x - $150
 
 **Ryzen 7**
