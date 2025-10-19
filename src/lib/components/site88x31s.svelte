@@ -33,8 +33,8 @@
         <a target="_blank" href="https://www.frii.site">
             <img alt="frii.site" src="/images/88x31/frii-site.png" />
         </a>
-        <a target="_blank" href="https://www.frii.site">
-            <img alt="frii.site" src="/images/88x31/Restart.png" />
+        <a target="_blank" href="https://restartb.xyz/">
+            <img alt="RestartB" src="/images/88x31/Restart.png" />
         </a>
     </div>
 </div>
