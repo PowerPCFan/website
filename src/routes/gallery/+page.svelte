@@ -36,6 +36,7 @@
 
         h1 {
             font-size: 2.5rem;
+            text-align: center;
         }
 
         .gallery-grid {
@@ -65,7 +66,7 @@
 
                 a {
                     display: block;
-                    // width: 100%;
+                    width: 100%;
                     // height: 100%;
                     margin: 0;
                     padding: 0;
@@ -97,6 +98,17 @@
                         font-size: 1rem;
                     }
                 }
+            }
+        }
+    }
+
+    @media (max-width: 600px) {
+        .gallery-container {
+            padding: 1rem;
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                max-width: 100%;
             }
         }
     }
