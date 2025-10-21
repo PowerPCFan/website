@@ -136,7 +136,7 @@
             padding: 0.5rem 2.5rem 1rem 2.5rem;
             // box-shadow: 0 0 0.8rem rgba(g.$border, 0.2);
 
-            max-width: clamp(275px, 80vw, 900px);
+            max-width: clamp(275px, min(90vw, 900px), 900px);
 
             &.xp {
                 background-color: rgba(g.$dark, 0.8);
