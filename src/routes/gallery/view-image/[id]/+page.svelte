@@ -45,7 +45,7 @@
         }
 
         try {
-            const response = await fetch(`/api/photography-gallery/view-image?id=${imageId}`);
+            const response = await fetch(`/api/gallery/view-image?id=${imageId}`);
             const data = await response.json();
 
             if (!response.ok) {
@@ -70,7 +70,7 @@
         <div class="error">Error: {error}</div>
     {:else if imageData}
         <div class="back-navigation">
-            <a href="/photography-gallery" class="back-button">
+            <a href="/gallery" class="back-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 -960 960 960" fill="#e3e3e3">
                     <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" />
                 </svg>

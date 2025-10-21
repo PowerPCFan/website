@@ -7,7 +7,7 @@ export interface GalleryImage {
         location: string
     };
 
-    // added by /api/photography-gallery/view-image endpoint
+    // added by /api/gallery/view-image endpoint
     fullImageUrl?: string;
     thumbnailUrl?: string;
 }
