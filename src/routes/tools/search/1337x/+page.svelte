@@ -48,7 +48,6 @@
         border: 1px solid g.$border;
         border-radius: 5px;
         width: 666px;
-        box-sizing: border-box;
         background-color: #000000;
         color: g.$light;
         font-family: g.$stack;

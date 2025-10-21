@@ -16,4 +16,6 @@
         "**/node_modules/**": true,
         "**/.svelte-kit/**": true
     },
+    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "python-envs.pythonProjects": [],
 }

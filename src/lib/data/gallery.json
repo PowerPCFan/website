@@ -1,0 +1,31 @@
+{
+    "images": [
+        {
+            "id": "1",
+            "metadata": {
+                "title": "Night Sky In The Trees",
+                "device": "iPhone 16 Pro",
+                "date": "2025-10-11T09:46:00-04:00",
+                "location": "New Hampshire, USA"
+            }
+        },
+        {
+            "id": "2",
+            "metadata": {
+                "title": "Night Sky Over The Rooftop",
+                "device": "iPhone 16 Pro",
+                "date": "2025-10-18T09:12:00-04:00",
+                "location": "Massachusetts, USA"
+            }
+        },
+        {
+            "id": "3",
+            "metadata": {
+                "title": "Night Sky Over The House",
+                "device": "iPhone 16 Pro",
+                "date": "2025-10-19T09:03:00-04:00",
+                "location": "Massachusetts, USA"
+            }
+        }
+    ]
+}
