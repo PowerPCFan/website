@@ -7,32 +7,94 @@
     let imageData: GalleryImage | null = $state(null);
     let loading = $state(true);
     let error = $state('');
+    let imagePopupShouldShow = $state(false);
+
+    // function createDateString(iso8601: string): string {
+    //     const d = new Date(iso8601);
+    //     const dt = d.toLocaleString("en-US", {
+    //         year: "numeric",
+    //         month: "long",
+    //         day: "numeric",
+    //         hour: "numeric",
+    //         minute: "2-digit",
+    //         hour12: true
+    //     });
+    //     const offset = -d.getTimezoneOffset();
+    //     const hr = String(Math.floor(Math.abs(offset) / 60)).padStart(2, "0");
+    //     const min = String(Math.abs(offset) % 60).padStart(2, "0");
+
+    //     return `${dt} (UTC${offset >= 0 ? "+" : "-"}${hr}:${min})`;
+    // }
 
     function createDateString(iso8601: string): string {
-        const d = new Date(iso8601);
-        const dt = d.toLocaleString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-            hour: "numeric",
-            minute: "2-digit",
-            hour12: true
-        });
-        const offset = -d.getTimezoneOffset();
-        const hr = String(Math.floor(Math.abs(offset) / 60)).padStart(2, "0");
-        const min = String(Math.abs(offset) % 60).padStart(2, "0");
+        const [datePart, timePart] = iso8601.split("T");
 
-        return `${dt} (UTC${offset >= 0 ? "+" : "-"}${hr}:${min})`;
+        const [year, _month, day] = datePart.split("-").map(Number);
+
+        const monthMap: Record<number, string> = {
+            1: "January",
+            2: "February",
+            3: "March",
+            4: "April",
+            5: "May",
+            6: "June",
+            7: "July",
+            8: "August",
+            9: "September",
+            10: "October",
+            11: "November",
+            12: "December"
+        };
+
+        const month = monthMap[_month];
+
+        const [time, _offset] = timePart.includes("+") ? timePart.split("+") : timePart.split("-");
+        const offset = (timePart.includes("+") ? "+" : "-") + _offset;
+
+        const [_hour, minute, second] = time.split(":");
+
+        const amPmMap: Record<string, Array<string>> = {
+            "00": ["12", "AM"],
+            "01": ["1", "AM"],
+            "02": ["2", "AM"],
+            "03": ["3", "AM"],
+            "04": ["4", "AM"],
+            "05": ["5", "AM"],
+            "06": ["6", "AM"],
+            "07": ["7", "AM"],
+            "08": ["8", "AM"],
+            "09": ["9", "AM"],
+            "10": ["10", "AM"],
+            "11": ["11", "AM"],
+            "12": ["12", "PM"],
+            "13": ["1", "PM"],
+            "14": ["2", "PM"],
+            "15": ["3", "PM"],
+            "16": ["4", "PM"],
+            "17": ["5", "PM"],
+            "18": ["6", "PM"],
+            "19": ["7", "PM"],
+            "20": ["8", "PM"],
+            "21": ["9", "PM"],
+            "22": ["10", "PM"],
+            "23": ["11", "PM"]
+        };
+
+        const hour = amPmMap[_hour];
+
+        return `${month} ${day}, ${year} at ${hour[0]}:${minute} ${hour[1]} (UTC${offset})`;
     }
 
-    function startsWithVowel(str: string): boolean {
-        for (const vowel of ['a', 'e', 'i', 'o', 'u']) {
-            if (str.toLowerCase().startsWith(vowel)) {
-                return true;
-            }
-        }
+    function showImagePopup() {
+        imagePopupShouldShow = true;
+    }
 
-        return false;
+    function hideImagePopup() {
+        imagePopupShouldShow = false;
+    }
+
+    function toggleImagePopup() {
+        imagePopupShouldShow = !imagePopupShouldShow;
     }
 
     onMount(async () => {
@@ -79,7 +141,9 @@
         </div>
         <div class="content-wrapper">
             <div class="image-container" id="image-container">
-                <img loading="lazy" src={imageData.fullImageUrl} alt={imageData.metadata.title || 'Photo'} />
+                <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+                <!-- svelte-ignore a11y_click_events_have_key_events -->
+                <img onclick={showImagePopup} loading="lazy" src={imageData.fullImageUrl} alt={imageData.metadata.title || 'Photo'} />
             </div>
             <div class="info-container" id="info-container">
                 <h2 id="title">{imageData.metadata.title}</h2>
@@ -92,6 +156,21 @@
                 </div>
             </div>
         </div>
+        {#if imagePopupShouldShow}
+            <!-- svelte-ignore a11y_click_events_have_key_events -->
+            <!-- svelte-ignore a11y_no_static_element_interactions -->
+            <div id="popup-container" onclick={hideImagePopup}>
+                <!-- svelte-ignore a11y_consider_explicit_label -->
+                <button id="close-button-container" onclick={hideImagePopup}>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                        <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                    </svg>
+                </button>
+
+                <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+                <img onclick={(e: MouseEvent) => { e.stopPropagation() }} loading="lazy" src={imageData.fullImageUrl} alt={imageData.metadata.title || 'Photo'} />
+            </div>
+        {/if}
     {/if}
 </div>
 
@@ -192,6 +271,7 @@
                 height: auto;
                 border-radius: 6px;
                 object-fit: contain;
+                cursor: pointer;
             }
         }
 
@@ -235,6 +315,41 @@
                 margin-bottom: 0.6rem;
                 color: gv.$light;
             }
+        }
+    }
+
+    #popup-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+
+        #close-button-container {
+            all: unset;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            cursor: pointer;
+            border-radius: 50%;
+            background-color: rgba(255, 153, 0, 0.8);
+            width: 2.25rem;
+            height: 2.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        img {
+            height: 100%;
+            object-fit: contain;
+            // TODO: implement pan/zoom
+            // cursor: zoom-in;
         }
     }
 
