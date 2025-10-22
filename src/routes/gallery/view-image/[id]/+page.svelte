@@ -1,5 +1,11 @@
+<!-- NOTE: -->
+<!-- This file was human written except for the pan/zoom code which was partially AI generated -->
+<!-- not ideal but i couldn't figure out a good solution on my own that worked as good as this -->
+<!-- i tried to get mobile pan/zoom working as well but nothing that I tried or Claude Sonnet 4 tried worked well enough for me to use it -->
+
+
 <script lang="ts">
-    import { onMount } from 'svelte';
+    import { onMount, tick } from 'svelte';
     import { page } from '$app/state';
     import type { GalleryImage } from '$lib/types/image.ts';
     import Title from '$lib/components/title.svelte';
@@ -7,7 +13,11 @@
     let imageData: GalleryImage | null = $state(null);
     let loading = $state(true);
     let error = $state('');
+
     let imagePopupShouldShow = $state(false);
+    let popupImageZoomed = $state(false);
+    let popupContainer: HTMLDivElement | null = $state(null);
+    let zoomImg: HTMLImageElement | null = $state(null);
 
     // function createDateString(iso8601: string): string {
     //     const d = new Date(iso8601);
@@ -85,16 +95,38 @@
         return `${month} ${day}, ${year} at ${hour[0]}:${minute} ${hour[1]} (UTC${offset})`;
     }
 
-    function showImagePopup() {
+    async function showImagePopup() {
         imagePopupShouldShow = true;
+        await tick();
+        popupContainer?.focus();
     }
 
     function hideImagePopup() {
         imagePopupShouldShow = false;
+        popupImageZoomed = false;
     }
 
     function toggleImagePopup() {
         imagePopupShouldShow = !imagePopupShouldShow;
+    }
+
+    function toggleZoom(event?: MouseEvent) {
+        if (!popupImageZoomed && event) {
+            popupImageZoomed = true;
+            handleZoomMove(event);
+        } else {
+            popupImageZoomed = false;
+        }
+    }
+
+    function handleZoomMove(event: MouseEvent) {
+        if (!popupImageZoomed || !zoomImg || !popupContainer) return;
+
+        const rect = popupContainer.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width * 100;
+        const y = (event.clientY - rect.top) / rect.height * 100;
+
+        zoomImg.style.transformOrigin = `${x}% ${y}%`;
     }
 
     onMount(async () => {
@@ -159,7 +191,8 @@
         {#if imagePopupShouldShow}
             <!-- svelte-ignore a11y_click_events_have_key_events -->
             <!-- svelte-ignore a11y_no_static_element_interactions -->
-            <div id="popup-container" onclick={hideImagePopup}>
+            <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+            <div id="popup-container" bind:this={popupContainer} onclick={hideImagePopup} onmousemove={handleZoomMove} onkeydown={(event) => { if (event.key === 'Escape') hideImagePopup() } } tabindex="0">
                 <!-- svelte-ignore a11y_consider_explicit_label -->
                 <button id="close-button-container" onclick={hideImagePopup}>
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
@@ -168,7 +201,7 @@
                 </button>
 
                 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-                <img onclick={(e: MouseEvent) => { e.stopPropagation() }} loading="lazy" src={imageData.fullImageUrl} alt={imageData.metadata.title || 'Photo'} />
+                <img bind:this={zoomImg} class:zoom={popupImageZoomed} onclick={(e: MouseEvent) => { e.stopPropagation(); toggleZoom(e) }} loading="lazy" src={imageData.fullImageUrl} alt={imageData.metadata.title || 'Photo'} />
             </div>
         {/if}
     {/if}
@@ -177,7 +210,6 @@
 
 
 <style lang="scss">
-    // disclaimer: some of this CSS is AI generated
     @use '/static/scss/global.scss' as gv;
 
     .page-container {
@@ -329,6 +361,7 @@
         align-items: center;
         justify-content: center;
         z-index: 9999;
+        padding-block: 3rem;
 
         #close-button-container {
             all: unset;
@@ -348,8 +381,13 @@
         img {
             height: 100%;
             object-fit: contain;
-            // TODO: implement pan/zoom
-            // cursor: zoom-in;
+            cursor: zoom-in;
+            transition: transform 0.3s ease;
+
+            &.zoom {
+                cursor: zoom-out;
+                transform: scale(2);
+            }
         }
     }
 
