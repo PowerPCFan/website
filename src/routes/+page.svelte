@@ -136,7 +136,17 @@
             padding: 0.5rem 2.5rem 1rem 2.5rem;
             // box-shadow: 0 0 0.8rem rgba(g.$border, 0.2);
 
-            max-width: clamp(275px, min(90vw, 900px), 900px);
+
+            // lowest value that max width can be
+            $min: 275px;
+            // highest value that max width can be
+            $max: 900px;
+            // highest value that max width can be on small screens
+            $small-screen-max: 98vw;
+
+            // dont touch this
+            max-width: clamp($min, min($small-screen-max, $max), $max);
+
 
             &.xp {
                 background-color: rgba(g.$dark, 0.8);
