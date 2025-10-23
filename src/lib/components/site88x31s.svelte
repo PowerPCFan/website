@@ -34,7 +34,7 @@
             <img alt="frii.site" src="/images/88x31/frii-site.png" />
         </a>
         <a target="_blank" href="https://restartb.xyz/">
-            <img alt="RestartB" src="/images/88x31/Restart.png" />
+            <img alt="RestartB" src="/images/88x31/restart.png" />
         </a>
     </div>
 </div>

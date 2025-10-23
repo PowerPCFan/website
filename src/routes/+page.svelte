@@ -140,7 +140,7 @@
             // lowest value that max width can be
             $min: 275px;
             // highest value that max width can be
-            $max: 900px;
+            $max: 1100px;
             // highest value that max width can be on small screens
             $small-screen-max: 98vw;
 
