@@ -53,6 +53,24 @@
                 "date": "2025-06-29T15:28:00-06:00",
                 "location": "Near Bozeman, Montana, USA"
             }
+        },
+        {
+            "id": "7",
+            "metadata": {
+                "title": "The Grand Canyon of the Yellowstone",
+                "device": "iPhone 16 Pro",
+                "date": "2025-07-01T11:19:00-06:00",
+                "location": "Yellowstone National Park, Wyoming, USA"
+            }
+        },
+        {
+            "id": "8",
+            "metadata": {
+                "title": "Roadside Bison",
+                "device": "iPhone 16 Pro",
+                "date": "2025-07-01T12:32:00-06:00",
+                "location": "Yellowstone National Park, Wyoming, USA"
+            }
         }
     ]
 }
