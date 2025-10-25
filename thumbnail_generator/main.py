@@ -1,4 +1,3 @@
-import os
 import sys
 from PIL import Image, ImageOps as ImageOperations
 from pathlib import Path
@@ -18,9 +17,6 @@ VALID_EXTENSIONS = {
     '.jpg',
     '.jpeg',
     '.png',
-    '.gif',
-    '.bmp',
-    '.tiff',
     '.webp'
 }
 SUFFIX = "-thumbnail"
@@ -54,10 +50,12 @@ def calculate_aspect_ratio(dimensions: tuple[int, int]) -> float:
     return width / height
 
 
-def generate_thumbnails():
-    for root, _, files in os.walk(GALLERY_FOLDER):
-        for file in files:
-            base, ext = os.path.splitext(file)
+def generate_thumbnails(args: list[str]) -> None:
+    for file in GALLERY_FOLDER.rglob("*"):
+        if file.is_file():
+            root = file.parent
+
+            base, ext = (file.stem, file.suffix)
             ext = ext.lower()
 
             if SUFFIX in base:
@@ -65,26 +63,28 @@ def generate_thumbnails():
                 continue
 
             if ext not in VALID_EXTENSIONS:
+                # unsupported file type
                 continue
 
-            image_path = Path(root) / file
+            thumb_path = root / (base + SUFFIX + EXTENSION)
 
-            base_name, _ = os.path.splitext(file)
-            thumb_path = os.path.join(
-                root,
-                base_name + SUFFIX + EXTENSION
-            )
-
-            if os.path.exists(thumb_path):
-                print(
-                    f"{YELLOW}{base_name}{ext} already has a "
-                    "thumbnail, skipping thumbnail "
-                    f"creation...{RESET}"
-                )
-                continue
+            if thumb_path.exists():
+                if len(args) > 0 and args[0] != "--regenerate":
+                    print(
+                        f"{YELLOW}{base}{ext} already has a "
+                        "thumbnail, skipping thumbnail "
+                        f"creation...{RESET}"
+                    )
+                    continue
+                else:
+                    print(
+                        f"{BLUE}Regenerating thumbnail for "
+                        f"{base}{ext}...{RESET}"
+                    )
+                    thumb_path.unlink()
 
             try:
-                with Image.open(image_path) as img:
+                with Image.open(file) as img:
                     THUMBNAIL_SIZE = THUMBNAIL_SIZE_LANDSCAPE
 
                     # If the image has an EXIF Orientation tag
@@ -105,13 +105,13 @@ def generate_thumbnails():
             except Exception as e:
                 print(
                     f"{RED}Failed to create thumbnail "
-                    f"for {image_path}: {e}{RESET}"
+                    f"for {file}: {e}{RESET}"
                 )
 
 
 try:
     print("Generating thumbnails...\n")
-    generate_thumbnails()
+    generate_thumbnails(sys.argv[1:])
     print(f"\n{GREEN}Successfully generated thumbnails!{RESET}")
 except Exception as e:
     print(f"\n{RED}An error has occurred: {RESET}" + str(e))
