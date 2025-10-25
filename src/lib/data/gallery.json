@@ -71,6 +71,33 @@
                 "date": "2025-07-01T12:32:00-06:00",
                 "location": "Yellowstone National Park, Wyoming, USA"
             }
+        },
+        {
+            "id": "9",
+            "metadata": {
+                "title": "Gay Head Light",
+                "device": "Sony Cyber-shot DSC-W330",
+                "date": "2021-04-22T10:04:00-04:00",
+                "location": "Martha's Vineyard, Massachusetts, USA"
+            }
+        },
+        {
+            "id": "10",
+            "metadata": {
+                "title": "Flower",
+                "device": "Canon PowerShot SX420 IS",
+                "date": "2021-08-03T12:58:00-04:00",
+                "location": "Cape Cod, Massachusetts, USA"
+            }
+        },
+        {
+            "id": "11",
+            "metadata": {
+                "title": "Duck on the Water",
+                "device": "Canon PowerShot SX420 IS",
+                "date": "2023-03-09T14:51:00-05:00",
+                "location": "Massachusetts, USA"
+            }
         }
     ]
 }
