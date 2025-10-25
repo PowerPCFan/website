@@ -123,8 +123,11 @@
         if (!popupImageZoomed || !zoomImg || !popupContainer) return;
 
         const rect = popupContainer.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / rect.width * 100;
-        const y = (event.clientY - rect.top) / rect.height * 100;
+        const normalizedX = (event.clientX - rect.left) / rect.width * 2 - 1;
+        const normalizedY = (event.clientY - rect.top) / rect.height * 2 - 1;
+        const sensitivity = 2;
+        const x = Math.max(0, Math.min(100, 50 + (normalizedX * sensitivity * 50)));
+        const y = Math.max(0, Math.min(100, 50 + (normalizedY * sensitivity * 50)));
 
         zoomImg.style.transformOrigin = `${x}% ${y}%`;
     }
@@ -157,7 +160,7 @@
 
 <Title title={imageData ? imageData.metadata.title : "Image Viewer"} />
 
-<div class="page-container">
+<div class="page-container" style="--imageData-fullImageUrl: url('{imageData ? imageData.fullImageUrl : ''}');">
     {#if loading}
         <div class="loading">Loading...</div>
     {:else if error}
@@ -195,7 +198,7 @@
             <div id="popup-container" bind:this={popupContainer} onclick={hideImagePopup} onmousemove={handleZoomMove} onkeydown={(event) => { if (event.key === 'Escape') hideImagePopup() } } tabindex="0">
                 <!-- svelte-ignore a11y_consider_explicit_label -->
                 <button id="close-button-container" onclick={hideImagePopup}>
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                         <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
                     </svg>
                 </button>
@@ -213,6 +216,8 @@
     @use '/static/scss/global.scss' as gv;
 
     .page-container {
+        // outline: 2px solid green;
+        height: 100%;
         margin: 0;
         display: flex;
         flex-direction: column;
@@ -224,6 +229,18 @@
         min-height: fit-content;
         box-sizing: border-box;
         overflow: hidden;
+
+        &::after {
+            content: "";
+            z-index: -1;
+            background: var(--imageData-fullImageUrl) no-repeat center center/cover;
+            filter: blur(32px) brightness(0.8);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
 
         .back-navigation {
             width: 100%;
@@ -286,7 +303,9 @@
         }
 
         .image-container {
-            background-color: rgba(255, 255, 255, 0.03);
+            // background-color: rgba(255, 255, 255, 0.03);
+            background-color: rgba(gv.$dark, 0.4);
+            border: 2px solid rgba(gv.$primary, 0.2);
             padding: 1rem;
             border-radius: 8px;
             max-width: 65%;
@@ -312,9 +331,9 @@
             min-width: 300px;
             max-width: 40%;
             padding: 2rem;
-            border: 2px solid rgba(61, 116, 255, 0.2);
+            border: 2px solid rgba(gv.$primary, 0.2);
             // background-color: rgba(255, 255, 255, 0.05);
-            background-color: rgba(61, 116, 255, 0.05);
+            background-color: rgba(gv.$dark, 0.4);
             border-radius: 8px;
 
             display: flex;
@@ -336,7 +355,6 @@
                 font-size: 1.25rem;
                 font-weight: 600;
                 color: gv.$light;
-                // background-color: rgba(61, 116, 255, 0.2);
                 // padding: 0.5rem 1rem;
                 border-radius: 6px;
             }
@@ -356,11 +374,11 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        background-color: rgba(0, 0, 0, 0.6);
+        background-color: rgba(0, 0, 0, 0.82);
         display: flex;
         align-items: center;
         justify-content: center;
-        z-index: 9999;
+        z-index: 9995;
         padding-block: 3rem;
 
         #close-button-container {
@@ -370,12 +388,19 @@
             right: 1rem;
             cursor: pointer;
             border-radius: 50%;
-            background-color: rgba(255, 153, 0, 0.8);
-            width: 2.25rem;
-            height: 2.25rem;
+            background-color: gv.$primary;
+            width: 3rem;
+            height: 3rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 9999;
+
+            svg {
+                width: 32px;
+                height: 32px;
+                fill: gv.$light;
+            }
         }
 
         img {
@@ -383,6 +408,7 @@
             object-fit: contain;
             cursor: zoom-in;
             transition: transform 0.3s ease;
+            z-index: 9998;
 
             &.zoom {
                 cursor: zoom-out;
@@ -397,10 +423,10 @@
             gap: 1rem;
             max-height: 100vh;
             overflow-y: auto;
-            
+
             .back-navigation {
                 margin-bottom: 0;
-                
+
                 .back-button {
                     padding: 0.6rem 1rem;
                     font-size: 0.95rem;
@@ -414,7 +440,7 @@
                 height: auto;
                 max-width: 100%;
             }
-            
+
             .image-container {
                 max-width: 100%;
                 width: 100%;
@@ -422,14 +448,14 @@
                 flex: none;
                 padding: 0.8rem;
                 overflow: hidden;
-                
+
                 img {
                     max-height: 55vh;
                     max-width: 100%;
                     object-fit: contain;
                 }
             }
-            
+
             .info-container {
                 min-width: 0;
                 max-width: 100%;
@@ -438,18 +464,18 @@
                 padding: 1.5rem;
                 align-items: center;
                 text-align: center;
-                
+
                 #title {
                     font-size: 1.8rem;
                     text-align: center;
                 }
-                
+
                 #date {
                     font-size: 1rem;
                     text-align: center;
                     align-self: center;
                 }
-                
+
                 #device, #location {
                     font-size: 0.95rem;
                     justify-content: center;
@@ -462,31 +488,31 @@
         .page-container {
             padding: 0.8rem;
             gap: 0.8rem;
-            
+
             .image-container {
                 max-height: 50vh;
                 width: 100%;
                 padding: 0.5rem;
-                
+
                 img {
                     max-height: 47vh;
                     max-width: 100%;
                 }
             }
-            
+
             .info-container {
                 padding: 1rem;
                 gap: 1rem;
-                
+
                 #title {
                     font-size: 1.5rem;
                 }
-                
+
                 #date {
                     font-size: 0.9rem;
                     padding: 0.4rem 0.8rem;
                 }
-                
+
                 #device, #location {
                     font-size: 0.85rem;
                 }
