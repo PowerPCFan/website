@@ -1,6 +1,7 @@
 import os
 import sys
-from PIL import Image
+from PIL import Image, ImageOps as ImageOperations
+from pathlib import Path
 
 # ansi stuff
 ANSI = "\033["
@@ -10,7 +11,7 @@ YELLOW = f"{ANSI}33m"
 BLUE = f"{ANSI}34m"
 RESET = f"{ANSI}0m"
 
-GALLERY_FOLDER = os.path.join("static", "images", "gallery")
+GALLERY_FOLDER = Path("static") / "images" / "gallery"
 THUMBNAIL_SIZE_LANDSCAPE = (512, 384)
 THUMBNAIL_SIZE_PORTRAIT = (384, 512)
 VALID_EXTENSIONS = {
@@ -66,17 +67,16 @@ def generate_thumbnails():
             if ext not in VALID_EXTENSIONS:
                 continue
 
-            image_path = os.path.join(root, file)
+            image_path = Path(root) / file
 
             try:
                 with Image.open(image_path) as img:
-                    # if img.height > img.width:
-                    #     # portrait
-                    #     THUMBNAIL_SIZE = THUMBNAIL_SIZE_PORTRAIT
-                    # else:
-                    #     # landscape or square
-                    #     THUMBNAIL_SIZE = THUMBNAIL_SIZE_LANDSCAPE
                     THUMBNAIL_SIZE = THUMBNAIL_SIZE_LANDSCAPE
+
+                    # If the image has an EXIF Orientation tag
+                    # other than 1, transpose the image and remove
+                    # the orientation data
+                    img = ImageOperations.exif_transpose(img)
 
                     img_cropped = crop(
                         img,
@@ -100,7 +100,7 @@ def generate_thumbnails():
                     if img_cropped.mode in ("RGBA", "P"):
                         img_cropped = img_cropped.convert("RGB")
 
-                    img_cropped.save(thumb_path, "WEBP")
+                    img_cropped.save(thumb_path, format="WEBP")
                     print(f"{GREEN}Created thumbnail {thumb_path}{RESET}")
             except Exception as e:
                 print(

@@ -215,6 +215,13 @@
 <style lang="scss">
     @use '/static/scss/global.scss' as gv;
 
+    $containerTransparency: 0.4;
+    $containerHoverTransparency: 0.6;
+    $containerHoverOpacityTransition: background-color 0.25s ease;
+
+    $backgroundBlur: 32px;
+    $backgroundBrightness: 0.75;
+
     .page-container {
         // outline: 2px solid green;
         height: 100%;
@@ -234,7 +241,7 @@
             content: "";
             z-index: -1;
             background: var(--imageData-fullImageUrl) no-repeat center center/cover;
-            filter: blur(32px) brightness(0.8);
+            filter: blur($backgroundBlur) brightness($backgroundBrightness);
             position: absolute;
             top: 0;
             left: 0;
@@ -258,15 +265,16 @@
                 border-radius: 8px;
                 font-weight: 500;
                 font-size: 1rem;
-                background-color: rgba(255, 255, 255, 0.1);
-                transition: background-color 0.2s ease;
+                background-color: rgba(gv.$dark, $containerTransparency);
+
+                transition: $containerHoverOpacityTransition;
 
                 svg {
                     transition: transform 0.2s ease;
                 }
 
                 &:hover {
-                    background-color: rgba(255, 255, 255, 0.15);
+                    background-color: rgba(gv.$dark, 0.6);
 
                     svg {
                         transform: translateX(-3px);
@@ -304,8 +312,8 @@
 
         .image-container {
             // background-color: rgba(255, 255, 255, 0.03);
-            background-color: rgba(gv.$dark, 0.4);
-            border: 2px solid rgba(gv.$primary, 0.2);
+            background-color: rgba(gv.$dark, $containerTransparency);
+            // border: 2px solid rgba(gv.$primary, 0.2);
             padding: 1rem;
             border-radius: 8px;
             max-width: 65%;
@@ -314,6 +322,12 @@
             align-items: center;
             justify-content: center;
             flex: 1.6;
+
+            // transition: $containerHoverOpacityTransition;
+
+            &:hover {
+                // background-color: rgba(gv.$dark, $containerHoverTransparency);
+            }
 
             img {
                 max-width: 100%;
@@ -331,9 +345,9 @@
             min-width: 300px;
             max-width: 40%;
             padding: 2rem;
-            border: 2px solid rgba(gv.$primary, 0.2);
+            // border: 2px solid rgba(gv.$primary, 0.2);
             // background-color: rgba(255, 255, 255, 0.05);
-            background-color: rgba(gv.$dark, 0.4);
+            background-color: rgba(gv.$dark, $containerTransparency);
             border-radius: 8px;
 
             display: flex;
@@ -341,6 +355,12 @@
             align-items: flex-start;
             justify-content: flex-start;
             gap: 1.5rem;
+
+            // transition: $containerHoverOpacityTransition;
+
+            &:hover {
+                // background-color: rgba(gv.$dark, $containerHoverTransparency);
+            }
 
             #title {
                 margin: 0;
