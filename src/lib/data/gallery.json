@@ -26,6 +26,33 @@
                 "date": "2025-10-19T21:03:00-04:00",
                 "location": "Massachusetts, USA"
             }
+        },
+        {
+            "id": "4",
+            "metadata": {
+                "title": "Glowing Autumn Night Sky",
+                "device": "iPhone 16 Pro",
+                "date": "2025-10-20T21:29:00-04:00",
+                "location": "Massachusetts, USA"
+            }
+        },
+        {
+            "id": "5",
+            "metadata": {
+                "title": "Deep Blue Night Sky",
+                "device": "iPhone 16 Pro",
+                "date": "2025-10-21T21:10:00-04:00",
+                "location": "Massachusetts, USA"
+            }
+        },
+        {
+            "id": "6",
+            "metadata": {
+                "title": "Llama in the Mountains",
+                "device": "iPhone 16 Pro",
+                "date": "2025-06-29T15:28:00-06:00",
+                "location": "Near Bozeman, Montana, USA"
+            }
         }
     ]
 }
