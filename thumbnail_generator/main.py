@@ -69,7 +69,7 @@ def generate_thumbnails(args: list[str]) -> None:
             thumb_path = root / (base + SUFFIX + EXTENSION)
 
             if thumb_path.exists():
-                if len(args) > 0 and args[0] != "--regenerate":
+                if "--regenerate" not in args:
                     print(
                         f"{YELLOW}{base}{ext} already has a "
                         "thumbnail, skipping thumbnail "
@@ -110,8 +110,9 @@ def generate_thumbnails(args: list[str]) -> None:
 
 
 try:
+    args = sys.argv[1:]
     print("Generating thumbnails...\n")
-    generate_thumbnails(sys.argv[1:])
+    generate_thumbnails(args)
     print(f"\n{GREEN}Successfully generated thumbnails!{RESET}")
 except Exception as e:
     print(f"\n{RED}An error has occurred: {RESET}" + str(e))
