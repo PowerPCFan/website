@@ -69,6 +69,20 @@ def generate_thumbnails():
 
             image_path = Path(root) / file
 
+            base_name, _ = os.path.splitext(file)
+            thumb_path = os.path.join(
+                root,
+                base_name + SUFFIX + EXTENSION
+            )
+
+            if os.path.exists(thumb_path):
+                print(
+                    f"{YELLOW}{base_name}{ext} already has a "
+                    "thumbnail, skipping thumbnail "
+                    f"creation...{RESET}"
+                )
+                continue
+
             try:
                 with Image.open(image_path) as img:
                     THUMBNAIL_SIZE = THUMBNAIL_SIZE_LANDSCAPE
@@ -82,20 +96,6 @@ def generate_thumbnails():
                         img,
                         aspect_ratio=calculate_aspect_ratio(THUMBNAIL_SIZE)
                     ).resize(THUMBNAIL_SIZE, Image.Resampling.LANCZOS)
-
-                    base_name, _ = os.path.splitext(file)
-                    thumb_path = os.path.join(
-                        root,
-                        base_name + SUFFIX + EXTENSION
-                    )
-
-                    if os.path.exists(thumb_path):
-                        print(
-                            f"{YELLOW}{base_name}{ext} already has a "
-                            "thumbnail, skipping thumbnail "
-                            f"creation...{RESET}"
-                        )
-                        continue
 
                     if img_cropped.mode in ("RGBA", "P"):
                         img_cropped = img_cropped.convert("RGB")
