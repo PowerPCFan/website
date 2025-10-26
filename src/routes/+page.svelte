@@ -150,7 +150,8 @@
 
 
             &.xp {
-                background-color: rgba(g.$dark, 0.8);
+                background-color: rgba(g.$dark, 0.7);
+                backdrop-filter: blur(5px);
                 border-radius: 2rem;
             }
 
