@@ -29,11 +29,11 @@
         <hr />
         <div class="about-me">
             <p>
-                Hi, I’m Charlie! I love computers - whether it's building and selling PCs, messing around with hardware, or coding &lpar;usually Python, Svelte, TypeScript, and PowerShell&rpar;.
+                Hi, I’m Charlie! I love computers - whether it's building and selling PCs, messing around with hardware, or coding &lpar;usually Python, Svelte, TypeScript, PowerShell, and C++&rpar;.
                 I’m also into gaming and my favorite game is probably BeamNG.drive.
                 I love retro tech as well - especially Apple's PowerPC Macs of the 90s-2000s.
                 Music-wise, I like new wave/synthpop, alt/indie/punk rock, nu-metal, and sometimes modern country and pop.
-                Check out some of my widgets below.
+                Check out my widgets below!
             </p>
         </div>
 
