@@ -1,6 +1,8 @@
 <script lang="ts">
     import type { JawaListing } from '$lib/types/JawaListing';
+    import Seller from '$lib/components/Jawa/Seller.svelte';
     import { onMount } from 'svelte';
+    import Title from '$lib/components/title.svelte';
 
     const listingsUrl = "https://raw.githubusercontent.com/PowerPCFan/shop/refs/heads/main/output/listings.json";
     let listings: JawaListing[] | null = $state(null);
@@ -11,7 +13,13 @@
     });
 </script>
 
+<Title title="Shop Charlie's Computers" />
+
 <div class="page-container">
+    <div style="font-size: 1.5rem;">
+        <Seller listing={listings?.[0] ?? null} displayVerifiedSellerText />
+    </div>
+
     <div class="listings-grid">
         {#each (listings ?? []) as listing}
             <a class="listing-card" href="/shop/{listing.metadata.uuid}">
@@ -38,15 +46,16 @@
         width: 100%;
         height: 100%;
         margin: 0;
-        padding: 1rem;
+        padding: 2rem;
         background-color: g.$dark;
         color: g.$light;
     }
 
     .listings-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
         gap: 2rem;
+        margin-top: 2rem;
 
         .listing-card {
             display: flex;
