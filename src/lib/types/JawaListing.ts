@@ -16,6 +16,17 @@ export interface JawaListing {
     details: {
         description: string;
     };
+    seller: {
+        name: string | null;
+        verified: boolean | null;
+        pfp: string | null;
+        profile_url: string | null;
+        reviews: {
+            count: number | null;
+            stars: number | null;
+            url: string | null;
+        }
+    }
 }
 
 export interface JawaListingCollection {

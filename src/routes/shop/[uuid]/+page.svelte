@@ -16,11 +16,15 @@
     // @ts-ignore
     import DOMPurify from 'dompurify';
 
-    const listingsUrl = "https://raw.githubusercontent.com/PowerPCFan/shop/refs/heads/main/output/listings.json";
+    const cacheBuster = Date.now().toString();
+    const listingsUrl = "https://raw.githubusercontent.com/PowerPCFan/shop/refs/heads/main/output/listings.json" + `?cacheBuster=${cacheBuster}`;
+
     let loading = $state(true);
     let error = $state('');
     let listings: JawaListing[] | null = $state(null);
     let listing: JawaListing | null = $state(null);
+
+    let stars: string | null = $state(null);
 
     let htmlDescription: unknown | null = $state(null);
 
@@ -39,6 +43,7 @@
         }
 
         htmlDescription = DOMPurify.sanitize(await marked.parse(listing?.details.description ?? 'Error loading description.'));
+        stars = '★'.repeat(listing?.seller.reviews.stars) + '☆'.repeat(5 - (listing?.seller.reviews.stars ?? 0));
     });
 </script>
 
@@ -66,6 +71,7 @@
                 {/if}
             </div>
 
+            <!-- svelte-ignore a11y_no_static_element_interactions -->
             <div class="info-container">
                 <h2 id="title">{listing.metadata.title}</h2>
                 {#if !listing.status.sold_out}
@@ -81,6 +87,25 @@
                 {:else}
                     <p id="sold-out">Sold Out</p>
                 {/if}
+
+                <div class="seller-area">
+                    <div class="seller">
+                        <a href={listing?.seller.profile_url} target="_blank" rel="noopener noreferrer">
+                            <div class="seller-pfp">
+                                <img src={listing.seller.pfp} alt={listing.seller.name} width="64" height="64" style="border-radius: 50%;" />
+                                {#if listing.seller.verified}
+                                    <img src="/images/shop/jvs.svg" alt="Jawa Verified Seller" />
+                                {/if}
+                            </div>
+                            <p>{listing.seller.name ?? 'Unknown Seller'}</p>
+                        </a>
+                    </div>
+                    <div class="reviews">
+                        <a href={listing.seller.reviews.url} target="_blank" rel="noopener noreferrer">
+                            {listing.seller.reviews.stars} <span class="stars">{stars}</span> ({listing.seller.reviews.count} Reviews)
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="description-wrapper">
@@ -258,6 +283,66 @@
                 color: gv.$red;
                 font-weight: 600;
                 font-size: 1.25rem;
+            }
+
+            .seller-area {
+                margin-top: 2rem;
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+                justify-content: center;
+                gap: 0.5rem;
+
+                .seller {
+                    // display: flex;
+                    // flex-direction: row;
+                    // align-items: center;
+                    // gap: 1rem;
+
+                    a {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        gap: 1rem;
+                        text-decoration: none;
+                        color: gv.$light;
+                    }
+
+                    .seller-pfp {
+                        position: relative;
+
+                        img:nth-child(2) {
+                            position: absolute;
+                            bottom: 0px;
+                            right: 0px;
+                            width: 22px;
+                            height: 22px;
+                        }
+                    }
+
+                    p {
+                        font-size: 1.3rem;
+                        font-weight: 600;
+                    }
+                }
+
+                .reviews {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 1rem;
+
+                    a {
+                        font-size: 1.1rem;
+                        font-weight: 600;
+                        color: gv.$light;
+
+                        .stars {
+                            color: gv.$yellow;
+                        }
+                    }
+                }
             }
         }
     }

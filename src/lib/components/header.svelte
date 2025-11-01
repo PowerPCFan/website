@@ -1,10 +1,10 @@
 <header>
     <nav>
         <a class="navbar-item" href="/">Home</a>
-        <a class="navbar-item" href="/shop">Shop Charlie's Computers</a>
+        <a class="navbar-item" href="/shop">Shop</a>
         <a class="navbar-item" href="https://blog.powerpcfan.xyz">Blog</a>
-        <a class="navbar-item" href="/gallery">Photography Gallery</a>
         <a class="navbar-item" href="https://blinkl.ink">BlinkLink</a>
+        <a class="navbar-item" href="/gallery">Photography Gallery</a>
         <!-- <a class="navbar-item" href="/newsletter">Newsletter</a> -->
         <div class="navbar-item navbar-dropdown">
             <span class="navbar-dropdown-trigger">Resources <i id="chevron" class="fa-solid fa-circle-chevron-down"></i></span>
