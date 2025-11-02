@@ -1,15 +1,18 @@
+<!-- this was originally human written but it wasnt working well so Google Gemini 2.5 Pro refactored it for me -->
+
 <script lang="ts">
-    import { browser } from '$app/environment';
     import { onMount } from 'svelte';
 
-    let { images }: { images: string[] } = $props();
+    let { images, autoScroll = false, interval = 5 }: { images: string[]; autoScroll?: boolean; interval?: number; } = $props();
 
     let currentIndex: number = $state(0);
     let loading: boolean = $state(true);
     let showSpinner: boolean = $state(false);
     let spinnerTimeout: ReturnType<typeof setTimeout>;
+    let autoScrollInterval: ReturnType<typeof setInterval>;
     let dotContainer: HTMLDivElement | null = $state(null);
     let carouselWindow: HTMLDivElement | null = $state(null);
+    let imageElements: (HTMLImageElement | null)[] = $state([]);
     let zoomImg: HTMLImageElement | null = $state(null);
     let isZoomed: boolean = $state(false);
     let isFocused: boolean = $state(false);
@@ -19,6 +22,21 @@
 
     $effect(() => {
         hasImages = images.length > 0;
+    });
+
+    $effect(() => {
+        if (hasImages) {
+            zoomImg = imageElements[currentIndex];
+        }
+    });
+
+    $effect(() => {
+        if (autoScroll && hasImages && images.length > 1) {
+            autoScrollInterval = setInterval(next, interval * 1000);
+        }
+        return () => {
+            clearInterval(autoScrollInterval);
+        };
     });
 
     $effect(() => {
@@ -76,6 +94,7 @@
     }
 
     function toggleZoom(event?: MouseEvent) {
+        if (autoScroll) return;
         if (!isZoomed && event) {
             isZoomed = true;
             handleZoomMove(event);
@@ -94,80 +113,23 @@
         zoomImg.style.transformOrigin = `${x}% ${y}%`;
     }
 
-    async function loadCurrentImage() {
-        if (!hasImages || !browser) return;
-        
-        loading = true;
-        showSpinner = false;
-        clearTimeout(spinnerTimeout);
-        isZoomed = false;
-        
-        spinnerTimeout = setTimeout(() => {
-            if (loading) showSpinner = true;
-        }, 300);
-
-        const img = new window.Image();
-        
-        try {
-            await new Promise((resolve, reject) => {
-                img.onload = resolve;
-                img.onerror = reject;
-                img.src = images[currentIndex];
-            });
-            
-            loading = false;
-            showSpinner = false;
-            clearTimeout(spinnerTimeout);
-            
-            preloadAdjacentImages();
-        } catch (error) {
-            console.error('Failed to load image:', error);
-            loading = false;
-            showSpinner = false;
-            clearTimeout(spinnerTimeout);
-        }
-    }
-    
-    async function preloadAdjacentImages() {
-        if (!hasImages || !browser) return;
-        
-        const nextIndex = (currentIndex + 1) % images.length;
-        const prevIndex = (currentIndex - 1 + images.length) % images.length;
-        
-        [nextIndex, prevIndex].forEach(index => {
-            const img = new window.Image();
-            img.src = images[index];
-        });
-    }
-
     function next() {
         currentIndex = (currentIndex + 1) % images.length;
-        loadCurrentImage();
     }
 
     function previous() {
         currentIndex = (currentIndex - 1 + images.length) % images.length;
-        loadCurrentImage();
     }
 
     function jumpToImage(index: number) {
         currentIndex = index;
-        loadCurrentImage();
-    }
-
-    function handleImageLoad() {
-        loading = false;
-        showSpinner = false;
-        clearTimeout(spinnerTimeout);
     }
 
     onMount(() => {
         if (hasImages) {
-            loadCurrentImage();
             window.addEventListener('keydown', handleKeydown);
         }
         return () => {
-            clearTimeout(spinnerTimeout);
             window.removeEventListener('keydown', handleKeydown);
         };
     });
@@ -177,7 +139,7 @@
     <div class="carousel-container"
          onfocusin={handleFocus}
          onfocusout={handleBlur}>
-        {#if images.length > 1}
+        {#if images.length > 1 && !autoScroll}
             <button 
                 class="nav-button prev" 
                 onclick={previous}
@@ -194,44 +156,49 @@
             onmousemove={handleZoomMove}
             onkeydown={handleKeydown}
             class:zoomed={isZoomed}
+            class:auto-scrolling={autoScroll}
             role="region"
             aria-label="Image carousel viewer">
-            {#if showSpinner}
-                <div class="loading-spinner">
-                    <i class="fa-solid fa-spinner fa-spin"></i>
-                </div>
-            {/if}
-            <button 
-                class="image-container"
-                onclick={toggleZoom}
-                onkeydown={(e) => e.key === 'Enter' && toggleZoom()}
-                aria-label={`Zoom ${isZoomed ? 'out of' : 'into'} image ${currentIndex + 1} of ${images.length}`}>
-                <img 
-                    bind:this={zoomImg}
-                    src={images[currentIndex]}
-                    alt="Product view {currentIndex + 1} of {images.length}"
-                    class:loading
-                    class:zoomed={isZoomed}
-                    onload={handleImageLoad}
-                />
-            </button>
+            <div class="slides-container" style:transform="translateX(-{currentIndex * 100}%)">
+                {#each images as src, i}
+                    <div class="slide" class:active={i === currentIndex}>
+                        <button
+                            class="image-container"
+                            onclick={toggleZoom}
+                            onkeydown={(e) => e.key === 'Enter' && toggleZoom()}
+                            aria-label={`Zoom ${isZoomed ? 'out of' : 'into'} image ${i + 1} of ${images.length}`}>
+                            <img 
+                                bind:this={imageElements[i]}
+                                {src}
+                                alt="Product view {i + 1} of {images.length}"
+                                class:zoomed={isZoomed && i === currentIndex}
+                                loading="lazy"
+                            />
+                        </button>
+                    </div>
+                {/each}
+            </div>
         </div>
 
-        {#if images.length > 1}
+        {#if images.length > 1 && !autoScroll}
             <button 
                 class="nav-button next" 
                 onclick={next}
                 aria-label="Next image">
                 <i class="fa-solid fa-chevron-right"></i>
             </button>
+        {/if}
 
+        {#if images.length > 1}
             <div class="dot-container" bind:this={dotContainer}>
                 {#each images as _, i}
                     <button 
                         class="dot" 
                         class:active={i === currentIndex}
-                        onclick={() => jumpToImage(i)}
+                        class:not-clickable={autoScroll}
+                        onclick={() => !autoScroll && jumpToImage(i)}
                         aria-label="Go to image {i + 1}"
+                        disabled={autoScroll}
                     ></button>
                 {/each}
             </div>
@@ -255,8 +222,8 @@
         aspect-ratio: 10 / 7;
         margin: 0 auto;
         padding: 0;
-        border: 1px solid g.$border;
-        border-radius: 8px;
+        // border: 1px solid g.$border;
+        border-radius: 1rem;
     }
 
     .carousel-window {
@@ -267,39 +234,46 @@
         align-items: center;
         justify-content: center;
         overflow: hidden;
-        padding: 20px;
+        padding: 0;
         box-sizing: border-box;
         cursor: zoom-in;
+
+        &.auto-scrolling {
+            cursor: default;
+        }
 
         &.zoomed {
             cursor: zoom-out;
         }
-
-        img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            opacity: 1;
-            transition: opacity 0.3s ease;
-
-            &.loading {
-                opacity: 0;
-            }
-
-            &.zoomed {
-                transform: scale(2.5);
-            }
-        }
     }
 
-    .loading-spinner {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 2rem;
-        color: g.$primary;
-        z-index: 1;
+    .slides-container {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .slide {
+        flex: 0 0 100%;
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    img {
+        border-radius: 1rem;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+
+        &.zoomed {
+            transform: scale(2.5);
+        }
     }
 
     .nav-button {
@@ -403,6 +377,10 @@
         cursor: pointer;
         transition: all 0.2s ease;
         flex-shrink: 0;
+
+        &.not-clickable {
+            cursor: default;
+        }
 
         &:hover {
             background-color: white;

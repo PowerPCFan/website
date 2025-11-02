@@ -1,3 +1,21 @@
+export interface SellerInfo {
+    profile: {
+        url: string;
+        picture: string;
+        name: string;
+        verified: boolean;
+        followers: number;
+        sold: number;
+    };
+    reviews: {
+        count: number;
+        stars: number;
+        url: string;
+    };
+    images: string[];
+    heading: string;
+}
+
 export interface JawaListing {
     metadata: {
         uuid: string;
@@ -10,25 +28,15 @@ export interface JawaListing {
     };
     status: {
         price: string | null;
-        shipping_cost: number | string | null;
+        shipping_cost: number | null;
         sold_out: boolean;
     };
     details: {
         description: string;
     };
-    seller: {
-        name: string | null;
-        verified: boolean | null;
-        pfp: string | null;
-        profile_url: string | null;
-        reviews: {
-            count: number | null;
-            stars: number | null;
-            url: string | null;
-        }
-    }
 }
 
-export interface JawaListingCollection {
+export interface JawaSellerData {
+    seller_info: SellerInfo;
     listings: JawaListing[];
 }

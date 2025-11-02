@@ -7,7 +7,7 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import { page } from '$app/state';
-    import type { JawaListing } from '$lib/types/JawaListing';
+    import type { JawaListing, SellerInfo, JawaSellerData } from '$lib/types/JawaListing';
     import Title from '$lib/components/title.svelte';
     import ImageCarousel from '$lib/components/ImageCarousel.svelte';
     import Seller from '$lib/components/Jawa/Seller.svelte';
@@ -17,20 +17,21 @@
     // @ts-ignore
     import DOMPurify from 'dompurify';
 
-    const cacheBuster = Date.now().toString();
-    const listingsUrl = "https://raw.githubusercontent.com/PowerPCFan/shop/refs/heads/main/output/listings.json" + `?cacheBuster=${cacheBuster}`;
+    const sellerDataUrl = "https://raw.githubusercontent.com/PowerPCFan/shop/refs/heads/main/output/listings.json" + `?cacheBuster=${Date.now().toString()}`;
+    let sellerData: JawaSellerData | null = $state(null);
+    let listings: JawaListing[] | null = $state(null);
+    let listing: JawaListing | null = $state(null);
 
     let loading = $state(true);
     let error = $state('');
-    let listings: JawaListing[] | null = $state(null);
-    let listing: JawaListing | null = $state(null);
 
     let htmlDescription: unknown | null = $state(null);
 
     onMount(async () => {
         try {
-            const response = await fetch(listingsUrl);
-            listings = await response.json();
+            const response = await fetch(sellerDataUrl);
+            sellerData = await response.json();
+            listings = sellerData?.listings ?? null;
 
             const listingUuid = page?.params?.uuid;
             listing = listings?.find(item => item.metadata.uuid === listingUuid) || null;
@@ -86,7 +87,7 @@
                     <p id="sold-out">Sold Out</p>
                 {/if}
                 <br />
-                <Seller {listing} displayVerifiedSellerText />
+                <Seller seller={sellerData?.seller_info ?? null} displayVerifiedSellerText />
             </div>
         </div>
         <div class="description-wrapper">

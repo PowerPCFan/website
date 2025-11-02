@@ -1,37 +1,39 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
-    import type { JawaListing } from '$lib/types/JawaListing';
+    import type { SellerInfo } from '$lib/types/JawaListing';
 
-    const { listing, displayVerifiedSellerText }: { listing: JawaListing | null, displayVerifiedSellerText?: boolean } = $props();
+    const { seller, displayVerifiedSellerText }: { seller: SellerInfo | null, displayVerifiedSellerText?: boolean } = $props();
 
     let stars: string | null = $state(null);
-
-    onMount(() => {
-        stars = '★'.repeat(listing?.seller.reviews.stars ?? 0) + '☆'.repeat(5 - (listing?.seller.reviews.stars ?? 0));
+    
+    $effect(() => {
+        const starCount = Number(seller?.reviews?.stars) || 0;
+        stars = '★'.repeat(starCount) + '☆'.repeat(5 - starCount);
     });
 </script>
 
 <div class="seller-area">
     <div class="seller">
-        <a href={listing?.seller.profile_url} target="_blank" rel="noopener noreferrer">
-            <div class="seller-pfp">
-                <img src={listing?.seller.pfp} alt={listing?.seller.name} width="64" height="64" style="border-radius: 50%;" />
-                {#if listing?.seller.verified}
-                    <img src="/images/shop/jvs.svg" alt="Jawa Verified Seller" />
-                {/if}
-            </div>
+        <div class="seller-pfp">
+            <a href={seller?.profile?.url} target="_blank" rel="noopener noreferrer">
+                <img src={(seller?.profile?.picture)?.replace('width=64,height=64', 'width=256,height=256')} alt={seller?.profile?.name} class="pfp" />
+            </a>
+            {#if seller?.profile?.verified}
+                <img class="jvs-badge" src="/images/shop/jvs.svg" alt="Jawa Verified Seller" />
+            {/if}
+        </div>
+        <div class="seller-info">
             <div class="seller-name">
-                <p class="name">{listing?.seller.name ?? 'Unknown Seller'}</p>
-                {#if displayVerifiedSellerText && listing?.seller.verified}
+                <a href={seller?.profile?.url} target="_blank" rel="noopener noreferrer" class="name">{seller?.profile?.name ?? 'Unknown Seller'}</a>
+                {#if displayVerifiedSellerText && seller?.profile?.verified}
                     <p class="jvs-text">Verified Seller</p>
                 {/if}
             </div>
-        </a>
-    </div>
-    <div class="reviews">
-        <a href={listing?.seller.reviews.url} target="_blank" rel="noopener noreferrer">
-            {listing?.seller.reviews.stars} <span class="stars">{stars}</span> ({listing?.seller.reviews.count} Reviews)
-        </a>
+            <div class="seller-reviews">
+                <a href={seller?.reviews?.url} target="_blank" rel="noopener noreferrer">
+                    {seller?.reviews?.stars} <span class="stars">{stars}</span> ({seller?.reviews?.count} Reviews)
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -48,69 +50,75 @@
         gap: 0.5em;
 
         .seller {
-            // display: flex;
-            // flex-direction: row;
-            // align-items: center;
-            // gap: 1em;
-
-            a {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                gap: 1em;
-                text-decoration: none;
-                color: gv.$light;
-            }
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1em;
 
             .seller-pfp {
                 position: relative;
 
-                img:nth-child(2) {
+                .pfp {
+                    border-radius: 50%;
+                    width: 6em;
+                    height: 6em;
+                }
+
+                .jvs-badge {
                     position: absolute;
                     bottom: 0px;
                     right: 0px;
-                    width: 22px;
-                    height: 22px;
+                    width: 1.375em;
+                    height: 1.375em;
                 }
             }
 
-            .seller-name {
+            .seller-info {
                 display: flex;
                 flex-direction: column;
+                gap: 0.3em;
+                align-items: start;
 
-                * {
-                    margin: 0;
+                .seller-name {
+                    display: flex;
+                    flex-direction: column;
+
+                    * {
+                        margin: 0;
+                    }
+
+                    .name {
+                        font-size: 1.3em;
+                        font-weight: 600;
+                        color: gv.$light;
+                        text-decoration: none;
+                    }
+
+                    .jvs-text {
+                        font-size: 0.75em;
+                        color: gv.$lighter-primary;
+                        text-decoration: underline;
+                        text-decoration-style: dotted;
+                        text-underline-offset: 2px;
+                    }
                 }
 
-                .name {
-                    font-size: 1.3em;
-                    font-weight: 600;
-                }
+                .seller-reviews {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 1em;
 
-                .jvs-text {
-                    font-size: 0.75em;
-                    color: gv.$lighter-primary;
-                    text-decoration: underline;
-                    text-decoration-style: dotted;
-                    text-underline-offset: 2px;
-                }
-            }
-        }
+                    a {
+                        font-size: 1.1em;
+                        font-weight: 600;
+                        color: gv.$light;
 
-        .reviews {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            gap: 1em;
-
-            a {
-                font-size: 1.1em;
-                font-weight: 600;
-                color: gv.$light;
-
-                .stars {
-                    color: gv.$yellow;
+                        .stars {
+                            color: gv.$yellow;
+                        }
+                    }
                 }
             }
         }

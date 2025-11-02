@@ -1,23 +1,36 @@
 <script lang="ts">
-    import type { JawaListing } from '$lib/types/JawaListing';
+    import type { JawaListing, SellerInfo, JawaSellerData } from '$lib/types/JawaListing';
     import Seller from '$lib/components/Jawa/Seller.svelte';
     import { onMount } from 'svelte';
     import Title from '$lib/components/title.svelte';
+    import ImageCarousel from '$lib/components/ImageCarousel.svelte';
 
-    const listingsUrl = "https://raw.githubusercontent.com/PowerPCFan/shop/refs/heads/main/output/listings.json";
+    const sellerDataUrl = "https://raw.githubusercontent.com/PowerPCFan/shop/refs/heads/main/output/listings.json" + `?cacheBuster=${Date.now().toString()}`;
+    let sellerData: JawaSellerData | null = $state(null);
     let listings: JawaListing[] | null = $state(null);
 
     onMount(async () => {
-        const response = await fetch(listingsUrl);
-        listings = await response.json();
+        const response = await fetch(sellerDataUrl);
+        sellerData = await response.json();
+        listings = sellerData?.listings ?? null;
     });
 </script>
 
 <Title title="Shop Charlie's Computers" />
 
 <div class="page-container">
-    <div style="font-size: 1.5rem;">
-        <Seller listing={listings?.[0] ?? null} displayVerifiedSellerText />
+    <div class="top-banner">
+        <div class="seller-card">
+            <Seller seller={sellerData?.seller_info ?? null} displayVerifiedSellerText />
+            <h2 class="heading">{sellerData?.seller_info.heading}</h2>
+            <p class="seller-stats">
+                <span class="bold">{sellerData?.seller_info.profile.followers}</span> followers • 
+                <span class="bold">{sellerData?.seller_info.profile.sold}</span> listings sold
+            </p>
+        </div>
+        <div class="image-swiper">
+            <ImageCarousel images={sellerData?.seller_info?.images ?? []} autoScroll={true} />
+        </div>
     </div>
 
     <div class="listings-grid">
@@ -49,6 +62,45 @@
         padding: 2rem;
         background-color: g.$dark;
         color: g.$light;
+    }
+
+    .top-banner {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-inline: 2rem;
+        gap: 1rem;
+
+        .seller-card {
+            // makes everything bigger since it uses em units internally
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            font-size: 1.2rem;
+            width: 50%;
+            flex: 1;
+
+            .heading {
+                margin: 0;
+                font-size: 2.2rem;
+                font-weight: 800;
+            }
+
+            .seller-stats {
+                margin: 0;
+                font-size: 1.1rem;
+                font-weight: normal;
+
+                .bold {
+                    font-weight: bold;
+                }
+            }
+        }
+
+        .image-swiper {
+            width: 50%;
+            flex: 1;
+        }
     }
 
     .listings-grid {
