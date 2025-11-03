@@ -1,6 +1,7 @@
 $light: #EBEBEB;
 // $dark: #1C1C1C;
 $dark: #181818;
+$lighter-dark: lighten($dark, 10%);
 $primary: #3d74ff;
 $lighter-primary: lighten($primary, 10%);
 $border: #8e8e8e;

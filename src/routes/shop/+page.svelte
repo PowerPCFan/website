@@ -27,17 +27,33 @@
                 <span class="bold">{sellerData?.seller_info.profile.followers}</span> followers • 
                 <span class="bold">{sellerData?.seller_info.profile.sold}</span> listings sold
             </p>
+            <div class="buttons">
+                <button onclick={() => window.open(sellerData?.seller_info.profile.url, '_blank')}>
+                    Message (via Jawa)
+                </button>
+                <button class="even" onclick={() => window.open(sellerData?.seller_info.profile.url, '_blank')}>
+                    Follow (via Jawa)
+                </button>
+            </div>
         </div>
         <div class="image-swiper">
             <ImageCarousel images={sellerData?.seller_info?.images ?? []} autoScroll={true} />
         </div>
     </div>
 
+    <br />
+    <br />
+    <hr />
+    <br />
+
     <div class="listings-grid">
         {#each (listings ?? []) as listing}
             <a class="listing-card" href="/shop/{listing.metadata.uuid}">
                 <div class="image-container">
                     <img src="{listing.media.thumbnail_url}" alt="{listing.metadata.title}" />
+                    {#if listing.status.sold_out}
+                        <div class="sold-out-overlay"><span>SOLD OUT</span></div>
+                    {/if}
                 </div>
                 <div class="info-container">
                     <div class="title">{listing.metadata.title}</div>
@@ -72,11 +88,10 @@
         gap: 1rem;
 
         .seller-card {
-            // makes everything bigger since it uses em units internally
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             width: 50%;
             flex: 1;
 
@@ -95,6 +110,40 @@
                     font-weight: bold;
                 }
             }
+
+            .buttons {
+                display: flex;
+                flex-direction: row;
+                gap: 0.75rem;
+
+                button {
+                    font-size: 1rem;
+                    font-family: g.$stack;
+                    background-color: g.$primary;
+                    color: g.$light;
+                    border: none;
+                    border-radius: 1rem;
+                    padding-block: 0.5rem;
+                    padding-inline: 1.5rem;
+                    cursor: pointer;
+
+                    transition: background-color 0.2s ease;
+
+                    &:hover {
+                        background-color: lighten(g.$primary, 10%);
+                    }
+
+                    &.even {
+                        background-color: rgba(255,255,255,0);
+                        border: 2px solid g.$primary;
+                        color: g.$primary;
+
+                        &:hover {
+                            background-color: rgba(255,255,255,0.125);
+                        }
+                    }
+                }
+            }
         }
 
         .image-swiper {
@@ -105,7 +154,7 @@
 
     .listings-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
         gap: 2rem;
         margin-top: 2rem;
 
@@ -113,15 +162,36 @@
             display: flex;
             flex-direction: column;
             background-color: #252525;
-            padding: 1rem;
+            padding: 0.75rem;
             text-decoration: none;
             border-radius: 1rem;
             gap: 0.5rem;
 
             .image-container {
+                position: relative;
+
                 img {
                     width: 100%;
-                    border-radius: 1rem;
+                    border-radius: 0.75rem;
+                }
+
+                .sold-out-overlay {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%) rotate(-15deg);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    pointer-events: none;
+
+                    span {
+                        color: g.$light;
+                        opacity: 0.9;
+                        font-size: 4rem;
+                        font-weight: bold;
+                        text-wrap: nowrap;
+                    }
                 }
             }
 
@@ -149,6 +219,36 @@
                     color: lighten(g.$primary, 10%);
                 }
             }
+        }
+    }
+
+    @media (max-width: 1024px) {
+        .top-banner {
+            flex-direction: column;
+            padding-inline: 1.25rem;
+
+            .seller-card, .image-swiper {
+                width: 100%;
+            }
+        }
+
+        .listings-grid {
+            grid-template-columns: repeat(auto-fill, minmax(325px, 1fr));
+        }
+    }
+
+    @media (max-width: 450px) {
+        .top-banner {
+            padding-inline: 0.5rem;
+            .seller-card {
+                .heading {
+                    font-size: 1.75rem;
+                }
+            }
+        }
+
+        .listings-grid {
+            grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
         }
     }
 </style>
