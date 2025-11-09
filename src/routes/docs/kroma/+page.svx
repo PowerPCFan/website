@@ -77,6 +77,49 @@ print(ansi_color.style(
 
 **Note:** The `ansi_color.style()` function works the same way as `html_color.style()`, except it uses the ANSIColors enum instead of HTMLColors and HEX codes. 
 
+## Custom Styles
+
+For frequently used styles, you can create reusable style objects using `CustomStyle`. This allows you to define a style once and apply it to multiple strings without having to specify the style parameters.
+
+### Creating and Using CustomStyle
+
+The `CustomStyle` class works with both HTML colors and ANSI colors, using the same parameters as their respective `style()` functions except without the `text` parameter:
+
+```python
+from kroma import html_color, HTMLColors
+
+# Define the Style
+reusable_style = html_color.CustomStyle(
+    foreground=HTMLColors.DARKKHAKI,
+    background=HTMLColors.NAVY,
+    bold=True
+)
+
+# Use the Style
+print(reusable_style("This is some text styled with a CustomStyle!"))
+print(reusable_style("Here's another line with the same styling."))
+print(reusable_style("Yet another styled line."))
+```
+
+### ANSI CustomStyle
+
+You can also create custom styles for ANSI colors. As shown in this example, custom styles can be useful for things like warnings and errors.
+
+```python
+from kroma import ansi_color, ANSIColors
+
+# Define the Style
+warning_style = ansi_color.CustomStyle(
+    foreground=ANSIColors.BRIGHT_YELLOW,
+    background=ANSIColors.RED,
+    bold=True
+)
+
+# Use the Style
+print(warning_style("Warning: This is important!"))
+print(warning_style("Another warning message."))
+```
+
 ## Color Manipulation
 
 ### Swapping Colors
@@ -222,6 +265,50 @@ Makes a color darker by the specified percentage.
 - `percentage` (float): The percentage to darken (0-100)
 
 **Returns:** `str` - HEX color code of the darkened color
+</div>
+
+### Classes
+
+#### `html_color.CustomStyle(**kwargs)`
+
+<div class="indented">
+
+Creates a reusable style object for HTML colors that can be applied to multiple strings.
+
+**Parameters:**
+- `foreground` (str | HTMLColors | None): Foreground color (HTML color name or HEX code)
+- `background` (str | HTMLColors | None): Background color (HTML color name or HEX code)
+- `bold` (bool): Apply bold formatting (default: False)
+- `italic` (bool): Apply italic formatting (default: False)
+- `underline` (bool): Apply underline formatting (default: False)
+- `strikethrough` (bool): Apply strikethrough formatting (default: False)
+- `swap_foreground_background` (bool): Swap foreground and background colors (default: False)
+
+**Usage:** Call the created instance with a text string to apply the styling.
+
+**Returns:** A callable object that accepts text and returns styled text with ANSI escape codes
+
+</div>
+
+#### `ansi_color.CustomStyle(**kwargs)`
+
+<div class="indented">
+
+Creates a reusable style object for ANSI colors that can be applied to multiple strings.
+
+**Parameters:**
+- `foreground` (ANSIColors | None): Foreground color from ANSIColors enum
+- `background` (ANSIColors | None): Background color from ANSIColors enum
+- `bold` (bool): Apply bold formatting (default: False)
+- `italic` (bool): Apply italic formatting (default: False)
+- `underline` (bool): Apply underline formatting (default: False)
+- `strikethrough` (bool): Apply strikethrough formatting (default: False)
+- `swap_foreground_background` (bool): Swap foreground and background colors (default: False)
+
+**Usage:** Call the created instance with a text string to apply the styling.
+
+**Returns:** A callable object that accepts text and returns styled text with ANSI escape codes
+
 </div>
 
 ### Utility Functions
