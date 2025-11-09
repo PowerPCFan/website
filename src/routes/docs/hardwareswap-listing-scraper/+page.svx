@@ -34,6 +34,6 @@ There are multiple URL shorteners available:
 
 - https://tinyurl.com
 - https://sl.expect.ovh
-- https://sl.powerpcfan.xyz
+- https://blinkl.ink
 
 You can set these up to shorten the long reddit.com links for easier sharing.
