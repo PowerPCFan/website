@@ -8,6 +8,10 @@
 
 Meet Kroma, a lightweight and powerful library for terminal output in Python. It allows you to set colors, text formatting, and more with ease.
 
+## Links
+- [GitHub Repository](https://github.com/PowerPCFan/kroma)
+- [PyPI Page](https://pypi.org/project/kroma)
+
 ## Installation
 
 You can install Kroma straight from PyPI using `pip`:
