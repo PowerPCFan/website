@@ -1,0 +1,498 @@
+<script lang="ts">
+    import Title from "$lib/components/title.svelte";
+</script>
+
+<Title title="Kroma Documentation"></Title>
+
+# Kroma Documentation
+
+Meet Kroma, a lightweight and powerful library for terminal output in Python. It allows you to set colors, text formatting, and more with ease.
+
+## What's New in v2
+
+Kroma v2 introduces a unified API that simplifies the library's interface:
+
+- **Unified `style()` function**: No more separate `html_color.style()` and `ansi_color.style()` functions, for simplicity and ease of use.
+- **Single import pattern**: Everything is now imported directly from `kroma` (however, you can still use the `from kroma import ...` pattern if you'd like)
+- **Error handling**: The new `MixedColorTypesError` is raised when ANSI and HTML color types are mixed, preventing formatting errors.
+
+## Links
+- [GitHub Repository](https://github.com/PowerPCFan/kroma)
+- [Documentation (this page)](https://www.powerpcfan.xyz/docs/kroma)
+- [PyPI Project Page](https://pypi.org/project/kroma)
+
+## Installation
+
+You can install Kroma using `pip`:
+
+```bash
+pip install kroma
+```
+
+## HTML Colors and HEX Codes
+
+### Using Named HTML Colors
+
+Kroma provides access to all of the standard HTML color names through the `HTMLColors` enum. You can use these named colors with the `style()` function to set foreground and background colors.
+
+```python
+import kroma
+
+print(kroma.style(
+    "This is black text on a spring green background.",
+    background=kroma.HTMLColors.SPRINGGREEN,
+    foreground=kroma.HTMLColors.BLACK
+))
+```
+
+Output:  
+![1](/images/docs/kroma/image1.png)
+
+### Partial Color Styling
+
+You can set only the background or foreground color to keep the other as default:
+
+```python
+import kroma
+
+print(kroma.style(
+    "This is normal text with a maroon background.",
+    background=kroma.HTMLColors.MAROON
+))
+
+print(kroma.style(
+    "This is goldenrod text on a normal background.",
+    foreground=kroma.HTMLColors.GOLDENROD
+))
+```
+
+Output:  
+![2](/images/docs/kroma/image2.png)
+
+### Custom HEX Colors
+
+The `style()` function also accepts custom HEX color codes:
+
+```python
+import kroma
+
+print(kroma.style(
+    "This is text with a custom background and foreground.",
+    background="#000094",
+    foreground="#8CFF7F"
+))
+```
+
+Output:  
+![3](/images/docs/kroma/image3.png)
+
+## ANSI Colors
+
+For terminals that don't support True Color, use ANSI colors instead:
+
+```python
+import kroma
+
+# Bright blue text on red background
+print(kroma.style(
+    "This is bright blue text on a red background.",
+    background=kroma.ANSIColors.RED,
+    foreground=kroma.ANSIColors.BRIGHT_BLUE
+))
+```
+
+Output:  
+![4](/images/docs/kroma/image4.png)
+
+**Note:** Kroma's unified `style()` function automatically detects whether you're using ANSI or HTML colors and processes them accordingly. You cannot mix ANSI and HTML colors in the same call - this will raise a `MixedColorTypesError`. 
+
+## Custom Styles
+
+For frequently used styles, you can create reusable style objects using `CustomStyle`. This allows you to define a style once and apply it to multiple strings without having to specify the style parameters.
+
+### Creating and Using CustomStyle
+
+The `CustomStyle` class works with both HTML colors and ANSI colors, using the same parameters as the `style()` function except without the `text` parameter:
+
+```python
+import kroma
+
+# Define the Style
+reusable_style = kroma.CustomStyle(
+    foreground=kroma.HTMLColors.DARKKHAKI,
+    background=kroma.HTMLColors.NAVY,
+    bold=True
+)
+
+# Use the Style
+print(reusable_style("This is some text styled with a CustomStyle!"))
+print(reusable_style("Here's another line with the same styling."))
+print(reusable_style("Yet another styled line."))
+```
+
+Output:  
+![5](/images/docs/kroma/image5.png)
+
+### ANSI CustomStyle
+
+You can also create custom styles for ANSI colors. As shown in this example, custom styles can be useful for things like warnings and errors.
+
+```python
+import kroma
+
+# Define the Style
+warning_style = kroma.CustomStyle(
+    foreground=kroma.ANSIColors.BRIGHT_YELLOW,
+    background=kroma.ANSIColors.RED,
+    bold=True
+)
+
+# Use the Style
+print(warning_style("Warning: This is important!"))
+print(warning_style("Another warning message."))
+```
+
+Output:  
+![6](/images/docs/kroma/image6.png)
+
+## Palettes
+
+Kroma supports color palettes, such as Gruvbox, Solarized, and Bootstrap, which are perfect if you want a nice looking terminal output without having to pick individual colors.
+
+```python
+import kroma
+
+# (optional: set a palette alias for easier access)
+palette = kroma.palettes.Solarized
+
+# IMPORTANT: you must enable the palette to set the proper background and foreground colors.
+# with alias:
+palette.enable()
+# without alias:
+kroma.palettes.Solarized.enable()
+
+# with alias:
+print(palette.debug("This is a debug message in the Solarized palette"))
+print(palette.error("This is an error message in the Solarized palette"))
+
+# without alias:
+print(kroma.palettes.Solarized.info("This is an info message in the Solarized palette"))
+print(kroma.palettes.Solarized.success("This is a success message in the Solarized palette"))
+```
+
+Output:  
+![7](/images/docs/kroma/image7.png)
+
+### Available Palettes and Methods
+
+All palettes support the following methods:
+- `info(text)` - Informational messages
+- `debug(text)` - Debug messages  
+- `warning(text)` - Warning messages
+- `error(text)` - Error messages
+- `critical(text)` - Critical error messages
+- `success(text)` - Success messages
+
+Available palettes:
+- `kroma.palettes.Gruvbox` - [Popular retro groove color scheme](https://github.com/morhetz/gruvbox)
+- `kroma.palettes.Solarized` - [Low-contrast scheme by Ethan Schoonover](https://ethanschoonover.com/solarized/)
+- `kroma.palettes.Bootstrap` - Colors from the [Bootstrap CSS framework](https://getbootstrap.com/docs/5.0/customize/color/)
+
+If you want more control over the formatting of the text, you can combine it with the `style()` function. However, this gets pretty messy, so it's recommended to just use the palette's built-in functions for simple use cases, or make your own custom styles if the palettes aren't sufficient.
+
+```python
+import kroma
+
+kroma.palettes.Solarized.enable()
+
+print(kroma.palettes.Solarized.info(kroma.style("This is an underlined and bold info message in the Solarized palette", bold=True, underline=True)))
+```
+
+Output:  
+![8](/images/docs/kroma/image8.png)
+
+## Color Manipulation
+
+### Swapping Colors
+
+You can swap foreground and background colors at runtime:
+
+```python
+import kroma
+
+print(kroma.style(
+    "This is text with a bisque background and a blue violet foreground.\n",
+    foreground=kroma.HTMLColors.BLUEVIOLET,
+    background=kroma.HTMLColors.BISQUE,
+))
+
+print(kroma.style(
+    "This is the same text with the foreground and background swapped.",
+    foreground=kroma.HTMLColors.BLUEVIOLET,
+    background=kroma.HTMLColors.BISQUE,
+    swap_foreground_background=True
+))
+```
+
+Output:  
+![9](/images/docs/kroma/image9.png)
+
+### Lightening and Darkening Colors
+
+Kroma also provides utility functions to manipulate color brightness at runtime. It works with both HTML colors and HEX codes, however it does not work with ANSI colors.
+
+```python
+import kroma
+
+print(kroma.style(
+    "This is text with colors manipulated at runtime.",
+    foreground=kroma.lighten(kroma.HTMLColors.GAINSBORO, 10),
+    background=kroma.darken("#2F4F4F", 20)
+))
+```
+
+Output:  
+![10](/images/docs/kroma/image10.png)
+
+- `kroma.lighten(color, amount)` - Makes a color lighter
+- `kroma.darken(color, amount)` - Makes a color darker
+
+## Text Formatting
+
+The `style()` function supports text formatting options:
+
+### Available Formatting Options
+
+- `bold=True` - **Bold text**
+- `italic=True` - *Italic text*
+- `underline=True` - <u>Underlined text</u>
+- `strikethrough=True` - ~~Strikethrough text~~
+
+### Examples
+
+```python
+import kroma
+
+# All formatting options combined
+print(kroma.style(
+    "This is bold, italic, underlined, and strikethrough text.",
+    bold=True,
+    italic=True,
+    underline=True,
+    strikethrough=True
+))
+
+# Individual formatting options
+print(kroma.style("This is bold text.", bold=True))
+print(kroma.style("This is underlined text.", underline=True))
+print(kroma.style(
+    "This is italic and strikethrough text.",
+    italic=True,
+    strikethrough=True
+))
+```
+
+Output:  
+![11](/images/docs/kroma/image11.png)
+
+### Combining Colors and Formatting
+
+You can combine text formatting with colors in a single call:
+
+```python
+import kroma
+
+print(kroma.style(
+    "This is bold and italic text with colors.",
+    foreground=kroma.ANSIColors.MAGENTA,
+    bold=True,
+    italic=True
+))
+```
+
+Output:  
+![12](/images/docs/kroma/image12.png)
+
+## API Reference
+
+### Functions
+
+#### `kroma.style(text, **kwargs)`
+
+<div class="indented">
+
+Styles text with colors and formatting. Automatically detects whether you're using ANSI or HTML colors.
+
+**Parameters:**
+- `text` (str): The text to style
+- `foreground` (str | HTMLColors | ANSIColors | None): Foreground color (HTML color name, HEX code, or ANSI color)
+- `background` (str | HTMLColors | ANSIColors | None): Background color (HTML color name, HEX code, or ANSI color)
+- `bold` (bool): Apply bold formatting (default: False)
+- `italic` (bool): Apply italic formatting (default: False)
+- `underline` (bool): Apply underline formatting (default: False)
+- `strikethrough` (bool): Apply strikethrough formatting (default: False)
+- `swap_foreground_background` (bool): Swap foreground and background colors (default: False)
+
+**Returns:** `str` - The styled text with ANSI escape codes
+
+**Raises:** `MixedColorTypesError` - If you mix ANSI and HTML color types in the same call
+
+</div>
+
+#### `kroma.lighten(color, percentage)`
+
+<div class="indented">
+
+Makes a color lighter by the specified percentage.
+
+**Parameters:**
+- `color` (HTMLColors | str): The color to lighten (HTML color enum or HEX string)
+- `percentage` (float): The percentage to lighten (0-100)
+
+**Returns:** `str` - HEX color code of the lightened color
+
+</div>
+
+#### `kroma.darken(color, percentage)`
+
+<div class="indented">
+
+Makes a color darker by the specified percentage.
+
+**Parameters:**
+- `color` (HTMLColors | str): The color to darken (HTML color enum or HEX string)
+- `percentage` (float): The percentage to darken (0-100)
+
+**Returns:** `str` - HEX color code of the darkened color
+</div>
+
+### Classes
+
+#### `kroma.CustomStyle(**kwargs)`
+
+<div class="indented">
+
+Creates a reusable style object that can be applied to multiple strings. Works with both HTML and ANSI colors.
+
+**Parameters:**
+- `foreground` (str | HTMLColors | ANSIColors | None): Foreground color (HTML color name, HEX code, or ANSI color)
+- `background` (str | HTMLColors | ANSIColors | None): Background color (HTML color name, HEX code, or ANSI color)
+- `bold` (bool): Apply bold formatting (default: False)
+- `italic` (bool): Apply italic formatting (default: False)
+- `underline` (bool): Apply underline formatting (default: False)
+- `strikethrough` (bool): Apply strikethrough formatting (default: False)
+- `swap_foreground_background` (bool): Swap foreground and background colors (default: False)
+
+**Usage:** Call the created instance with a text string to apply the styling.
+
+**Returns:** A callable object that accepts text and returns styled text with ANSI escape codes
+
+**Raises:** `MixedColorTypesError` - If you mix ANSI and HTML color types in the parameters
+
+</div>
+
+### Utility Functions and Variables
+
+#### `kroma.ansi_supported`
+
+<div class="indented">
+Boolean value that's True if the current terminal supports ANSI escape codes, otherwise False. If the user is on Windows, ANSI support will try to be enabled before declaring ANSI as unsupported.
+
+**Note: `ansi_supported` is only intended to be used if you aren't using Kroma's color functions, and you are just using Kroma for checking if ANSI is supported. Kroma's style functions automatically check if ANSI is supported before applying styles, so you don't need to check it manually.**
+
+**Returns:** `bool` - True if ANSI codes are supported, False otherwise
+
+</div>
+
+### Exceptions
+
+#### `kroma.MixedColorTypesError`
+
+<div class="indented">
+
+Raised when you attempt to mix ANSI and HTML color types in the same style call. This helps prevent confusion and ensures consistent color handling.
+
+**Example:**
+```python
+import kroma
+
+# This will raise MixedColorTypesError
+kroma.style("text", foreground=kroma.ANSIColors.RED, background=kroma.HTMLColors.BLUE)
+```
+
+</div>
+
+### Enums
+
+#### `kroma.HTMLColors`
+
+<div class="indented">
+
+Contains all standard HTML color names. Here are all available colors:
+
+**Basic Colors:**
+- `BLACK`, `SILVER`, `GRAY`, `WHITE`
+- `MAROON`, `RED`, `PURPLE`, `FUCHSIA`
+- `GREEN`, `LIME`, `OLIVE`, `YELLOW`
+- `NAVY`, `BLUE`, `TEAL`, `AQUA`
+
+**Extended Colors:**
+- `ALICEBLUE`, `ANTIQUEWHITE`, `AQUAMARINE`, `AZURE`
+- `BEIGE`, `BISQUE`, `BLANCHEDALMOND`, `BLUEVIOLET`
+- `BROWN`, `BURLYWOOD`, `CADETBLUE`, `CHARTREUSE`
+- `CHOCOLATE`, `CORAL`, `CORNFLOWERBLUE`, `CORNSILK`
+- `CRIMSON`, `CYAN`, `DARKBLUE`, `DARKCYAN`
+- `DARKGOLDENROD`, `DARKGRAY`, `DARKGREY`, `DARKGREEN`
+- `DARKKHAKI`, `DARKMAGENTA`, `DARKOLIVEGREEN`, `DARKORANGE`
+- `DARKORCHID`, `DARKRED`, `DARKSALMON`, `DARKSEAGREEN`
+- `DARKSLATEBLUE`, `DARKSLATEGRAY`, `DARKSLATEGREY`, `DARKTURQUOISE`
+- `DARKVIOLET`, `DEEPPINK`, `DEEPSKYBLUE`, `DIMGRAY`
+- `DIMGREY`, `DODGERBLUE`, `FIREBRICK`, `FLORALWHITE`
+- `FORESTGREEN`, `GAINSBORO`, `GHOSTWHITE`, `GOLD`
+- `GOLDENROD`, `GREENYELLOW`, `GREY`, `HONEYDEW`
+- `HOTPINK`, `INDIANRED`, `INDIGO`, `IVORY`
+- `KHAKI`, `LAVENDER`, `LAVENDERBLUSH`, `LAWNGREEN`
+- `LEMONCHIFFON`, `LIGHTBLUE`, `LIGHTCORAL`, `LIGHTCYAN`
+- `LIGHTGOLDENRODYELLOW`, `LIGHTGRAY`, `LIGHTGREY`, `LIGHTGREEN`
+- `LIGHTPINK`, `LIGHTSALMON`, `LIGHTSEAGREEN`, `LIGHTSKYBLUE`
+- `LIGHTSLATEGRAY`, `LIGHTSLATEGREY`, `LIGHTSTEELBLUE`, `LIGHTYELLOW`
+- `LIMEGREEN`, `LINEN`, `MAGENTA`, `MEDIUMAQUAMARINE`
+- `MEDIUMBLUE`, `MEDIUMORCHID`, `MEDIUMPURPLE`, `MEDIUMSEAGREEN`
+- `MEDIUMSLATEBLUE`, `MEDIUMSPRINGGREEN`, `MEDIUMTURQUOISE`, `MEDIUMVIOLETRED`
+- `MIDNIGHTBLUE`, `MINTCREAM`, `MISTYROSE`, `MOCCASIN`
+- `NAVAJOWHITE`, `OLDLACE`, `OLIVEDRAB`, `ORANGE`
+- `ORANGERED`, `ORCHID`, `PALEGOLDENROD`, `PALEGREEN`
+- `PALETURQUOISE`, `PALEVIOLETRED`, `PAPAYAWHIP`, `PEACHPUFF`
+- `PERU`, `PINK`, `PLUM`, `POWDERBLUE`
+- `REBECCAPURPLE`, `ROSYBROWN`, `ROYALBLUE`, `SADDLEBROWN`
+- `SALMON`, `SANDYBROWN`, `SEAGREEN`, `SEASHELL`
+- `SIENNA`, `SKYBLUE`, `SLATEBLUE`, `SLATEGRAY`
+- `SLATEGREY`, `SNOW`, `SPRINGGREEN`, `STEELBLUE`
+- `TAN`, `THISTLE`, `TOMATO`, `TURQUOISE`
+- `VIOLET`, `WHEAT`, `WHITESMOKE`, `YELLOWGREEN`
+
+</div>
+
+#### `kroma.ANSIColors`
+
+<div class="indented">
+
+Contains standard ANSI color codes for broad terminal compatibility:
+
+**Standard Colors:**
+- `BLACK`, `RED`, `GREEN`, `YELLOW`
+- `BLUE`, `MAGENTA`, `CYAN`, `WHITE`
+
+**Bright Colors:**
+- `BRIGHT_BLACK`, `BRIGHT_RED`, `BRIGHT_GREEN`, `BRIGHT_YELLOW`
+- `BRIGHT_BLUE`, `BRIGHT_MAGENTA`, `BRIGHT_CYAN`, `BRIGHT_WHITE`
+
+</div>
+
+## Terminal Compatibility
+
+- **HTML Colors**: Require True Color terminal support (most modern terminals)
+- **ANSI Colors**: Compatible with virtually all terminals
+- **Text Formatting**: Bold and underline are widely supported, italic and strikethrough have slightly less support.
+
+Choose the appropriate color system based on your target environment's capabilities. The unified `style()` function makes it easy to switch between color types without changing your code structure, just change the background and foreground parameters.
