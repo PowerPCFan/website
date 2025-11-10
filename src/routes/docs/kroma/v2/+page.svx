@@ -18,7 +18,7 @@ Kroma v2 introduces a unified API that simplifies the library's interface:
 
 ## Links
 - [GitHub Repository](https://github.com/PowerPCFan/kroma)
-- [Documentation (this page)](https://www.powerpcfan.xyz/docs/kroma)
+- [Documentation (this page)](https://www.powerpcfan.xyz/docs/kroma/v2)
 - [PyPI Project Page](https://pypi.org/project/kroma)
 
 ## Installation
