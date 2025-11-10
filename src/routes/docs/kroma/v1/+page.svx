@@ -4,6 +4,8 @@
 
 <Title title="v1 | Kroma Documentation"></Title>
 
+## *As of 11/10/2025, v1 is no longer available on PyPI. Please use version 2.*
+
 # Kroma Documentation
 
 Meet Kroma, a lightweight and powerful library for terminal output in Python. It allows you to set colors, text formatting, and more with ease.

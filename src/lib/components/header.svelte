@@ -18,7 +18,7 @@
             <span class="navbar-dropdown-trigger">Project Docs <i id="chevron" class="fa-solid fa-circle-chevron-down"></i></span>
             <div class="navbar-dropdown-menu">
                 <a class="navbar-dropdown-item" href="/docs/hardwareswap-listing-scraper/">HardwareSwap Listing Scraper</a>
-                <a class="navbar-dropdown-item" href="/docs/kroma/">Kroma</a>
+                <a class="navbar-dropdown-item" href="/docs/kroma/v2">Kroma</a>
             </div>
         </div>
         <div class="navbar-item navbar-dropdown">

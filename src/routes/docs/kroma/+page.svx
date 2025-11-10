@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
     import Title from "$lib/components/title.svelte";
 </script>
 
@@ -30,4 +30,13 @@ Kroma is a relatively new project, so the initial releases were a bit messy. Ver
 
 As promised, here are the docs:
 - **[v1 Docs](/docs/kroma/v1)**
-- **[v2 Docs](/docs/kroma/v2)**
+- **[v2 Docs](/docs/kroma/v2)** -->
+
+
+<script>
+    import { onMount } from 'svelte';
+
+    onMount(() => {
+        window.location.href = '/docs/kroma/v2';
+    });
+</script>
