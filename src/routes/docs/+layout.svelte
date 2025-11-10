@@ -20,6 +20,11 @@
         margin-bottom: 2rem;
     }
 
+    :global(img) {
+        width: auto;
+        max-width: 100%;
+    }
+
 :global(pre[class*="language-"]),
 :global(code[class*="language-"]) {
     color: #d4d4d4;
