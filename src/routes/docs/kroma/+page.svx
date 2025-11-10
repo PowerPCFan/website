@@ -36,6 +36,9 @@ print(html_color.style(
 ))
 ```
 
+Output:  
+![1](/images/docs/kroma/image1.png)
+
 ### Partial Color Styling
 
 You can set only the background or foreground color to keep the other as default:
@@ -52,6 +55,9 @@ print(html_color.style(
 ))
 ```
 
+Output:  
+![2](/images/docs/kroma/image2.png)
+
 ### Custom HEX Colors
 
 The `html_color.style()` function also accepts custom HEX color codes:
@@ -63,6 +69,9 @@ print(html_color.style(
     foreground="#8CFF7F"
 ))
 ```
+
+Output:  
+![3](/images/docs/kroma/image3.png)
 
 ## ANSI Colors
 
@@ -78,6 +87,9 @@ print(ansi_color.style(
     foreground=ANSIColors.BRIGHT_BLUE
 ))
 ```
+
+Output:  
+![4](/images/docs/kroma/image4.png)
 
 **Note:** The `ansi_color.style()` function works the same way as `html_color.style()`, except it uses the ANSIColors enum instead of HTMLColors and HEX codes. 
 
@@ -105,6 +117,9 @@ print(reusable_style("Here's another line with the same styling."))
 print(reusable_style("Yet another styled line."))
 ```
 
+Output:  
+![5](/images/docs/kroma/image5.png)
+
 ### ANSI CustomStyle
 
 You can also create custom styles for ANSI colors. As shown in this example, custom styles can be useful for things like warnings and errors.
@@ -124,6 +139,9 @@ print(warning_style("Warning: This is important!"))
 print(warning_style("Another warning message."))
 ```
 
+Output:  
+![6](/images/docs/kroma/image6.png)
+
 ## Palettes
 
 Kroma supports color palettes, such as Gruvbox, Solarized, and Bootstrap, which are perfect if you want a nice looking terminal output without having to pick individual colors.
@@ -134,8 +152,12 @@ from kroma import palettes
 # IMPORTANT: you must enable the palette to set the proper background and foreground colors.
 palettes.Solarized.enable()
 
-print(palettes.Solarized.info("This is an info message in the Solarized palette"))
+print(palettes.Solarized.debug("This is a debug message in the Solarized palette"))
+print(palettes.Solarized.error("This is an error message in the Solarized palette"))
 ```
+
+Output:  
+![7](/images/docs/kroma/image7.png)
 
 If you want more control over the formatting of the text, you can combine it with either `html_color.style()` or `ansi_color.style()`. However, this gets pretty messy, so it's recommended to just use the palette's built-in functions for simple use cases, or make your own custom styles if the palettes aren't sufficient.
 
@@ -145,8 +167,10 @@ from kroma import palettes, html_color
 palettes.Solarized.enable()
 
 print(palettes.Solarized.info(html_color.style("This is an underlined and bold info message in the Solarized palette", bold=True, underline=True)))
-
 ```
+
+Output:  
+![8](/images/docs/kroma/image8.png)
 
 ## Color Manipulation
 
@@ -156,12 +180,21 @@ You can swap foreground and background colors at runtime:
 
 ```python
 print(html_color.style(
-    "This is text with the foreground and background swapped.",
+    "This is text with a bisque background and a blue violet foreground.\n",
+    foreground=HTMLColors.BLUEVIOLET,
+    background=HTMLColors.BISQUE,
+))
+
+print(html_color.style(
+    "This is the same text with the foreground and background swapped.",
     foreground=HTMLColors.BLUEVIOLET,
     background=HTMLColors.BISQUE,
     swap_foreground_background=True
 ))
 ```
+
+Output:  
+![9](/images/docs/kroma/image9.png)
 
 ### Lightening and Darkening Colors
 
@@ -174,6 +207,9 @@ print(html_color.style(
     background=html_color.darken("#2F4F4F", 20)
 ))
 ```
+
+Output:  
+![10](/images/docs/kroma/image10.png)
 
 - `html_color.lighten(color, amount)` - Makes a color lighter
 - `html_color.darken(color, amount)` - Makes a color darker
@@ -211,6 +247,9 @@ print(html_color.style(
 ))
 ```
 
+Output:  
+![11](/images/docs/kroma/image11.png)
+
 ### Combining Colors and Formatting
 
 You can combine text formatting with colors in a single call:
@@ -223,6 +262,9 @@ print(ansi_color.style(
     italic=True
 ))
 ```
+
+Output:  
+![12](/images/docs/kroma/image12.png)
 
 ## API Reference
 
