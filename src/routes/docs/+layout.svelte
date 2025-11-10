@@ -13,6 +13,7 @@
         /* width: 100%; */
         padding: 0.75rem 2rem;
         margin: 0;
+        line-height: 1.5;
     }
 
     :global(.indented) {
@@ -47,10 +48,14 @@
     hyphens: none;
 }
 
-:global(:not(pre) code) {
+:global(:not(pre) > code) {
     font-family: "JetBrains Mono", monospace, monospace;
-    font-size: 0.9em;
+    font-size: 0.8em;
     color: #ce9178;
+    background-color: #242424;
+    padding-inline: 0.2rem;
+    padding-block: 0.1rem;
+    border-radius: 0.25rem;
 }
 
 :global(pre[class*="language-"]::selection),
@@ -72,14 +77,14 @@
     padding: 1em;
     margin: .5em 0;
     overflow: auto;
-    background: #1e1e1e;
+    background: #242424;
 }
 
 :global(:not(pre) > code[class*="language-"]) {
     padding: .1em .3em;
     border-radius: .3em;
     color: #db4c69;
-    background: #1e1e1e;
+    background: #242424;
 }
 /*********************************************************
 * Tokens
