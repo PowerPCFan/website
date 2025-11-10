@@ -124,6 +124,30 @@ print(warning_style("Warning: This is important!"))
 print(warning_style("Another warning message."))
 ```
 
+## Palettes
+
+Kroma supports color palettes, such as Gruvbox, Solarized, and Bootstrap, which are perfect if you want a nice looking terminal output without having to pick individual colors.
+
+```python
+from kroma import palettes
+
+# IMPORTANT: you must enable the palette to set the proper background and foreground colors.
+palettes.Solarized.enable()
+
+print(palettes.Solarized.info("This is an info message in the Solarized palette"))
+```
+
+If you want more control over the formatting of the text, you can combine it with either `html_color.style()` or `ansi_color.style()`. However, this gets pretty messy, so it's recommended to just use the palette's built-in functions for simple use cases, or make your own custom styles if the palettes aren't sufficient.
+
+```python
+from kroma import palettes, html_color
+
+palettes.Solarized.enable()
+
+print(palettes.Solarized.info(html_color.style("This is an underlined and bold info message in the Solarized palette", bold=True, underline=True)))
+
+```
+
 ## Color Manipulation
 
 ### Swapping Colors
