@@ -44,6 +44,8 @@ Output:
 You can set only the background or foreground color to keep the other as default:
 
 ```python
+from kroma import html_color, HTMLColors
+
 print(html_color.style(
     "This is normal text with a maroon background.",
     background=HTMLColors.MAROON
@@ -63,6 +65,8 @@ Output:
 The `html_color.style()` function also accepts custom HEX color codes:
 
 ```python
+from kroma import html_color
+
 print(html_color.style(
     "This is text with a custom background and foreground.",
     background="#000094",
@@ -179,6 +183,8 @@ Output:
 You can swap foreground and background colors at runtime:
 
 ```python
+from kroma import html_color, HTMLColors
+
 print(html_color.style(
     "This is text with a bisque background and a blue violet foreground.\n",
     foreground=HTMLColors.BLUEVIOLET,
@@ -201,6 +207,8 @@ Output:
 Kroma also provides utility functions to manipulate color brightness at runtime. It works with both HTML colors and HEX codes, however it does not work with ANSI colors, only `html_color`.
 
 ```python
+from kroma import html_color, HTMLColors
+
 print(html_color.style(
     "This is text with colors manipulated at runtime.",
     foreground=html_color.lighten(HTMLColors.GAINSBORO, 10),
@@ -228,6 +236,8 @@ Both `html_color.style()` and `ansi_color.style()` support text formatting optio
 ### Examples
 
 ```python
+from kroma import html_color, ansi_color, ANSIColors
+
 # All formatting options combined
 print(html_color.style(
     "This is bold, italic, underlined, and strikethrough text.",
@@ -255,6 +265,8 @@ Output:
 You can combine text formatting with colors in a single call:
 
 ```python
+from kroma import ansi_color, ANSIColors
+
 print(ansi_color.style(
     "This is bold and italic text with colors.",
     foreground=ANSIColors.MAGENTA,
