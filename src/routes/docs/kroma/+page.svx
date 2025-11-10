@@ -1,3 +1,9 @@
+<script lang="ts">
+    import Title from "$lib/components/title.svelte";
+</script>
+
+<Title title="Home | Kroma Documentation"></Title>
+
 {#snippet note(content)}
     <div style={`
         display: flex;

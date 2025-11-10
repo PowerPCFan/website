@@ -2,7 +2,7 @@
     import Title from "$lib/components/title.svelte";
 </script>
 
-<Title title="Kroma Documentation"></Title>
+<Title title="v2 | Kroma Documentation"></Title>
 
 # Kroma Documentation
 
