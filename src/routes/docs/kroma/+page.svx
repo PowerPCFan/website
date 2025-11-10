@@ -393,14 +393,14 @@ Creates a reusable style object for ANSI colors that can be applied to multiple 
 
 </div>
 
-### Utility Functions
+### Utility Functions and Variables
 
-#### `ansi_supported()`
+#### `ansi_supported`
 
 <div class="indented">
-Checks if the current terminal supports ANSI escape codes. If the user is on Windows, this function also attempts to enable ANSI.
+Boolean value that's True if the current terminal supports ANSI escape codes, otherwise False. If the user is on Windows, ANSI support will try to be enabled before declaring ANSI as unsupported.
 
-**`ansi_supported()` is only intended to be used if you arent using Kroma's color functions, and you are just using Kroma for checking if ANSI is supported. Kroma's style functions automatically check if ANSI is supported before applying styles, so you don't need to run it manually.**
+**Note: `ansi_supported` is only intended to be used if you arent using Kroma's color functions, and you are just using Kroma for checking if ANSI is supported. Kroma's style functions automatically check if ANSI is supported before applying styles, so you don't need to check it manually.**
 
 **Returns:** `bool` - True if ANSI codes are supported, False otherwise
 
