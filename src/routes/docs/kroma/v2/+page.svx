@@ -8,13 +8,16 @@
 
 Meet Kroma, a lightweight and powerful library for terminal output in Python. It allows you to set colors, text formatting, and more with ease.
 
-## What's New in v2
+<!-- commented out because v1 isnt available on pypi anymore, so v2 is really the "first version" -->
+<!-- ## What's New in v2
 
 Kroma v2 introduces a unified API that simplifies the library's interface:
 
 - **Unified `style()` function**: No more separate `html_color.style()` and `ansi_color.style()` functions, for simplicity and ease of use.
 - **Single import pattern**: Everything is now imported directly from `kroma` (however, you can still use the `from kroma import ...` pattern if you'd like)
 - **Error handling**: The new `MixedColorTypesError` is raised when ANSI and HTML color types are mixed, preventing formatting errors.
+- **Gradient support**: New `gradient()` function and `CustomGradient` class for creating smooth color transitions across text.
+- **Multi-stop gradients**: Support for gradients with multiple color stops, not just two-color gradients. -->
 
 ## Links
 - [GitHub Repository](https://github.com/PowerPCFan/kroma)
@@ -257,6 +260,102 @@ Output:
 - `kroma.lighten(color, amount)` - Makes a color lighter
 - `kroma.darken(color, amount)` - Makes a color darker
 
+## Gradients
+
+Kroma provides powerful gradient tools that allows you to create smooth gradients across text. This feature works with HTML colors and HEX codes.
+
+### Basic Two-Color Gradients
+
+Using `kroma.gradient()`, you can create a gradient between two colors.
+
+```python
+import kroma
+
+print(kroma.gradient(
+    "This text has a gradient from red to blue!",
+    stops=(kroma.HTMLColors.RED, kroma.HTMLColors.BLUE)
+))
+```
+
+You can also use HEX colors in place of the `HTMLColors` enum for finer control.
+
+```python
+import kroma
+
+print(kroma.gradient(
+    "This text has a gradient from #FF5733 to #33FFCE!",
+    stops=("#FF5733", "#33FFCE")
+))
+```
+
+### Multi-Stop Gradients
+
+You can also create complex gradients with multiple color stops.
+
+```python
+import kroma
+
+print(kroma.gradient(
+    "This is a rainbow gradient across the text!",
+    stops=(
+        kroma.HTMLColors.RED,
+        kroma.HTMLColors.ORANGE, 
+        kroma.HTMLColors.YELLOW,
+        kroma.HTMLColors.GREEN,
+        kroma.HTMLColors.BLUE,
+        kroma.HTMLColors.PURPLE
+    )
+))
+```
+
+Just like with two-color gradients, you can also use HEX colors for multi-stop gradients.
+
+### Background Gradients
+
+Apply gradients to the background instead of the foreground by setting the `style_type` parameter to `kroma.StyleType.BACKGROUND`.
+
+```python
+import kroma
+
+print(kroma.gradient(
+    "This has a background gradient!",
+    stops=(kroma.HTMLColors.DARKBLUE, kroma.HTMLColors.LIGHTBLUE),
+    style_type=kroma.StyleType.BACKGROUND
+))
+```
+
+### Custom Gradient Styles
+
+For reusable gradient styles, use `CustomGradient` - this works similarly to `CustomStyle`:
+
+```python
+import kroma
+
+# Define the CustomGradient
+sunset_gradient = kroma.CustomGradient(
+    stops=(kroma.HTMLColors.ORANGE, kroma.HTMLColors.RED, kroma.HTMLColors.PURPLE),
+    style_type=kroma.StyleType.FOREGROUND
+)
+
+# Apply the gradient
+print(sunset_gradient("This text has a sunset-like gradient."))
+print(sunset_gradient("So does this text!"))
+print(sunset_gradient("And this one too!"))
+```
+
+### Multi-Line Gradient Handling
+
+Kroma's gradient function handles multi-line text by treating each line as a separate entity, causing each line to have the same gradient instead of the gradient spanning the lines.
+
+```python
+import kroma
+
+print(kroma.gradient(
+    "Line 1 with gradient\nLine 2 with gradient\nLine 3 with gradient",
+    stops=(kroma.HTMLColors.CYAN, kroma.HTMLColors.MAGENTA)
+))
+```
+
 ## Text Formatting
 
 The `style()` function supports text formatting options:
@@ -339,6 +438,22 @@ Styles text with colors and formatting. Automatically detects whether you're usi
 
 </div>
 
+#### `kroma.gradient(text, *, stops, style_type=StyleType.FOREGROUND, steps=None)`
+
+<div class="indented">
+
+Creates a gradient effect across text using multiple color stops.
+
+**Parameters:**
+- `text` (str): The text to apply the gradient to
+- `stops` (tuple[str | HTMLColors, ...]): Tuple of colors for the gradient stops (HTML color names or HEX codes)
+- `style_type` (StyleType): Whether to apply gradient to foreground or background (default: StyleType.FOREGROUND)
+- `steps` (int | None): Number of gradient steps (default: None, uses text length for the smoothest possible gradient)
+
+**Returns:** `str` - The text with gradient ANSI escape codes applied
+
+</div>
+
 #### `kroma.lighten(color, percentage)`
 
 <div class="indented">
@@ -367,6 +482,23 @@ Makes a color darker by the specified percentage.
 </div>
 
 ### Classes
+
+#### `kroma.CustomGradient(*, stops, style_type=StyleType.FOREGROUND, steps=None)`
+
+<div class="indented">
+
+Creates a reusable gradient style object that can be applied to multiple strings.
+
+**Parameters:**
+- `stops` (tuple[str | HTMLColors, ...]): Tuple of colors for the gradient stops (HTML color names or HEX codes)
+- `style_type` (StyleType): Whether to apply gradient to foreground or background (default: StyleType.FOREGROUND)
+- `steps` (int | None): Number of gradient steps (default: None, uses text length)
+
+**Usage:** Call the created instance with a text string to apply the gradient. Example:
+
+**Returns:** A callable object that accepts text and returns text with gradient ANSI escape codes
+
+</div>
 
 #### `kroma.CustomStyle(**kwargs)`
 
@@ -423,6 +555,17 @@ kroma.style("text", foreground=kroma.ANSIColors.RED, background=kroma.HTMLColors
 </div>
 
 ### Enums
+
+#### `kroma.StyleType`
+
+<div class="indented">
+
+Enum for specifying whether styles should be applied to the foreground (text) or background.
+
+- `FOREGROUND` - Text color
+- `BACKGROUND` - Background color
+
+</div>
 
 #### `kroma.HTMLColors`
 
