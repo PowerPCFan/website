@@ -8,17 +8,6 @@
 
 Meet Kroma, a lightweight and powerful library for terminal output in Python. It allows you to set colors, text formatting, and more with ease.
 
-<!-- commented out because v1 isnt available on pypi anymore, so v2 is really the "first version" -->
-<!-- ## What's New in v2
-
-Kroma v2 introduces a unified API that simplifies the library's interface:
-
-- **Unified `style()` function**: No more separate `html_color.style()` and `ansi_color.style()` functions, for simplicity and ease of use.
-- **Single import pattern**: Everything is now imported directly from `kroma` (however, you can still use the `from kroma import ...` pattern if you'd like)
-- **Error handling**: The new `MixedColorTypesError` is raised when ANSI and HTML color types are mixed, preventing formatting errors.
-- **Gradient support**: New `gradient()` function and `CustomGradient` class for creating smooth color transitions across text.
-- **Multi-stop gradients**: Support for gradients with multiple color stops, not just two-color gradients. -->
-
 ## Links
 - [GitHub Repository](https://github.com/PowerPCFan/kroma)
 - [Documentation (this page)](https://www.powerpcfan.xyz/docs/kroma/v2)
