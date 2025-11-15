@@ -246,8 +246,59 @@ print(kroma.style(
 Output:  
 ![10](/images/docs/kroma/image10.png)
 
-- `kroma.lighten(color, amount)` - Makes a color lighter
-- `kroma.darken(color, amount)` - Makes a color darker
+### Mixing Colors
+
+You can blend two colors together with `mix()`:
+
+```python
+import kroma
+
+print(kroma.style(
+    "This text uses a color mixed from red and blue.",
+    foreground=kroma.mix(kroma.HTMLColors.RED, kroma.HTMLColors.BLUE, 30)
+))
+```
+
+### Color Inversion
+
+Invert any color to get its complement:
+
+```python
+import kroma
+
+color = kroma.HTMLColors.DARKBLUE
+
+print(kroma.style("Original color", background=color))
+print(kroma.style("Inverted color", background=kroma.invert(color)))
+```
+
+### Grayscale Conversion
+
+Convert any color to grayscale while preserving percepted luminance:
+
+```python
+import kroma
+
+print(kroma.style(
+    "This colorful text becomes grayscale but is still very readable.",
+    foreground=kroma.convert_to_grayscale(kroma.HTMLColors.ORANGE),
+    background=kroma.convert_to_grayscale("#4169E1")
+))
+```
+
+### Random Colors
+
+Generate colors based on your system's hardware entropy for truly random styling:
+
+```python
+import kroma
+
+for i in range(5):
+    print(kroma.style(
+        f"This is line {i + 1}/5 with a random color!",
+        foreground=kroma.random_color()
+    ))
+```
 
 ## Gradients
 
@@ -468,6 +519,60 @@ Makes a color darker by the specified percentage.
 - `percentage` (float): The percentage to darken (0-100)
 
 **Returns:** `str` - HEX color code of the darkened color
+
+</div>
+
+#### `kroma.mix(color1, color2, ratio=50.0)`
+
+<div class="indented">
+
+Blends two colors together based on the specified ratio.
+
+**Parameters:**
+- `color1` (HTMLColors | str): The first color to mix (HTML color enum or HEX string)
+- `color2` (HTMLColors | str): The second color to mix (HTML color enum or HEX string)
+- `ratio` (float): The mixing ratio as a percentage (0-100, default: 50.0). 0 returns color1, 100 returns color2
+
+**Returns:** `str` - HEX color code of the mixed color
+
+</div>
+
+#### `kroma.invert(color)`
+
+<div class="indented">
+
+Returns the inverted/complementary color by subtracting each RGB component from 255.
+
+**Parameters:**
+- `color` (HTMLColors | str): The color to invert (HTML color enum or HEX string)
+
+**Returns:** `str` - HEX color code of the inverted color
+
+</div>
+
+#### `kroma.convert_to_grayscale(color)`
+
+<div class="indented">
+
+Converts a color to grayscale using luminance-preserving weights (0.299 for red, 0.587 for green, 0.114 for blue).
+
+**Parameters:**
+- `color` (HTMLColors | str): The color to convert (HTML color enum or HEX string)
+
+**Returns:** `str` - HEX color code of the grayscale equivalent
+
+</div>
+
+#### `kroma.random_color()`
+
+<div class="indented">
+
+Generates a random color with RGB values between 0-255.
+
+**Parameters:** None
+
+**Returns:** `str` - HEX color code of a randomly generated color
+
 </div>
 
 ### Classes
