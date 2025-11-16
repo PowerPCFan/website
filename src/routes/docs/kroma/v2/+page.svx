@@ -231,7 +231,7 @@ Output:
 
 ### Lightening and Darkening Colors
 
-Kroma also provides utility functions to manipulate color brightness at runtime. It works with both HTML colors and HEX codes, however it does not work with ANSI colors.
+Kroma provides utility functions to manipulate color brightness at runtime. It works with both HTML colors and HEX codes, however it does not work with ANSI colors.
 
 ```python
 import kroma
@@ -245,6 +245,28 @@ print(kroma.style(
 
 Output:  
 ![10](/images/docs/kroma/image10.png)
+
+### Saturation Control
+
+Increase or decrease color saturation:
+
+```python
+import kroma
+
+saturated = kroma.saturate(kroma.HTMLColors.SLATEBLUE, 30)
+desaturated = kroma.desaturate(kroma.HTMLColors.SLATEBLUE, 30)
+
+print(kroma.style(
+    "This text uses a more saturated slate blue color.",
+    foreground=saturated
+))
+
+print(kroma.style(
+    "This text uses a less saturated slate blue color.",
+    foreground=desaturated
+))
+
+```
 
 ### Mixing Colors
 
@@ -385,7 +407,7 @@ print(sunset_gradient("And this one too!"))
 
 ### Multi-Line Gradient Handling
 
-Kroma's gradient function handles multi-line text by treating each line as a separate entity, causing each line to have the same gradient instead of the gradient spanning the lines.
+Kroma's gradient function handles multi-line text by treating each line as a separate entity, causing each line to have the same gradient instead of the gradient spanning the lines. This ensures that each line is readable and consistent.
 
 ```python
 import kroma
@@ -535,6 +557,8 @@ Blends two colors together based on the specified ratio.
 
 **Returns:** `str` - HEX color code of the mixed color
 
+**Note:** The mixing is performed in the sRGB color space, so there may be some possible inaccuracies due to gamma correction. This is being investigated and possibly improved in future versions.
+
 </div>
 
 #### `kroma.invert(color)`
@@ -567,11 +591,13 @@ Converts a color to grayscale using luminance-preserving weights (0.299 for red,
 
 <div class="indented">
 
-Generates a random color with RGB values between 0-255.
+Generates a random color with RGB values between 0-255 using cryptographically strong randomness.
 
 **Parameters:** None
 
 **Returns:** `str` - HEX color code of a randomly generated color
+
+**Note:** Uses Python's `secrets.randbelow(256)` for each RGB component to ensure high-quality randomness based on system entropy.
 
 </div>
 
@@ -622,7 +648,17 @@ Creates a reusable style object that can be applied to multiple strings. Works w
 #### `kroma.ansi_supported`
 
 <div class="indented">
-Boolean value that's True if the current terminal supports ANSI escape codes, otherwise False. If the user is on Windows, ANSI support will try to be enabled before declaring ANSI as unsupported.
+Boolean value that's True if the current terminal supports ANSI escape codes, otherwise False. On Windows, Kroma will automatically attempt to enable Virtual Terminal Processing before checking support.
+
+**Detection includes:**
+- **NO_COLOR environment variable:** Respects the NO_COLOR standard
+- **Windows-specific detection:** 
+  - Attempts to enable Virtual Terminal Processing via Windows Console API
+  - Detects ANSICON terminals
+  - Detects Windows Terminal (`WT_SESSION`)
+  - Detects VS Code integrated terminal (`TERM_PROGRAM=vscode`)
+  - Detects xterm-compatible terminals
+- **Unix-like systems:** Uses standard TTY detection
 
 **Note: `ansi_supported` is only intended to be used if you aren't using Kroma's color functions, and you are just using Kroma for checking if ANSI is supported. Kroma's style functions automatically check if ANSI is supported before applying styles, so you don't need to check it manually.**
 
