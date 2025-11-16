@@ -93,7 +93,7 @@
                 <i class="font-awesome-icon fa-brands fa-steam"></i>
                 <span class="ul">Steam</span>
             </a>
-            <a class="link" href="mailto:charlies.retro.computing@gmail.com" target="_blank">
+            <a class="link" href="mailto:charlie@powerpcfan.xyz" target="_blank">
                 <i class="fa-solid fa-envelope"></i>
                 <span class="ul">Email</span>
             </a>
