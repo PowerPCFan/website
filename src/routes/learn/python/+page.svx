@@ -1,3 +1,9 @@
+<script lang="ts">
+    import Title from "$lib/components/title.svelte";
+</script>
+
+<Title title="Learn Python"></Title>
+
 # Learn Python
 
 ## Lesson 1: Basics of Python
