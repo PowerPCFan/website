@@ -1,0 +1,578 @@
+# Learn Python
+
+## Lesson 1: Basics of Python
+
+### 1.1 | Hello, World!
+Time to write your first Python program! In Python, you can print text to the console using the builtin `print()` function.
+
+```python
+print("Hello, World!")
+```
+
+### 1.2 | Variables and Data
+Variables store objects that can be reused. Python has many built-in data types like integers, floats, strings, and lists.
+Below, we create some variables of different types. The types are indicated in the comments.
+
+#### 1.2.1 | Comments
+Comments in Python are made using the `#` symbol and can be placed on their own line or at the end of a line of code. When the computer interprets the code, it ignores comments, so you can put anything in them that helps you understand the code.
+
+#### 1.2.2 | Assigning Variables
+You can create a variable by assigning it a value using the `=` operator.
+
+#### 1.2.3 | Reassigning Variables
+You can reassign variables with new values using the same `=` operator, however try to avoid doing this too often.
+
+```python
+name = "Johnny Appleseed"                     # String type
+age = 42                                      # Integer type
+bank_balance = 129627.99                      # Float type
+student = False                               # Boolean type
+favorite_colors = ["Sky Blue", "Pine Green"]  # List type
+```
+
+#### 1.2.4 | Type-Specific 
+
+#### 1.2.5 | Variable Naming Conventions
+Variables should be in 'snake_case' (example: `my_variable_name`) and should start with a letter (or underscore for special cases). You can also use 'camelCase' but it's discouraged by PEP (Python Enhancement Proposal) and not as common. Do not use reserved keywords or builtin names / types as variable names, since that overwrites them. Variable names should be descriptive but not too long.
+
+### 1.3 | Basic Operations and Math
+Python can perform basic math operations like addition, subtraction, multiplication, and division using standard symbols.
+
+```python
+# Basic
+addition = 10 + 10        # 20
+subtraction = 25 - 5      # 15
+multiplication = 4 * 5    # 20
+division = 20 / 3         # 6.666666666666667
+
+# More advanced
+floor_division = 20 // 3  # 6
+modulus = 20 % 3          # 2
+exponentiation = 2 ** 3   # 8
+
+# Combining operations
+combined = (10 + 5) - 3   # 12
+```
+
+A more detailed explanation on the advanced operations:
+- Floor division: Divides and rounds down to the nearest whole number. Same as dividing normally and using `math.floor()` on the result, but you haven't learned how to do that yet.
+- Modulus: Gives the remainder of a division operation. If `number % divisor` equals 0, then `number` is divisible by `divisor`. (This may be useful for later exercises... remember this...)
+- Exponentiation: Raises a number to the power of another number. Syntax is `base ** exponent`.
+
+### 1.4 | Mini Exercise
+Practice your new skills with this exercise! Create a Python script that does the following:
+
+1. Create a variable called `name` and assign it your name as a string.
+2. Create a variable called `age` and assign it your age as an integer.
+3. Repeat these steps for a friend or family member.
+4. Print out your name and age, your friend/family member's name and age, and the sum of your ages.
+
+Example output for this exercise:
+```
+Alice
+30
+Bob
+32
+62
+```
+
+## Lesson 2: Strings, Input, and CLI Apps
+### 2.1 | So, what exactly are strings?
+Strings are basically just plaintext values. You create them with quotes (both single quotes `'value'` and double quotes `"value"` work).
+
+```python
+string = "I love Python!"
+print(string)
+```
+
+### 2.2 | An introduction to input
+Python has a basic `input()` function that can prompt the user to type something in the terminal. The function will wait until the user presses Enter, and then return whatever the user typed as a string.
+
+Example:
+```python
+user_name = input("What is your name? ")
+print("Hello, " + user_name + "!")
+```
+
+Now you might be wondering, "what do the plus signs do in the print statement above?" They are used to concatenate strings. Learn about string concatenation in section 2.3!
+
+### 2.3 | String Operations
+Here are some different ways you can manipulate strings. These are very useful and essential skills that seem basic but get used very often. You can also combine different string operations to do more complex tasks.
+
+#### 2.3.1 | Concatenation
+You can combine (concatenate) strings using the `+` operator.
+
+```python
+string1 = "String 1"
+string2 = "String 2"
+
+combined_string = string1 + " " + string2
+
+print(combined_string)  # Output: String 1 String 2
+```
+
+#### 2.3.2 | Repetition
+You can repeat strings using the `*` operator. It's the same operator as multiplication since it's basically "multiplying" the string. (Keep in mind that it is *not* the same as multiplication, and if you try to do something like `"1" * "2"` it will throw an error.)
+
+```python
+print("Echo! " * 4)  # Output: Echo! Echo! Echo! Echo!
+```
+
+#### 2.3.3 | Slicing
+You can extract parts of strings using slicing. Slicing uses square brackets `[]` and a colon `:` to specify the start and end indices. This can be tricky, so here are some examples that should help clarify things.
+
+Note: Indices in Python start at 0, so the first character of a string is at index 0, the second character is at index 1, and so on. When slicing, the start index is inclusive (the character at that index is included), while the end index is exclusive (the character at that index is not included).
+
+The rule that indices start at 0 applies everywhere in Python, not just with strings. This includes lists, tuples, and other data structures. The only exception is in certain functions where you can specify a starting position, and in functions like `len()` which returns the length of a string starting at 1 (it would be pretty weird if it started at 0!).
+
+##### 2.3.3.1 | Getting the first `x` chars of a string
+```python
+string = "Hello, World!"
+first_five = string[0:5]
+print(first_five)  # output: Hello
+```
+
+Note: this can be shortened to `string[:5]` since the start index defaults to 0.
+
+##### 2.3.3.2 | Getting the last `x` chars of a string
+```python
+string = "Hello, World!"
+last_six = string[-6:]
+print(last_six)  # output: World!
+```
+
+##### 2.3.3.3 | Getting a substring from the middle of a string
+```python
+string = "Lorem ipsum dolor sit amet"
+substring = string[6:17]
+print(substring)  # output: ipsum dolor
+```
+
+### 2.4 | Mini Exercise 1
+Time to practice string manipulation and input! Create a Python script that does the following:
+1. Asks the user what their favorite color is
+2. Prints the color in a sentence, like "The user's favorite color is (insert color here)."
+
+### 2.5 | Mini Exercise 2
+Time to create your first CLI app! Your task: create a simple calculator. Combine your knowledge of input, math operations, and string manipulation to create a program that:
+- Supports addition, subtraction, multiplication, and division
+- Asks the user for an operation of choice and two numbers to apply the operation to
+- Completes the operation and prints the result in a user-friendly and readable way to the console
+
+Note: you are not allowed to use the `eval()` function for this exercise. It is also generally bad practice to use `eval()` at all since it can introduce severe vulnerabilities.
+
+## Lesson 3: Conditional Statements and Logic
+### 3.0 | Important Note
+Python relies on indentation to know which code belongs together in a block.
+
+After the "starting statement" of a block, such as `if condition:` or `while condition:`, you must indent the code under it that belongs to that block. You can configure your editor to use 4 spaces or one tab, it's up to personal preference, but be consistent and don't mix tabs and spaces. If you do, you'll encounter `IndentationError`s.
+
+*Note: the examples below uses if statements. You will learn about those in the next section.
+
+Example (correct):
+```python
+age = 13
+
+if age >= 18:
+    print("You are an adult")
+```
+
+Example (wrong - won't run):
+```python
+age = 13
+
+# No indentation - error!
+if age >= 18:
+print("You are an adult")
+```
+
+### 3.1 | Intro to Conditions
+Conditions let Python make decisions based on whether a statement is True or False.
+
+```python
+rainy = True
+
+if rainy:
+    print("Take an umbrella!")
+```
+
+### 3.2 | Comparison Operators
+Comparison operators let you compare values and they are very useful  Here are the most common ones:
+- `==` : Equal to
+- `!=` : Not equal to
+- `>` : Greater than
+- `<` : Less than
+- `>=` : Greater than or equal to
+- `<=` : Less than or equal to
+- `in` : Checks if a value is in a collection (like a list or string)
+- No operator : In Python, you can also check for truthiness or falsiness without an explicit operator. For example, `if variable:` checks if `variable` is truthy, no need to type `if variable == True:`. Same goes for falsiness, just use `if not variable` instead of `if variable == False`. Note that these are slightly different since specifying `== True` or `== False` checks for exact equality, while truthiness/falsiness checks evaluate the "truthy" or "falsy" nature of the value, so `if variable:` will evaluate to True for any truthy value (like non-empty strings, non-zero numbers, etc.) while `if variable == True:` only evaluates to True if `variable` is exactly `True`. Before choosing which one to use, consider your use case and use which one makes the most sense. In most cases, you don't need to explicitly check for `== True` or `== False`.
+
+Usage examples:
+```python
+int1 = 10
+int2 = 20
+list1 = [10, 20, 30]
+none1 = None
+
+if int1 < int2:
+    print("int1 is less than int2")
+
+if int1 in list1:
+    print("int1 is in list1")
+
+# note: `not` will be covered in the next section, section 3.3 - Logical Operators
+# basically, it just flips the value of the condition so True becomes False and False becomes True
+if not none1:
+    print("none1 is falsy (None is considered falsy in Python, since it's literally 'nothing')")
+```
+
+### 3.3 | Logical Operators / Boolean Operators
+Logical operators let you combine multiple conditions together. Here are the most common ones:
+- `and` : True if both conditions are true
+- `or` : True if at least one condition is true.
+- `not` : Inverts the truth value of a condition (True becomes False, False becomes True).
+
+JavaScript equivalents (ignore if you don't know JavaScript):
+- `and` is like `&&`
+- `or` is like `||`
+- `not` is like `!`
+
+You can combine logical operators with comparison operators.
+
+Usage examples:
+```python
+age = None
+input_enabled = input("Would you like to enable age input? (yes/no): ")
+
+if input_enabled == "yes":
+    age = input("Please enter your age: ")
+
+if age is not None:
+    print("Your age is " + age + ".")
+```
+
+### 3.4 | If, Else, and Elif
+You can use `else` and `elif` (short for "else if") along with `if` statements to create as many logic branches as you want.
+
+Note: The below example uses `int()`. `int()` is used to convert values to integers. It will raise an error if a non-integer value is provided, such as "aaaaa" instead of "66".
+
+Here's some code for a simple CLI script that tells the user how the weather is based on the temperature they provide.
+```python
+temperature_raw = input("What is the temperature outside (°F)? ")
+
+if not temperature_raw:
+    print("No temperature was provided. Exiting...")
+    exit()
+
+temperature = int(temperature_raw)
+
+if temperature > 75:
+    print("It's hot outside!")
+elif temperature >= 55:
+    print("It's a nice day.")
+elif temperature >= 40:
+    print("It's a bit chilly.")
+elif temperature >= 20:
+    print("It's cold.")
+else:
+    print("It's very cold!")
+```
+
+### 3.5 | Quick Exercise: Guess the Number Game
+Create a simple "Guess the Number" game using conditional statements and logical operators. The program should:
+1. Define a variable with the number that the user should guess. 'Hardcode' this value since you don't know how to generate random numbers yet.
+2. Prompt the user to input their guess.
+3. Use conditional statements along with comparison operators to check if the user's guess is:
+    - Correct (equal to the generated number)
+    - Too high (greater than the generated number)
+    - Too low (less than the generated number)
+4. Print an appropriate message based on the evaluation of the user's guess in step 3.
+
+### 3.6 | Nesting Conditions
+You can nest conditions inside other conditions to create more complex logic. It's recommended to avoid nesting more than a few levels deep to keep your code readable.
+
+Note: The below example uses `.lower()`. `lower()` is a string method that converts all characters in a string to lowercase. For example, defining `text = "Hello` and running `text.lower()` will return `"hello"`. This can be useful for user input, since users may type in different cases (like "Yes" instead of "yes").
+
+Here's an example of a fake concert entry system that checks age and ticket possession.
+```python
+print("--- Concert Entry System ---")
+
+age = int(input("Enter your age: "))
+has_ticket = input("Do you have a ticket? (yes/no) ").lower()
+
+if age >= 18:
+    if has_ticket == "yes" or has_ticket == "y":
+        print("Welcome to the concert! Enjoy the show!")
+    else:
+        print("You need a ticket to enter the concert.")
+else:
+    print("You are too young to enter the concert.")
+```
+
+### 3.7 | Intro to Loops
+Loops allow you to repeat a block of code multiple times until a certain condition is met. There are two main types of loops in Python: `while` loops and `for` loops. `while` loops repeat as long as a condition is true, while `for` loops iterate over a sequence (like a list or string). Both have different use cases and it's important to use the right one for your specific needs.
+
+#### 3.7.1 | While Loops
+A `while` loop continues to execute as long as its condition is true.
+
+```python
+loops = 0
+
+while loops < 5:
+    print("This is loop number " + str(loops + 1))
+    loops += 1  # When using while loops with a counter variable, you need to increment the counter manually at some point in the loop.
+```
+
+These can be useful for retrying operations until they succeed, such as downloading a file. Pretend `download_file()` is a function that downloads a file and returns True on success and False on failure.
+
+```python
+success = False
+
+while not success:
+    success = download_file()
+    if not success:
+        print("Download failed, retrying...")
+
+# Once it succeeds, it will exit the loop and print this
+print("Download succeeded!")
+```
+
+#### 3.7.2 | For Loops
+A `for` loop iterates over a sequence (like a list or string) and executes the block of code for each item in the sequence. I'd say these are used more often than `while` loops in Python, and they can be useful for lots of tasks, such as:
+- Running operations on each item in a list or other sequence
+- Repeating a block of code a specific number of times (similar to a `while` loop with a counter variable, but slightly different since you usually need to know the amount of times the loop will run ahead of time, so this might not be suitable for operations that need to retry until success like downloading things.)
+
+Example 1: Making every item in a list title case (done by using the `.title()` string method).
+```python
+grocery_list = ["eGGS", "BREAD", "milk", "APPLEs"]
+new_grocery_list = []
+
+# Enumerate returns a tuple of (index, item) for each item in the list.
+for item in grocery_list:
+    new_item = item.title()
+    new_grocery_list.append(new_item)
+
+print("Grocery list fixed:")
+print(new_grocery_list)
+```
+
+Example 2: Repeating a block of code a specific number of times.
+```python
+# `range(x)` generates a sequence of numbers from 0 to x - 1. For example, `range(5)` generates 0, 1, 2, 3, 4, which when used in a for loop will run the loop 5 times.
+
+for index in range(5):
+    # You need to add 1 to the index when printing it, because Python's indices start at 0 (see section 2.3.3 for more info on this).
+    print("This is loop number " + str(index + 1))
+```
+
+#### 3.7.3 | Infinite loops with `while`
+You can create an infinite loop with a `while` loop by using a condition that is always true, such as `while True:`. Be cautious when using infinite loops, as they will continue running until you manually stop them. If you don't need your code to run forever, don't use infinite loops.
+
+```python
+while True:
+    print("This message will print forever until you stop it!!!")
+```
+
+### 3.8 | Controlling loops
+You can control the flow of loops using the `break` and `continue` statements.
+- `break`: Exits the loop immediately. This works in infinite loops as well, allowing you to stop the loop based on a condition. (Although, if you're doing that, you should probably just use a regular `while` loop with said condition.)
+- `continue`: Skips the current iteration and moves to the next one. In a `for` loop, it will move to the next item in the iterable object and in a `while` loop, it will re-evaluate the condition and continue if it's still true. Continue is useless in infinite loops. It's also useless at the end of loops since the loop will end anyway, although it doesn't harm anything to have it there.
+
+This snippet cleans up a messy list and removes everything except for truthy values.
+```python
+my_list = ["string", 3, 3.14, None, False, "", 0]
+cleaned_list = []
+
+for item in my_list:
+    if not item:
+        print("Skipping falsy value '" + str(item) + "'.")
+        # continue - skip to next iteration
+        continue
+
+    cleaned_list.append(item)
+```
+
+This snippet searches for a specific value in a list and exits the loop once it finds it.
+```python
+my_list = ["boring", "boring", "boring", "not boring", "boring"]
+
+for item in my_list:
+    if item == "not boring":
+        print("Found the string!")
+        # break - exit loop
+        break
+```
+
+### 3.9 | FizzBuzz Exercise
+FizzBuzz is a programming exercise for loops and conditional statements. Your goal is to print every number from 0 to 100. However, if a number is a multiple of 3, print "Fizz". For multiples of 5, print "Buzz". For numbers that are multiples of both 3 and 5, print "FizzBuzz". If a number doesn't meet any of these conditions, just print the number itself.
+
+Things to remember when writing your solution:
+1. Use a `for` loop with `range(x)`. Remember how `range()` works - `range(100)` probably doesn't do what you expect, and isn't what you want here. 
+2. Use the modulus operator (`%`) to check for multiples of 3 and 5. (Remember what I told you back in lesson 1 about this being important later on? Well this is why!)
+
+## Lesson 4: Functions & Code Organization / Best Practices
+### 4.1 | What are Functions?
+Functions are reusable blocks of code that perform a specific task. Every well-structured program uses functions to organize code into manageable pieces. Functions help improve code readability, maintainability, and reusability.
+
+They also help you follow the DRY (Don't Repeat Yourself) principle, which is a best practice in programming. It allows you to maintain and update code much easier in the future if you only have the code in one spot compared to multiple spots.
+
+### 4.2 | Creating Simple Functions
+You can create a function using the `def` keyword, followed by the function name and parentheses `()`. If the function takes parameters, you can list them inside the parentheses. The function body is indented below the function definition.
+
+Here's an example of a simple Hello World program wrapped in a main function:
+```python
+def main():
+    print("Hello, World!")
+
+if __name__ == "__main__":
+    main()
+```
+
+You may have noticed I used this line:
+```python
+if __name__ == "__main__":
+```
+
+This statement is used for checking if the script is being run directly or as a module. You likely don't know what modules are yet, but for scripts being ran from the terminal (`python3 filename.py`) you should wrap your main function call in this conditional. This prevents your main function from being called automatically upon import.
+
+### 4.3 | Function Parameters and Return Values
+Functions can take parameters (inputs) and return values (outputs). Parameters allow you to pass data into functions, while return values allow functions to send data back to the caller. It's basically the same as functions in math - you give it an input (arguments) and it gives you an output (return value).
+
+To input values, you need to understand function structure. Functions are called by their name followed by parentheses `()` - so like `function_name()`. If the function takes parameters, you provide the arguments inside the parentheses. Arguments can be provided as positional arguments or keyword arguments. Some functions only accept args, some only accept kwargs, and some accept both. Usually, it's best to use positional arguments for required parameters and keyword arguments for optional parameters, but it depends on the specific function and its design, and also your style preference. Here's what that might look like:
+
+```python
+# Pretend that function_name accepts three parameters, and param3 is optional
+
+#             param1  param2         param3
+function_name(value1, value2, param3=value3)
+```
+
+To return values, use the `return` keyword followed by the value you want to return.
+
+Here's an example of a function that takes two parameters and returns their sum. In practice, this function is useless since you can just use the `+` operator directly, but it's just an example to illustrate how functions work.
+```python
+def add_numbers(num1, num2):
+    return num1 + num2
+```
+
+Now, this is how you can capture the return value of a function and use it:
+```python
+def add_numbers(num1, num2):
+    return num1 + num2
+
+result = add_numbers(5, 10)
+print("The sum is: " + str(result))
+```
+
+You can also call functions inside other functions, and you can use functions in function calls as well. This example shows both (function call that calls another function, inside of a function):
+```python
+def multiply_numbers(num1, num2):
+    return num1 * num2
+
+def add_numbers(num1, num2):
+    return num1 + num2
+
+def add_and_multiply(num1, num2, num3):
+    return multiply_numbers(add_numbers(num1, num2), num3)
+```
+
+### 4.4 | Functions with No Return Value
+It's important to know that not all functions need to return a value. Some functions perform actions without returning anything. In Python, if a function doesn't have a `return` statement, it implicitly returns `None`. You can also specify `return None` explicitly if you want to make it clear that the function doesn't return a value, but it's entirely up to you.
+
+Here's an example of a function that prints a message but doesn't return any value:
+```python
+def greet_user(name):
+    print("Hello, " + name + "!")
+    # Doesn't return anything
+
+# Still works as expected
+greet_user("Alice")  # Output: Hello, Alice!
+greet_user("Bob")    # Output: Hello, Bob!
+```
+
+If you try to capture the return value of this function, you'll get `None`, it doesn't throw an error or anything.
+
+### 4.5 | Mini Exercise: using previously learned principles inside functions
+Everything you previously learned works inside functions. For example, here's a FizzBuzz app that uses functions. (Hopefully nobody uses this to cheat on lesson 3! :D)
+
+```python
+def fizzbuzz(number):
+    if number % 3 == 0 and number % 5 == 0:
+        return "FizzBuzz"
+    elif number % 3 == 0:
+        return "Fizz"
+    elif number % 5 == 0:
+        return "Buzz"
+    else:
+        return str(number)
+
+def main():
+    for i in range(101):
+        print(fizzbuzz(i))
+
+if __name__ == "__main__":
+    main()
+```
+
+Now, it's your turn! Rewrite one of the earlier exercises (your choice, but I highly discourage picking Hello World or something) using functions. Make sure to use parameters and return values where appropriate.
+
+### 4.6 | Understanding variable scope
+Variables have different scopes, which determine where they can be accessed in your code. The two main types of variable scope are global scope and local scope.
+
+Python has a pretty straightforward scoping system compared to some other languages, so you shouldn't have too much trouble understanding it. This can be both a blessing and a curse, since it makes it easy to accidentally overwrite variables if you're not careful. JavaScript, for example, has a block scope system that prevents this kind of issue from happening, but it also makes it more complex to understand.
+
+Python is function-scoped, meaning that variables defined inside a function are local to that function and cannot be accessed outside of it. Variables defined outside of any function are global and can be accessed from anywhere in the code, including inside functions. However, in order to *modify* global variables inside a function, you need to use the `global` keyword.
+
+#### 4.6.1 | Local Scope
+```python
+def my_function():
+    local_variable = "I'm local to my_function"
+    print(local_variable)  # This works
+
+print(local_variable)  # This will raise an error
+```
+
+#### 4.6.2 | Global Scope
+```python
+global_variable = "I'm a global variable"
+
+def my_function():
+    print(global_variable)  # This works
+
+print(global_variable)  # This also works
+```
+
+#### 4.6.3 | Modifying Global Variables inside a Local Scope
+```python
+global_var = 10
+
+def my_function():
+    # Declare that we want to use the global variable
+    global global_var
+    # NOW, we can modify it
+    global_var = 20
+
+def my_function2():
+    # This will not work as expected, since we didn't declare `global`
+    global_var = 20
+```
+
+#### 4.6.4 | Modifying Global Variables inside a Global Scope
+It's very straightforward, you just assign it just like normal.
+```python
+global_var = 10
+
+# modifying global variable in global scope
+global_var = 20
+```
+
+### 4.7 | Beginner Mistakes to Avoid
+Here are some common mistakes that beginners make when working with functions and variable scope in Python:
+- Forgetting to call the function after defining it: Functions do NOTHING until you call them, even if you put things like print statements inside them.
+- Messing up the indentation: Functions, just like conditionals and loops, rely on indentation to define their scope. Make sure the function body is properly indented, otherwise you'll get an `IndentationError`, `SyntaxError`, or erratic behavior.
+- Accidentally creating new local variables instead of modifying global ones: Don't forget `global` - this is covered in detail in section 4.6's subsections.
+- Overusing global variables: They can be useful but relying on them too heavily can make your code less readable and maintainable, and it can cause issues too. Try to pass variables as parameters when possible instead of using globals. Ideally you shouldn't have any global variables at all, but that's not too practical for beginners and in some cases you need them, so having a few is fine.
+    - Somewhat related to this: I've seen beginners use global variables to assign the final result of a function to that variable instead of using return values. This defeats the purpose of functions and belongs on [r/programminghorror](https://www.reddit.com/r/programminghorror/). Please don't do this and just use return values.
+
+
+# More lessons soon, check back later!
