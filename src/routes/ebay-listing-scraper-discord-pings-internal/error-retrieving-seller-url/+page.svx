@@ -1,2 +1,0 @@
-# An error occurred
-There was an error retrieving the seller URL. Apologies for the inconvenience.
