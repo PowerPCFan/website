@@ -39,6 +39,9 @@
         <a target="_blank" href="https://eesa.lol">
             <img alt="eesa" src="/images/88x31/eesa.png" />
         </a>
+        <a target="_blank" href="https://figgy.oops.wtf">
+            <img alt="figgy" src="/images/88x31/figgy.gif" />
+        </a>
     </div>
 </div>
 
