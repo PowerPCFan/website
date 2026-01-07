@@ -11,5 +11,6 @@
         padding-inline: 1.5rem;
         padding-block: 0.25rem;
         margin: 0;
+        height: 100%;
     }
 </style>
