@@ -36,7 +36,7 @@
         width: auto;
         height: 40px;
         background-color: g.$border;
-        border-radius: 20px;
+        border-radius: 1.25rem;
         cursor: pointer;
         padding: 0 10px;
         overflow: hidden;
@@ -46,8 +46,8 @@
         position: absolute;
         top: 3px;
         height: 80%;
-        background-color: #2196F3;
-        border-radius: 17px;
+        background-color: g.$primary;
+        border-radius: 1rem;
         transition: left 0.3s, width 0.3s;
         z-index: 1;
         width: 50%;

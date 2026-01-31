@@ -1,6 +1,6 @@
 <script lang="ts">
     import Title from '$lib/components/title.svelte';
-    import type { Songs } from '$lib/types/song';
+    import type { Songs, NameURLComboWithYear } from '$lib/types/song';
     import favoriteSongs from '$lib/data/songs.json';
 
     const songs = favoriteSongs.songs as Songs;
@@ -8,13 +8,21 @@
 
 <Title title="Favorite Songs" />
 
-{#snippet song(id: string, title: string, thumbnail: string)}
+{#snippet song(
+    id: string,
+    title: string,
+    artist: string,
+    album: NameURLComboWithYear,
+    thumbnail: string
+)}
     <div class="song">
         <a href="/music/songs/song/{id}">
             <img loading="lazy" src={thumbnail} alt={title} />
 
             <div class="item-info">
                 <p class="title">{title}</p>
+                <p class="artist"><span class="by">by</span> {artist}</p>
+                <p class="album"><span class="on">on</span> <span class="italic">{album.name}</span> ({album.year})</p>
             </div>
         </a>
     </div>
@@ -25,7 +33,13 @@
 
     <div class="song-grid">
         {#each songs as s}
-            {@render song(s.id, s.metadata.title, s.images.thumbnail)}
+            {@render song(
+                s.id,
+                s.metadata.title,
+                s.metadata.artist.name,
+                s.metadata.album,
+                s.images.thumbnail
+            )}
         {/each}
     </div>
 </div>
@@ -47,7 +61,7 @@
 
         .song-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
             gap: 25px;
             width: 100%;
             max-width: 80vw;
@@ -63,7 +77,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        position: relative;
+        // position: relative;
 
         transition: transform 0.3s ease;
 
@@ -74,22 +88,16 @@
         a {
             display: block;
             width: 100%;
-            // height: 100%;
             margin: 0;
             padding: 0;
             text-decoration: none;
 
             img {
                 width: 100%;
-                // height: 100%;
-                // object-fit: cover;
+                aspect-ratio: 1 / 1;
+                object-fit: cover;
                 display: block;
                 border-radius: 0;
-                // transition: transform 0.3s ease;
-
-                // &:hover {
-                //     transform: scale(1.1);
-                // }
             }
         }
 
@@ -99,10 +107,37 @@
             margin-block: 0.75rem;
 
             .title {
-                font-weight: bold;
+                font-weight: 800;
                 color: gv.$dark;
                 margin-block: 0;
                 font-size: 1rem;
+            }
+
+            .artist {
+                font-weight: 500;
+                color: gv.$lighter-dark;
+                margin-block: 0;
+                font-size: 0.9rem;
+
+                .by {
+                    font-weight: 300;
+                }
+            }
+
+            .album {
+                font-weight: 500;
+                color: gv.$lighter-dark;
+                margin-block: 0;
+                font-size: 0.9rem;
+
+                .italic {
+                    font-style: italic;
+                }
+
+                .on {
+                    font-style: normal;
+                    font-weight: 300;
+                }
             }
         }
     }

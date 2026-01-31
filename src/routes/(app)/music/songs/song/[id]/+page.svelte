@@ -64,6 +64,14 @@
         {:else if error}
             <div class="error">Error: {error}</div>
         {:else if songData}
+            <div class="back-navigation">
+                <a href="/music/songs" class="back-button glassy">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 -960 960 960" fill="#e3e3e3">
+                        <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" />
+                    </svg>
+                    Back
+                </a>
+            </div>
             <div class="song-info glassy">
                 <div class="album-cover">
                     <img src={songData.images.full} alt="Album cover for {songData.metadata.album.name}" />
@@ -274,6 +282,43 @@
         .loading, .error {
             font-size: 1.5rem;
             color: g.$light;
+        }
+    }
+
+    .back-navigation {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+
+        a {
+            color: g.$light;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        .back-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: g.$light !important;
+            text-decoration: none;
+            padding-block: 0.6rem;
+            padding-inline: 1.2rem;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 1rem;
+
+            svg {
+                transition: transform 0.2s ease;
+            }
+
+            &:hover {
+                svg {
+                    transform: translateX(-3px);
+                }
+            }
         }
     }
 
