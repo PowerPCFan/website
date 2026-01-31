@@ -1,4 +1,5 @@
 $light: #EBEBEB;
+$darker-light: darken($light, 15%);
 // $dark: #1C1C1C;
 $dark: #171717;
 $lighter-dark: lighten($dark, 10%);

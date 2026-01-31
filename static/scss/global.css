@@ -1,5 +1,6 @@
 :root {
     --light: #EBEBEB;
+    --darker-light: color-mix(in srgb, var(--light) 85%, black 15%);
     /* --dark: #1C1C1C; */
     --dark: #181818;
     --lighter-dark: color-mix(in srgb, var(--dark) 90%, white 10%);

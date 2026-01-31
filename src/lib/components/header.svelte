@@ -2,10 +2,21 @@
     <nav>
         <a class="navbar-item" href="/">Home</a>
         <a class="navbar-item" href="/shop">Shop</a>
-        <a class="navbar-item" href="https://blog.powerpcfan.xyz">Blog</a>
-        <a class="navbar-item" href="https://blinkl.ink">BlinkLink</a>
-        <a class="navbar-item" href="/gallery">Photography Gallery</a>
-        <!-- <a class="navbar-item" href="/newsletter">Newsletter</a> -->
+        <a class="navbar-item" href="/gallery">Photography</a>
+        <div class="navbar-item navbar-dropdown">
+            <span class="navbar-dropdown-trigger">Other Sites <i id="chevron" class="fa-solid fa-circle-chevron-down"></i></span>
+            <div class="navbar-dropdown-menu">
+                <a class="navbar-dropdown-item" href="https://blog.powerpcfan.xyz">Blog</a>
+                <a class="navbar-dropdown-item" href="https://blinkl.ink">BlinkLink</a>
+                <a class="navbar-dropdown-item" href="https://www.opticalmediagood.top">Optical Media Good</a>
+            </div>
+        </div>
+        <div class="navbar-item navbar-dropdown">
+            <span class="navbar-dropdown-trigger">Music <i id="chevron" class="fa-solid fa-circle-chevron-down"></i></span>
+            <div class="navbar-dropdown-menu">
+                <a class="navbar-dropdown-item" href="/music/favorite-songs">Favorite Songs</a>
+            </div>
+        </div>
         <div class="navbar-item navbar-dropdown">
             <span class="navbar-dropdown-trigger">Resources <i id="chevron" class="fa-solid fa-circle-chevron-down"></i></span>
             <div class="navbar-dropdown-menu">
