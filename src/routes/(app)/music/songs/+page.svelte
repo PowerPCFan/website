@@ -1,7 +1,7 @@
 <script lang="ts">
     import Title from '$lib/components/title.svelte';
     import type { Songs } from '$lib/types/song';
-    import favoriteSongs from '$lib/data/favorite-songs.json';
+    import favoriteSongs from '$lib/data/songs.json';
 
     const songs = favoriteSongs.songs as Songs;
 </script>
@@ -10,7 +10,7 @@
 
 {#snippet song(id: string, title: string, thumbnail: string)}
     <div class="song">
-        <a href="/music/favorite-songs/song/{id}">
+        <a href="/music/songs/song/{id}">
             <img loading="lazy" src={thumbnail} alt={title} />
 
             <div class="item-info">
@@ -21,7 +21,7 @@
 {/snippet}
 
 <div class="song-container">
-    <h1>Favorite Songs</h1>
+    <h1>Song Lyrics/Reviews</h1>
 
     <div class="song-grid">
         {#each songs as s}

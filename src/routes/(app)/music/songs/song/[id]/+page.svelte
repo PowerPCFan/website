@@ -28,7 +28,7 @@
         }
 
         try {
-            const response = await fetch(`/api/music/favorite-songs/song?id=${songId}`);
+            const response = await fetch(`/api/music/songs/song?id=${songId}`);
             const data = await response.json();
 
             if (!response.ok) {
@@ -47,7 +47,7 @@
         lyrics = normalLyrics;
         normalLyricsShowing = true;
         if (songData?.review) {
-            review = DOMPurify.sanitize(await marked.parse(songData?.review.reviewText ?? 'Error loading review.'));
+            review = DOMPurify.sanitize(await marked.parse(songData?.review.content ?? 'Error loading review.'));
         }
     });
 
@@ -205,7 +205,8 @@
         overflow: hidden;
         height: 100%;
         margin: 0;
-        width: 1000px;
+        width: 100%;
+        max-width: 1000px;
 
         .song-info {
             display: flex;
@@ -219,6 +220,8 @@
 
                 img {
                     max-width: 200px;
+                    width: 35vw;
+                    min-width: 100px;
                     border-radius: 8px;
                     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
                     // crop to 1:1 without stretching
@@ -271,6 +274,51 @@
         .loading, .error {
             font-size: 1.5rem;
             color: g.$light;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        .song-page {
+            max-width: 98vw;
+            padding: 1rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .song-page {
+            max-width: 100vw;
+            padding: 0.5rem;
+        }
+        .song-info {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 1rem;
+        }
+        .song-info .album-cover img {
+            max-width: 80vw;
+            min-width: 0;
+        }
+        .content-wrapper {
+            flex-direction: column !important;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .song-page {
+            padding: 0.25rem;
+        }
+        .song-info .details .song-title {
+            font-size: 1.2rem;
+        }
+        .song-info .details .artist,
+        .song-info .details .album {
+            font-size: 1rem;
+        }
+        .song-info .album-cover img {
+            max-width: 95vw;
+        }
+        .glassy {
+            padding: 0.5rem;
         }
     }
 

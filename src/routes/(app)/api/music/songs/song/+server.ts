@@ -1,5 +1,5 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import favoriteSongs from '$lib/data/favorite-songs.json';
+import favoriteSongs from '$lib/data/songs.json';
 
 export const GET: RequestHandler = async ({ url }) => {
     const id = url.searchParams.get('id');

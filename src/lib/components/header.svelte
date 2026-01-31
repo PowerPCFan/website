@@ -1,58 +1,59 @@
+<script lang="ts">
+</script>
+
+{#snippet navbarItem(path: string, text: string)}
+    <a class="navbar-item" href={path}>{text}</a>
+{/snippet}
+
+{#snippet navbarDropdown(name: string, items: Array<{path: string, text: string}>)}
+    <div class="navbar-item navbar-dropdown">
+        <span class="navbar-dropdown-trigger">{name} <i class="chevron fa-solid fa-circle-chevron-down"></i></span>
+        <div class="navbar-dropdown-menu">
+            {#each items as item}
+                <a class="navbar-dropdown-item" href={item.path}>{item.text}</a>
+            {/each}
+        </div>
+    </div>
+{/snippet}
+
 <header>
     <nav>
-        <a class="navbar-item" href="/">Home</a>
-        <a class="navbar-item" href="/shop">Shop</a>
-        <a class="navbar-item" href="/gallery">Photography</a>
-        <div class="navbar-item navbar-dropdown">
-            <span class="navbar-dropdown-trigger">Other Sites <i id="chevron" class="fa-solid fa-circle-chevron-down"></i></span>
-            <div class="navbar-dropdown-menu">
-                <a class="navbar-dropdown-item" href="https://blog.powerpcfan.xyz">Blog</a>
-                <a class="navbar-dropdown-item" href="https://blinkl.ink">BlinkLink</a>
-                <a class="navbar-dropdown-item" href="https://www.opticalmediagood.top">Optical Media Good</a>
-            </div>
-        </div>
-        <div class="navbar-item navbar-dropdown">
-            <span class="navbar-dropdown-trigger">Music <i id="chevron" class="fa-solid fa-circle-chevron-down"></i></span>
-            <div class="navbar-dropdown-menu">
-                <a class="navbar-dropdown-item" href="/music/favorite-songs">Favorite Songs</a>
-            </div>
-        </div>
-        <div class="navbar-item navbar-dropdown">
-            <span class="navbar-dropdown-trigger">Resources <i id="chevron" class="fa-solid fa-circle-chevron-down"></i></span>
-            <div class="navbar-dropdown-menu">
-                <a class="navbar-dropdown-item" href="/resources/pc-resource-document/">PC Resource Document</a>
-                <a class="navbar-dropdown-item" href="/resources/pc-resource-document/install-windows">Installing Windows</a>
-                <a class="navbar-dropdown-item" href="/resources/keys/">Product Keys</a>
-            </div>
-        </div>
-        <div class="navbar-item navbar-dropdown">
-            <span class="navbar-dropdown-trigger">Learn <i id="chevron" class="fa-solid fa-circle-chevron-down"></i></span>
-            <div class="navbar-dropdown-menu">
-                <a class="navbar-dropdown-item" href="/learn/python/">Python</a>
-            </div>
-        </div>
-        <div class="navbar-item navbar-dropdown">
-            <span class="navbar-dropdown-trigger">Project Docs <i id="chevron" class="fa-solid fa-circle-chevron-down"></i></span>
-            <div class="navbar-dropdown-menu">
-                <a class="navbar-dropdown-item" href="/docs/hardwareswap-listing-scraper/">HardwareSwap Listing Scraper</a>
-                <a class="navbar-dropdown-item" href="/docs/kroma/v2">Kroma</a>
-            </div>
-        </div>
-        <div class="navbar-item navbar-dropdown">
-            <span class="navbar-dropdown-trigger">Tools <i id="chevron" class="fa-solid fa-circle-chevron-down"></i></span>
-            <div class="navbar-dropdown-menu">
-                <a class="navbar-dropdown-item" href="/tools/touch-tones/">Phone Touch Tone Simulator</a>
-                <!-- <a class="navbar-dropdown-item" href="/tools/search/">Search Engines</a> -->
-            </div>
-        </div>
-        <div class="navbar-item navbar-dropdown">
-            <span class="navbar-dropdown-trigger">Retro Computing <i id="chevron" class="fa-solid fa-circle-chevron-down"></i></span>
-            <div class="navbar-dropdown-menu">
-                <a class="navbar-dropdown-item" href="/retro-computing/start-retro-computing/">Get Started with Retro Computing</a>
-                <a class="navbar-dropdown-item" href="/retro-computing/good-sites/">Good Sites for Old Macs</a>
-                <a class="navbar-dropdown-item" href="/retro-computing/common-issues/">Common Issues with Old Macs</a>
-            </div>
-        </div>
+        {@render navbarItem("/", "Home")}
+        {@render navbarItem("/shop", "Shop")}
+        {@render navbarItem("/gallery", "Photography")}
+        {@render navbarDropdown("Other Sites", [
+            { path: "https://blog.powerpcfan.xyz", text: "Blog" },
+            { path: "https://blinkl.ink", text: "BlinkLink" },
+            { path: "https://www.opticalmediagood.top", text: "Optical Media Good" }
+        ])}
+        {@render navbarDropdown("Music", [
+            { path: "/music/songs", text: "Song Lyrics/Reviews" }
+        ])}
+
+        {@render navbarDropdown("Resources", [
+            { path: "/resources/pc-resource-document/", text: "PC Resource Document" },
+            { path: "/resources/pc-resource-document/install-windows", text: "Installing Windows" },
+            { path: "/resources/keys/", text: "Product Keys" }
+        ])}
+
+        {@render navbarDropdown("Learn", [
+            { path: "/learn/python/", text: "Python" }
+        ])}
+
+        {@render navbarDropdown("Project Docs", [
+            { path: "/docs/hardwareswap-listing-scraper/", text: "HardwareSwap Listing Scraper" },
+            { path: "/docs/kroma/v2", text: "Kroma" }
+        ])}
+
+        {@render navbarDropdown("Tools", [
+            { path: "/tools/touch-tones/", text: "Phone Touch Tone Simulator" }
+        ])}
+
+        {@render navbarDropdown("Retro Computing", [
+            { path: "/retro-computing/start-retro-computing/", text: "Get Started with Retro Computing" },
+            { path: "/retro-computing/good-sites/", text: "Good Sites for Old Macs" },
+            { path: "/retro-computing/common-issues/", text: "Common Issues with Old Macs" }
+        ])}
     </nav>
 </header>
 
@@ -109,13 +110,13 @@
                 cursor: pointer;
                 display: block;
 
-                #chevron {
+                .chevron {
                     transition: transform 0.2s;
                 }
             }
 
             &:hover {
-                .navbar-dropdown-trigger #chevron {
+                .navbar-dropdown-trigger .chevron {
                     transform: rotate(180deg);
                 }
             }

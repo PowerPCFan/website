@@ -23,7 +23,7 @@ export interface Images {
 
 export interface SongReview {
     rating: number;  // out of 10
-    reviewText: string;
+    content: string;
 }
 
 export interface Lyrics {
