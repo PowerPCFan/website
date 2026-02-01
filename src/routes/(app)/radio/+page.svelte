@@ -79,7 +79,7 @@
 
 <p>{votes} / {required} votes to skip</p>
 
-<audio bind:this={audio} src={STREAM_URL} bind:volume />
+<audio bind:this={audio} src={STREAM_URL} />
 
 <div class="player">
     <button on:click={togglePlay}>
