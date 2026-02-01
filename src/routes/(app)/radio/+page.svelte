@@ -1,19 +1,19 @@
-<script>
+<script lang="ts">
     import { onMount, onDestroy } from "svelte";
 
     const WS_URL = "wss://radio-playing.expect.ovh";
     const STREAM_URL = "https://radio.expect.ovh/radio.ogg";
 
-    let ws;
+    let ws: WebSocket;
 
-    let song = "—";
-    let votes = 0;
-    let required = 3;
+    let song = $state("—");
+    let votes = $state(0);
+    let required = $state(3);
 
-    let lastSong = null;
-    let votedForSong = null;
-    let audio;
-    let isPlaying = false;
+    let lastSong: string | null = $state(null);
+    let votedForSong: string | null = $state(null);
+    let audio: HTMLAudioElement;
+    let isPlaying: boolean = $state(false);
 
     function togglePlay() {
         if (audio.paused) {
@@ -73,16 +73,16 @@
 
 <p>{song}</p>
 
-<button on:click={voteSkip} disabled={votedForSong === lastSong}>
+<button onclick={voteSkip} disabled={votedForSong === lastSong}>
     Skip
 </button>
 
 <p>{votes} / {required} votes to skip</p>
 
-<audio bind:this={audio} src={STREAM_URL} />
+<audio bind:this={audio} src={STREAM_URL}></audio>
 
 <div class="player">
-    <button on:click={togglePlay}>
+    <button onclick={togglePlay}>
         {isPlaying ? "⏸" : "▶"}
     </button>
 </div>
