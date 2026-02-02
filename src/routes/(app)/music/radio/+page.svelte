@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount, onDestroy } from "svelte";
+    import Title from "$lib/components/title.svelte";
 
     const WS_URL = "wss://radio-playing.expect.ovh";
     const STREAM_URL = "https://radio.expect.ovh/radio.ogg";
@@ -26,7 +27,7 @@
             audio.pause();
             isPlaying = false;
             lastTimestamp = performance.now();
-            resetVinyl();
+            // resetVinyl();
         } else {
             audio.play().catch(() => {
                 audio.load();
@@ -86,9 +87,9 @@
 
             const oldContent = requiredVotesElement.textContent;
 
-            requiredVotesElement.textContent = "Skipping...";
-            await sleep(1);
-            requiredVotesElement.textContent = "Skipped!";
+            requiredVotesElement.textContent = "Voting for skip...";
+            await sleep(0.8);
+            requiredVotesElement.textContent = "Voted successfully!";
             await sleep(1);
             requiredVotesElement.textContent = oldContent;
         }
@@ -102,6 +103,8 @@
     ));
 </script>
 
+<Title title="Portal 2 Radio" />
+
 <div class="background">
     <video autoplay muted loop playsinline>
         <source src="/portal-radio/wallpaper.mp4" type="video/mp4" />
@@ -109,7 +112,7 @@
 </div>
 
 <div class="main-container">
-    <h2>Portal 2 Radio</h2>
+    <h1>Portal 2 Radio</h1>
 
     <div bind:this={vinyl} class="vinyl">
         <img src="/portal-radio/album.jpg" alt="Album Cover" />

@@ -8,6 +8,7 @@
     // @ts-ignore
     import DOMPurify from 'dompurify';
   import LanguageToggle from '$lib/components/LanguageToggle.svelte';
+  import Title from '$lib/components/title.svelte';
 
     let songData: Song | null = $state(null);
     let loading = $state(true);
@@ -56,6 +57,8 @@
         lyrics = normalLyricsShowing ? normalLyrics : translatedLyrics;
     }
 </script>
+
+<Title title="{songData?.metadata.title} by {songData?.metadata.artist.name}" />
 
 <div class="main-container" style="--album-cover-url: url('{songData?.images.full}')">
     <div class="song-page">

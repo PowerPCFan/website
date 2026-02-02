@@ -6,7 +6,7 @@
     const songs = favoriteSongs.songs as Songs;
 </script>
 
-<Title title="Favorite Songs" />
+<Title title="Song Lyrics/Reviews" />
 
 {#snippet song(
     id: string,
