@@ -103,7 +103,7 @@
     ));
 </script>
 
-<Title title="Portal 2 Radio" />
+<Title title="{song ? song + " | " : ""}Portal 2 Radio" />
 
 <div class="background">
     <video autoplay muted loop playsinline>
