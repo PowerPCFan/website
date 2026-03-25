@@ -66,7 +66,8 @@
             ], closeMenu)}
 
             {@render navbarDropdown("Tools", [
-                { path: "/tools/touch-tones/", text: "Phone Touch Tone Simulator" }
+                { path: "/tools/touch-tones/", text: "Phone Touch Tone Simulator" },
+                { path: "/calculators/price-scaler", text: "Price Scaler Calculator" }
             ], closeMenu)}
 
             {@render navbarDropdown("Retro Computing", [
