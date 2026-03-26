@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { tick } from "svelte";
     import Title from "$lib/components/title.svelte";
 
     type ItemInput = {
@@ -195,10 +196,81 @@
         return floored;
     }
 
-    function addRow() {
+    function focusItemField(itemId: number, field: "label" | "amount") {
+        const selector = `input[data-item-id="${itemId}"][data-item-field="${field}"]`;
+        const input = document.querySelector<HTMLInputElement>(selector);
+        if (input) {
+            input.focus();
+        }
+    }
+    function handleAmountBackspace(event: KeyboardEvent, index: number) {
+        if (event.key.toLowerCase() !== "backspace" || event.repeat) {
+            return;
+        }
+
+        if ((items[index]?.amount ?? "").length === 0) {
+            event.preventDefault();
+            focusItemField(items[index].id, "label");
+        }
+    }
+
+    function handleLabelBackspace(event: KeyboardEvent, index: number) {
+        if (event.key.toLowerCase() !== "backspace" || event.repeat) {
+            return;
+        }
+
+        if ((items[index]?.label ?? "").length === 0) {
+            event.preventDefault();
+            if (items.length === 1) {
+                return;
+            }
+
+            removeRow(items[index].id);
+
+            const prevItem = items[index - 1];
+            if (prevItem) {
+                tick().then(() => focusItemField(prevItem.id, "amount"));
+            }
+        }
+    }
+
+    function handleLabelEnter(event: KeyboardEvent, index: number) {
+        if (event.key !== "Enter") {
+            return;
+        }
+
+        event.preventDefault();
+        const item = items[index];
+        if (!item) {
+            return;
+        }
+
+        focusItemField(item.id, "amount");
+    }
+
+    async function handleAmountEnter(event: KeyboardEvent, index: number) {
+        if (event.key !== "Enter") {
+            return;
+        }
+
+        event.preventDefault();
+
+        const nextItem = items[index + 1];
+        if (nextItem) {
+            focusItemField(nextItem.id, "label");
+            return;
+        }
+
+        const newItemId = addRow();
+        await tick();
+        focusItemField(newItemId, "label");
+    }
+
+    function addRow(): number {
         const id = nextId;
         items = [...items, { id, label: "", amount: "" }];
         nextId += 1;
+        return id;
     }
 
     function removeRow(id: number) {
@@ -262,6 +334,9 @@
                                         bind:value={items[index].label}
                                         placeholder={`Item #${index + 1}`}
                                         aria-label={`Label for item ${index + 1}`}
+                                        data-item-id={item.id}
+                                        data-item-field="label"
+                                        onkeydown={(event) => { handleLabelEnter(event, index); handleLabelBackspace(event, index); }}
                                     />
                                 </td>
                                 <td data-label="Original Price">
@@ -273,6 +348,9 @@
                                                 bind:value={() => items[index].amount, (value) => setItemAmount(index, value)}
                                                 placeholder="Enter a price..."
                                                 aria-label={`Amount for item ${index + 1}`}
+                                                data-item-id={item.id}
+                                                data-item-field="amount"
+                                                onkeydown={(event) => { handleAmountEnter(event, index); handleAmountBackspace(event, index); }}
                                             />
                                         </div>
                                         {#if parsedRows[index].hasAmount && !parsedRows[index].isAmountValid}
