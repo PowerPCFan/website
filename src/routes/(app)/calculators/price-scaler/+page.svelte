@@ -203,6 +203,79 @@
             input.focus();
         }
     }
+
+    function handleFieldKeydown(event: KeyboardEvent, index: number, field: "label" | "amount") {
+        const input = event.target as HTMLInputElement;
+
+        if (event.key.toLowerCase() === "escape") {
+            input.blur();
+            return;
+        }
+
+        if (event.key.toLowerCase() === "tab") {
+            event.preventDefault();
+            const isShift = event.shiftKey;
+            if (!isShift) {
+                if (field === "label") {
+                    focusItemField(items[index].id, "amount");
+                } else {
+                    if (index < items.length - 1) {
+                        focusItemField(items[index + 1].id, "label");
+                    } else {
+                        const newId = addRow();
+                        tick().then(() => focusItemField(newId, "label"));
+                    }
+                }
+            } else {
+                if (field === "amount") {
+                    focusItemField(items[index].id, "label");
+                } else {
+                    if (index > 0) {
+                        focusItemField(items[index - 1].id, "amount");
+                    }
+                }
+            }
+            return;
+        }
+
+        if (event.key.toLowerCase() === "arrowleft" && field === "amount" && input.selectionStart === 0 && input.selectionEnd === 0) {
+            event.preventDefault();
+            focusItemField(items[index].id, "label");
+            return;
+        }
+        if (event.key.toLowerCase() === "arrowright" && field === "label" && input.selectionStart === input.value.length && input.selectionEnd === input.value.length) {
+            event.preventDefault();
+            focusItemField(items[index].id, "amount");
+            return;
+        }
+
+        if (event.key.toLowerCase() === "arrowup") {
+            event.preventDefault();
+            if (field === "amount" && index > 0) {
+                focusItemField(items[index - 1].id, "amount");
+            } else if (field === "label" && index > 0) {
+                focusItemField(items[index - 1].id, "label");
+            }
+            return;
+        }
+        if (event.key.toLowerCase() === "arrowdown") {
+            event.preventDefault();
+            if (field === "amount" && index < items.length - 1) {
+                focusItemField(items[index + 1].id, "amount");
+            } else if (field === "label" && index < items.length - 1) {
+                focusItemField(items[index + 1].id, "label");
+            }
+            return;
+        }
+
+        if (field === "label") {
+            handleLabelEnter(event, index);
+            handleLabelBackspace(event, index);
+        } else {
+            handleAmountEnter(event, index);
+            handleAmountBackspace(event, index);
+        }
+    }
     function handleAmountBackspace(event: KeyboardEvent, index: number) {
         if (event.key.toLowerCase() !== "backspace" || event.repeat) {
             return;
@@ -336,7 +409,7 @@
                                         aria-label={`Label for item ${index + 1}`}
                                         data-item-id={item.id}
                                         data-item-field="label"
-                                        onkeydown={(event) => { handleLabelEnter(event, index); handleLabelBackspace(event, index); }}
+                                        onkeydown={(event) => handleFieldKeydown(event, index, "label")}
                                     />
                                 </td>
                                 <td data-label="Original Price">
@@ -350,7 +423,7 @@
                                                 aria-label={`Amount for item ${index + 1}`}
                                                 data-item-id={item.id}
                                                 data-item-field="amount"
-                                                onkeydown={(event) => { handleAmountEnter(event, index); handleAmountBackspace(event, index); }}
+                                                onkeydown={(event) => handleFieldKeydown(event, index, "amount")}
                                             />
                                         </div>
                                         {#if parsedRows[index].hasAmount && !parsedRows[index].isAmountValid}
