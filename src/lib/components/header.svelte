@@ -67,6 +67,7 @@
 
             {@render navbarDropdown("Tools", [
                 { path: "/tools/touch-tones/", text: "Phone Touch Tone Simulator" },
+                { path: "/tools/sine-wave-soundboard", text: "Sine Wave Soundboard" },
                 { path: "/calculators/price-scaler", text: "Price Scaler Calculator" }
             ], closeMenu)}
 
