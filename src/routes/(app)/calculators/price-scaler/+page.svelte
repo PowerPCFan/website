@@ -70,9 +70,9 @@
     const invalidAmountCount = $derived(parsedRows.filter((row: ParsedRow) => row.hasAmount && !row.isAmountValid).length);
 
     const sourceItems = $derived.by((): SourceItem[] => {
-        return parsedRows.filter((row: ParsedRow) => {
+        return parsedRows.filter((row: ParsedRow) =>
             row.hasAmount && row.isAmountValid && row.amountCents !== null
-        }).map((row: ParsedRow) => ({
+        ).map((row: ParsedRow) => ({
             label: row.outputLabel,
             cents: row.amountCents as number
         }));
