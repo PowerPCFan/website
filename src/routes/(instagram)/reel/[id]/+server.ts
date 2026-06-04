@@ -1,6 +1,9 @@
 import type { RequestHandler } from "@sveltejs/kit";
 
 function userIsInBrowser(userAgent: string | null): boolean {
+  // disable for now to see if this fixes it
+  return false;
+
   // Checks if the user is on mobile/desktop browser
   if (!userAgent) return false;
   const browserRegex = /Mozilla|Chrome|Safari|Firefox|Edge|Opera/i;
