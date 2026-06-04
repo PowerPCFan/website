@@ -29,7 +29,7 @@ export const GET: RequestHandler = async ({ url, params, request }) => {
       return new Response(await response.text(), { status: 404 });
     } else {
       return new Response(null, {
-        status: 307,
+        status: 302,
         headers: {
           Location: urlList[0] ?? reelUrl,
         },
