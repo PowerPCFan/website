@@ -39,9 +39,9 @@ export function idToReelUrl(id: string) {
 export function getRequestType(userAgent: string | null): RequestType {
   const normalizedUserAgent = (userAgent || '').toLowerCase();
 
-  if (/discordbot/i.test(normalizedUserAgent)) {
-    return RequestType.DISCORD;
-  }
+  // if (/discordbot/i.test(normalizedUserAgent)) {
+  //   return RequestType.DISCORD;
+  // }
 
   if (/\b(bot|crawler|spider|curl|wget|python-requests|fetch|httpclient|feedfetcher|slack|facebookexternalhit|facebot|twitterbot|whatsapp|linkedinbot|ahrefsbot|semrushbot|bingbot|bingpreview|googlebot)\b/i.test(normalizedUserAgent)) {
     return RequestType.CRAWLER;
