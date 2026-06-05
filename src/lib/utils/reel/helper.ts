@@ -1,5 +1,3 @@
-import { json, type RequestHandler } from "@sveltejs/kit";
-
 export interface InstagramResponse {
   results_number: number;
   url_list: string[];
@@ -24,43 +22,38 @@ export interface InstagramResponse {
   }[];
 }
 
-export interface InstagramError {
-  error: string;
+export enum RequestType {
+  DISCORD = 'discord',
+  CRAWLER = 'nondiscordbot',
+  BROWSER = 'browser',
 }
 
-async function instagramGetUrl(
-  url_media: string,
-  config = { retries: 5, delay: 1000 },
-) {
-  try {
-    url_media = await checkRedirect(url_media);
-    const SHORTCODE = getShortcode(url_media);
-    const INSTAGRAM_REQUEST = await instagramRequest(
-      SHORTCODE,
-      config.retries,
-      config.delay,
-    );
-    const OUTPUT_DATA = createOutputData(INSTAGRAM_REQUEST);
-    return OUTPUT_DATA as InstagramResponse;
-  } catch (err: any) {
-    throw err;
-  }
+export function validateId(id: string | undefined): id is string {
+  return typeof id === 'string' && /^[-A-Za-z0-9]{8,16}$/.test(id);
 }
 
-export const POST: RequestHandler = async ({ request }) => {
-  try {
-    const { url_media, config } = await request.json();
-    const result = await instagramGetUrl(url_media, config);
-    return json(result);
-  } catch (err: any) {
-    return json({ error: err.message }, { status: 400 });
+export function idToReelUrl(id: string) {
+  return `https://www.instagram.com/reel/${id}`;
+}
+
+export function getRequestType(userAgent: string | null): RequestType {
+  const normalizedUserAgent = (userAgent || '').toLowerCase();
+
+  if (/discordbot/i.test(normalizedUserAgent)) {
+    return RequestType.DISCORD;
   }
-};
+
+  if (/\b(bot|crawler|spider|curl|wget|python-requests|fetch|httpclient|feedfetcher|slack|facebookexternalhit|facebot|twitterbot|whatsapp|linkedinbot|ahrefsbot|semrushbot|bingbot|bingpreview|googlebot)\b/i.test(normalizedUserAgent)) {
+    return RequestType.CRAWLER;
+  }
+
+  return RequestType.BROWSER;
+}
 
 async function checkRedirect(url: string) {
-  const split_url = url.split("/");
-  if (split_url.includes("share")) {
-    const res = await fetch(url, { redirect: "follow" });
+  const split_url = url.split('/');
+  if (split_url.includes('share')) {
+    const res = await fetch(url, { redirect: 'follow' });
     return res.url;
   }
 
@@ -70,7 +63,7 @@ async function checkRedirect(url: string) {
 function formatPostInfo(requestData: any) {
   try {
     let mediaCapt = requestData.edge_media_to_caption.edges;
-    const capt = mediaCapt.length === 0 ? "" : mediaCapt[0].node.text;
+    const capt = mediaCapt.length === 0 ? '' : mediaCapt[0].node.text;
     return {
       owner_username: requestData.owner.username,
       owner_fullname: requestData.owner.full_name,
@@ -89,7 +82,7 @@ function formatMediaDetails(mediaData: any) {
   try {
     if (mediaData.is_video) {
       return {
-        type: "video",
+        type: 'video',
         dimensions: mediaData.dimensions,
         video_view_count: mediaData.video_view_count,
         url: mediaData.video_url,
@@ -97,7 +90,7 @@ function formatMediaDetails(mediaData: any) {
       };
     } else {
       return {
-        type: "image",
+        type: 'image',
         dimensions: mediaData.dimensions,
         url: mediaData.display_url,
       };
@@ -109,10 +102,9 @@ function formatMediaDetails(mediaData: any) {
 
 function getShortcode(url: string) {
   try {
-    let split_url = url.split("/");
-    let post_tags = ["p", "reel", "tv", "reels"];
-    let index_shortcode =
-      split_url.findIndex((item) => post_tags.includes(item)) + 1;
+    let split_url = url.split('/');
+    let post_tags = ['p', 'reel', 'tv', 'reels'];
+    let index_shortcode = split_url.findIndex((item) => post_tags.includes(item)) + 1;
     let shortcode = split_url[index_shortcode];
     return shortcode;
   } catch (err: any) {
@@ -122,14 +114,13 @@ function getShortcode(url: string) {
 
 async function getCSRFToken() {
   try {
-    const response = await fetch("https://www.instagram.com/", {
-      method: "GET",
+    const response = await fetch('https://www.instagram.com/', {
+      method: 'GET',
     });
-    const setCookie = response.headers.get("set-cookie");
-    if (!setCookie)
-      throw new Error("CSRF token not found in response headers.");
-    const csrfCookie = setCookie.split(";")[0];
-    const csrfToken = csrfCookie.replace("csrftoken=", "");
+    const setCookie = response.headers.get('set-cookie');
+    if (!setCookie) throw new Error('CSRF token not found in response headers.');
+    const csrfCookie = setCookie.split(';')[0];
+    const csrfToken = csrfCookie.replace('csrftoken=', '');
     return csrfToken;
   } catch (err: any) {
     throw new Error(`Failed to obtain CSRF: ${err.message}`);
@@ -138,22 +129,18 @@ async function getCSRFToken() {
 
 function isSidecar(requestData: any) {
   try {
-    return requestData["__typename"] == "XDTGraphSidecar";
+    return requestData['__typename'] == 'XDTGraphSidecar';
   } catch (err: any) {
     throw new Error(`Failed sidecar verification: ${err.message}`);
   }
 }
 
-async function instagramRequest(
-  shortcode: string,
-  retries: number,
-  delay: number,
-) {
-  const BASE_URL = "https://www.instagram.com/graphql/query";
-  const INSTAGRAM_DOCUMENT_ID = "9510064595728286";
+async function instagramRequest(shortcode: string, retries: number, delay: number) {
+  const BASE_URL = 'https://www.instagram.com/graphql/query';
+  const INSTAGRAM_DOCUMENT_ID = '9510064595728286';
   const params = new URLSearchParams();
   params.set(
-    "variables",
+    'variables',
     JSON.stringify({
       shortcode,
       fetch_tagged_user_count: null,
@@ -161,37 +148,31 @@ async function instagramRequest(
       hoisted_reply_id: null,
     }),
   );
-  params.set("doc_id", INSTAGRAM_DOCUMENT_ID);
+  params.set('doc_id', INSTAGRAM_DOCUMENT_ID);
 
   const token = await getCSRFToken();
 
   try {
     const response = await fetch(BASE_URL, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "X-CSRFToken": token,
-        "Content-Type": "application/x-www-form-urlencoded",
+        'X-CSRFToken': token,
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: params.toString(),
     });
 
     if ([429, 403].includes(response.status) && retries > 0) {
-      const retryAfter = response.headers.get("retry-after");
+      const retryAfter = response.headers.get('retry-after');
       const waitTime = retryAfter ? parseInt(retryAfter) * 1000 : delay;
       await new Promise((res) => setTimeout(res, waitTime));
       return instagramRequest(shortcode, retries - 1, delay * 2);
     }
 
-    if (!response.ok)
-      throw new Error(
-        `Instagram request failed with status ${response.status}`,
-      );
+    if (!response.ok) throw new Error(`Instagram request failed with status ${response.status}`);
 
     const json = await response.json();
-    if (!json.data?.xdt_shortcode_media)
-      throw new Error(
-        "Only posts/reels supported, check if your link is valid.",
-      );
+    if (!json.data?.xdt_shortcode_media) throw new Error('Only posts/reels supported, check if your link is valid.');
     return json.data.xdt_shortcode_media;
   } catch (err: any) {
     throw new Error(`Failed instagram request: ${err.message}`);
@@ -200,8 +181,7 @@ async function instagramRequest(
 
 function createOutputData(requestData: any) {
   try {
-    let url_list = [],
-      media_details = [];
+    let url_list: string[] = [], media_details: any[] = [];
     const IS_SIDECAR = isSidecar(requestData);
     if (IS_SIDECAR) {
       requestData.edge_sidecar_to_children.edges.forEach((media: any) => {
@@ -226,8 +206,20 @@ function createOutputData(requestData: any) {
       url_list,
       post_info: formatPostInfo(requestData),
       media_details,
-    };
+    } as InstagramResponse;
   } catch (err: any) {
     throw new Error(`Failed to create output data: ${err.message}`);
+  }
+}
+
+export async function fetchReelData(url_media: string, config = { retries: 5, delay: 1000 }): Promise<InstagramResponse> {
+  try {
+    url_media = await checkRedirect(url_media);
+    const SHORTCODE = getShortcode(url_media);
+    const INSTAGRAM_REQUEST = await instagramRequest(SHORTCODE, config.retries, config.delay);
+    const OUTPUT_DATA = createOutputData(INSTAGRAM_REQUEST);
+    return OUTPUT_DATA as InstagramResponse;
+  } catch (err: any) {
+    throw err;
   }
 }
