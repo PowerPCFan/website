@@ -43,8 +43,7 @@ export function buildMastodonStatus(id: string, instaData: InstagramResponse, or
     media_attachments.push({
       id: '0',
       type: 'video',
-    //   url: `${origin}/reel/proxy/video/${id}`,
-    url: video.url,
+      url: `${origin}/reel/proxy/video/${id}`,
       preview_url: `${origin}/reel/proxy/thumbnail/${id}`,
       remote_url: null,
       preview_remote_url: null,

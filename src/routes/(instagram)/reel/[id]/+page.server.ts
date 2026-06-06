@@ -53,8 +53,8 @@ export const load: PageServerLoad = async ({ params, request, url }) => {
   const downloadUrl = `./dl?token=${token}`;
   const pageUrl = `${url.origin}${url.pathname}`;
   
-  const oembedUrl = `${url.origin}/reel/owoembed?text=${encodeURIComponent(pageTitle)}&author=${postInfo.owner_username}&status=${params.id}`;
-  const activityUrl = `${url.origin}/reel/users/${postInfo.owner_username}/statuses/${params.id}`;
+  const oembedUrl = `${url.origin}/owoembed?text=${encodeURIComponent(pageTitle)}&author=${postInfo.owner_username}&status=${params.id}`;
+  const activityUrl = `${url.origin}/users/${postInfo.owner_username}/statuses/${params.id}`;
 
   void logAction({ id: params.id, videoUrl, postInfo, request, mediaDetails, thumbnailUrl });
 
