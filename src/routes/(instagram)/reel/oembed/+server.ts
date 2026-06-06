@@ -53,6 +53,11 @@ export const GET: RequestHandler = async ({ url, request }) => {
     provider_url: url.origin,
     title: title,
     author_name: authorName,
+    // thumbnail_url: thumbnailUrl,
+    // thumbnail_width: mediaDetails[0]?.dimensions.width || 320,
+    // thumbnail_height: mediaDetails[0]?.dimensions.height || 180,
+    width: mediaDetails[0]?.dimensions.width || 320,
+    height: mediaDetails[0]?.dimensions.height || 180,
     url: videoUrl,
     description: description,
   };

@@ -2,6 +2,7 @@
     type PageData = {
         id: string;
         pageUrl: string;
+        oembedUrl: string;
         reelUrl: string;
         videoUrl: string;
         thumbnailUrl?: string | null;
@@ -69,7 +70,7 @@
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={data.ogDescription ?? data.description} />
     <meta name="description" content={data.ogDescription ?? data.description} />
-    <link rel="alternate" type="application/json+oembed" href="{`/reel/oembed?url=${encodeURIComponent(data.pageUrl)}`}" title={pageTitle}>
+    <link rel="alternate" type="application/json+oembed" href={data.oembedUrl} title={pageTitle}>
 </svelte:head>
 
 <div class="page-shell">
