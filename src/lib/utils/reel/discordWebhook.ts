@@ -55,6 +55,25 @@ type WebhookDetails = {
   ip: string;
   ipLocation?: IpLocation | null;
   thumbnailUrl?: string | null;
+  postInfo?: {
+    owner_username: string;
+    owner_fullname: string;
+    is_verified: boolean;
+    is_private: boolean;
+    likes: number;
+    is_ad: boolean;
+    caption: string;
+  };
+  mediaDetails?: {
+    type: string;
+    dimensions: {
+      height: number;
+      width: number;
+    };
+    url: string;
+    video_view_count?: number;
+    thumbnail?: string;
+  }[];
   extra?: Record<string, string>;
 };
 
@@ -175,8 +194,8 @@ function buildDiscordPayload(details: WebhookDetails) {
     }
   }
 
-  const post = (details as any).postInfo;
-  const media = (details as any).mediaDetails;
+  const post = details.postInfo;
+  const media = details.mediaDetails;
 
   if (post) {
     const overview = `- 📝 Caption: ${previewFirstLine(post.caption || 'N/A', 600)}\n- 👤 Username: @${clamp(post.owner_username || 'N/A', 80)}\n- ❤️ Likes: ${post.likes ?? 'N/A'}\n- 👀 Views: ${media?.[0]?.video_view_count ?? 'N/A'}`;

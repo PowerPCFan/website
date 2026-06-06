@@ -6,22 +6,54 @@
         thumbnailUrl?: string | null;
         downloadUrl?: string;
         description: string;
+        postInfo?: {
+            owner_username: string;
+            owner_fullname: string;
+            is_verified: boolean;
+            is_private: boolean;
+            likes: number;
+            is_ad: boolean;
+            caption: string;
+        };
+        mediaDetails?: {
+            type: string;
+            dimensions: {
+                height: number;
+                width: number;
+            };
+            url: string;
+            video_view_count?: number;
+            thumbnail?: string;
+        }[];
+        pageTitle?: string;
+        ogDescription?: string;
         requestType?: string;
     };
 
     let { data }: { data: PageData } = $props();
 
-    const pageTitle = `Watch Reel ${data.id}`;
+    const pageTitle = data.pageTitle ?? `Watch Reel ${data.id}`;
+    const authorName = data.postInfo?.owner_fullname || data.postInfo?.owner_username || 'Instagram Reel';
+    const authorHandle = data.postInfo?.owner_username ? `@${data.postInfo.owner_username}` : '';
+    const captionPreview = (data.postInfo?.caption || 'No caption available')
+        .replace(/\r\n/g, '\n')
+        .split('\n')[0]
+        .trim();
+    const captionSnippet = captionPreview.length > 160 ? `${captionPreview.slice(0, 159)}…` : captionPreview;
+    const views = data.mediaDetails?.find((media) => typeof media.video_view_count === 'number')?.video_view_count ?? 'N/A';
 </script>
 
 <svelte:head>
     <title>{pageTitle}</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#1c1c1c" />
+    <meta name="theme-color" content="#F77737" />
     <meta property="og:type" content="video.other" />
     <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={data.description} />
+    <meta property="og:description" content={data.ogDescription ?? data.description} />
     <meta property="og:url" content={data.reelUrl} />
+    {#if data.postInfo?.owner_username}
+        <meta property="og:site_name" content={`Instagram reel by @${data.postInfo.owner_username}`} />
+    {/if}
     <meta property="og:video" content={data.videoUrl} />
     <meta property="og:video:secure_url" content={data.videoUrl} />
     <meta property="og:video:type" content="video/mp4" />
@@ -32,7 +64,8 @@
     {/if}
     <meta name="twitter:card" content="player" />
     <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={data.description} />
+    <meta name="twitter:description" content={data.ogDescription ?? data.description} />
+    <meta name="description" content={data.ogDescription ?? data.description} />
 </svelte:head>
 
 <div class="page-shell">
@@ -43,12 +76,27 @@
             <source src={data.videoUrl} type="video/mp4" />
         </video>
 
-        <div class="links">
-            <a class="button" href={data.reelUrl} target="_blank" rel="noopener noreferrer">View on Instagram</a>
-            {#if data.downloadUrl}
-                <a class="button" href={data.downloadUrl} download>Download Video</a>
+        <div class="action-stack">
+            {#if data.postInfo}
+                <div class="meta-card">
+                    <div class="meta-topline">
+                        <span class="meta-author">{authorName}</span>
+                        {#if authorHandle}
+                            <span class="meta-handle">{authorHandle}</span>
+                        {/if}
+                    </div>
+                    <div class="meta-caption">{captionSnippet}</div>
+                    <div class="meta-stats">❤️ {data.postInfo.likes}&nbsp;&nbsp;👀 {views}</div>
+                </div>
             {/if}
-            <a class="button" href={data.videoUrl} target="_blank" rel="noopener noreferrer">Open Raw Video</a>
+
+            <div class="links">
+                <a class="button" href={data.reelUrl} target="_blank" rel="noopener noreferrer">View on Instagram</a>
+                {#if data.downloadUrl}
+                    <a class="button" href={data.downloadUrl} download>Download Video</a>
+                {/if}
+                <a class="button" href={data.videoUrl} target="_blank" rel="noopener noreferrer">Open Raw Video</a>
+            </div>
         </div>
     </div>
 </div>
@@ -81,13 +129,63 @@
         align-items: center;
     }
 
+    .action-stack {
+        width: max-content;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        align-self: center;
+    }
+
     h1 {
         margin: 0 0 16px;
         font-size: 2rem;
     }
 
+    .meta-card {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 16px;
+        padding: 14px 16px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(12px);
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .meta-topline {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: baseline;
+    }
+
+    .meta-author {
+        font-weight: 700;
+        font-size: 1rem;
+    }
+
+    .meta-handle {
+        opacity: 0.78;
+        font-size: 0.95rem;
+    }
+
+    .meta-caption {
+        line-height: 1.5;
+        opacity: 0.95;
+    }
+
+    .meta-stats {
+        opacity: 0.82;
+        font-size: 0.95rem;
+    }
+
     video {
-        max-height: 75vh;
+        max-height: 60vh;  // todo: improve the video sizing
         width: auto;
         height: auto;
         border-radius: 16px;
@@ -98,6 +196,9 @@
         display: flex;
         gap: 12px;
         flex-wrap: wrap;
+        width: 100%;
+        max-width: 100%;
+        justify-content: center;
     }
 
     .button {

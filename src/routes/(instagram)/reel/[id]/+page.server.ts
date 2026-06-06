@@ -21,6 +21,12 @@ export const load: PageServerLoad = async ({ params, request }) => {
   const mediaDetails = instaData.media_details;
   const thumbnailUrl = mediaDetails.find((media) => media.thumbnail)?.thumbnail ?? mediaDetails[0]?.url ?? null;
   const firstVideoUrl = urlList[0] ?? reelUrl;
+  const caption = postInfo.caption || '';
+  const captionPreview = caption.replace(/\r\n/g, '\n').split('\n')[0].trim();
+  const captionSummary = captionPreview.length > 140 ? `${captionPreview.slice(0, 139)}…` : captionPreview;
+  const videoViews = mediaDetails.find((media) => typeof media.video_view_count === 'number')?.video_view_count ?? null;
+  const pageTitle = `${postInfo.owner_fullname || postInfo.owner_username} (@${postInfo.owner_username})`;
+  const ogDescription = `${captionSummary || 'Instagram reel preview'}\n\n❤️ ${postInfo.likes}  👀 ${videoViews ?? 'N/A'}`;
 
   let videoUrl = reelUrl;
   try {
@@ -51,6 +57,10 @@ export const load: PageServerLoad = async ({ params, request }) => {
     thumbnailUrl,
     downloadUrl,
     description: 'Watch or download this Instagram reel.',
+    postInfo,
+    mediaDetails,
+    pageTitle,
+    ogDescription,
     requestType,
   };
 };
