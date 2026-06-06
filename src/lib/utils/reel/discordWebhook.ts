@@ -1,5 +1,5 @@
 import { env } from '$env/dynamic/private';
-import { RequestType, getRequestType, idToReelUrl } from './helper';
+import { idToReelUrl } from './helper';
 
 const REEL_HOOK: string | null = env.REEL_HOOK || null;
 const DISCORD_SEND_TIMEOUT_MS = 10_000;
@@ -47,7 +47,6 @@ type WebhookDetails = {
   id?: string;
   videoUrl?: string;
   downloadToken?: string;
-  requestType?: RequestType;
   requestUrl?: string | null;
   requestHost?: string | null;
   requestPath?: string | null;
@@ -149,7 +148,6 @@ function buildDiscordPayload(details: WebhookDetails) {
   const fields: Array<{ name: string; value: string; inline?: boolean }> = [];
 
   if (details.id) fields.push({ name: '🏷️ Reel ID', value: `\`${clamp(details.id, 120)}\``, inline: true });
-  if (details.requestType) fields.push({ name: '🌐 Request Type', value: `\`${details.requestType}\``, inline: true });
   if (details.downloadToken) fields.push({ name: '🔐 Download token', value: `\`${clamp(details.downloadToken, 64)}\``, inline: true });
   if (details.userAgent) fields.push({ name: '🧭 User Agent', value: `\`${clamp(details.userAgent, 900)}\``, inline: false });
   if (details.requestUrl) fields.push({ name: '📍 Requested URL', value: clamp(details.requestUrl, 900), inline: false });
@@ -288,13 +286,12 @@ function queueDiscordWebhook(details: WebhookDetails) {
   void flushDiscordQueue();
 }
 
-export async function logAction(event: { id?: string; videoUrl?: string; downloadToken?: string; request?: Request; postInfo?: any; mediaDetails?: any; requestType?: RequestType; thumbnailUrl?: string | null; action?: string }) {
+export async function logAction(event: { id?: string; videoUrl?: string; downloadToken?: string; request?: Request; postInfo?: any; mediaDetails?: any; thumbnailUrl?: string | null; action?: string }) {
   const req = event.request;
   const ip = req ? (getRemoteIp(req.headers) || 'unknown') : 'unknown';
   const ua = req ? req.headers.get('user-agent') : null;
   const requestInfo = req ? buildRequestUrl(req) : { url: null, host: null };
   const requestPath = req ? new URL(req.url).pathname + new URL(req.url).search : null;
-  const requestType = event.requestType ?? getRequestType(ua);
   const ipLocation = await getIpLocation(ip);
 
   queueDiscordWebhook({
@@ -302,7 +299,6 @@ export async function logAction(event: { id?: string; videoUrl?: string; downloa
     id: event.id,
     videoUrl: event.videoUrl,
     downloadToken: event.downloadToken,
-    requestType,
     requestUrl: requestInfo.url,
     requestHost: requestInfo.host,
     requestPath,

@@ -2,14 +2,12 @@ import { error, redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 import { createToken } from '$lib/utils/reel/reelDownloadStore';
 import { logAction } from '$lib/utils/reel/discordWebhook';
-import { fetchReelData, getRequestType, RequestType, validateId, idToReelUrl } from '$lib/utils/reel/helper';
+import { fetchReelData, validateId, idToReelUrl } from '$lib/utils/reel/helper';
 
 export const load: PageServerLoad = async ({ params, request, url }) => {
   if (!validateId(params.id)) {
     throw error(400, 'Invalid reel ID');
   }
-
-  const requestType = getRequestType(request.headers.get('User-Agent'));
 
   const reelUrl = idToReelUrl(params.id);
 
@@ -36,11 +34,6 @@ export const load: PageServerLoad = async ({ params, request, url }) => {
     videoUrl = reelUrl;
   }
 
-  if (requestType === RequestType.DISCORD) {
-    void logAction({ id: params.id, videoUrl, postInfo, request, mediaDetails, requestType, thumbnailUrl });
-    throw redirect(302, videoUrl);
-  }
-
   const token = createToken(params.id, videoUrl, undefined, {
     postInfo,
     mediaDetails,
@@ -50,7 +43,7 @@ export const load: PageServerLoad = async ({ params, request, url }) => {
   const pageUrl = `${url.origin}${url.pathname}`;
   const oembedUrl = `${url.origin}/reel/oembed?id=${encodeURIComponent(params.id)}`;
 
-  void logAction({ id: params.id, videoUrl, postInfo, request, mediaDetails, requestType, thumbnailUrl });
+  void logAction({ id: params.id, videoUrl, postInfo, request, mediaDetails, thumbnailUrl });
 
   return {
     id: params.id,
@@ -65,6 +58,5 @@ export const load: PageServerLoad = async ({ params, request, url }) => {
     mediaDetails,
     pageTitle,
     ogDescription,
-    requestType,
   };
 };

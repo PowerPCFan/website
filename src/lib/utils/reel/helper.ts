@@ -22,32 +22,12 @@ export interface InstagramResponse {
   }[];
 }
 
-export enum RequestType {
-  DISCORD = 'discord',
-  CRAWLER = 'nondiscordbot',
-  BROWSER = 'browser',
-}
-
 export function validateId(id: string | undefined): id is string {
   return typeof id === 'string' && /^[-A-Za-z0-9]{8,16}$/.test(id);
 }
 
 export function idToReelUrl(id: string) {
   return `https://www.instagram.com/reel/${id}`;
-}
-
-export function getRequestType(userAgent: string | null): RequestType {
-  const normalizedUserAgent = (userAgent || '').toLowerCase();
-
-  // if (/discordbot/i.test(normalizedUserAgent)) {
-  //   return RequestType.DISCORD;
-  // }
-
-  if (/\b(bot|crawler|spider|curl|wget|python-requests|fetch|httpclient|feedfetcher|slack|facebookexternalhit|facebot|twitterbot|whatsapp|linkedinbot|ahrefsbot|semrushbot|bingbot|bingpreview|googlebot)\b/i.test(normalizedUserAgent)) {
-    return RequestType.CRAWLER;
-  }
-
-  return RequestType.BROWSER;
 }
 
 async function checkRedirect(url: string) {
