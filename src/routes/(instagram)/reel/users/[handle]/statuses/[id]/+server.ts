@@ -2,8 +2,9 @@ import type { RequestHandler } from './$types';
 import { error } from '@sveltejs/kit';
 import { fetchReelData, validateId, idToReelUrl } from '$lib/utils/reel/helper';
 import { buildMastodonStatus } from '$lib/utils/reel/mastodon';
+import { logAction } from '$lib/utils/reel/discordWebhook';
 
-export const GET: RequestHandler = async ({ params, url }) => {
+export const GET: RequestHandler = async ({ params, url, request }) => {
   const { id } = params;
   if (!validateId(id)) {
     throw error(400, 'Invalid ID');
@@ -14,6 +15,14 @@ export const GET: RequestHandler = async ({ params, url }) => {
   if (!instaData) {
     throw error(404, 'Not found');
   }
+
+  void logAction({
+    action: 'activity',
+    id,
+    request,
+    postInfo: instaData.post_info,
+    mediaDetails: instaData.media_details,
+  });
 
   const statusJson = buildMastodonStatus(id, instaData, url.origin);
 

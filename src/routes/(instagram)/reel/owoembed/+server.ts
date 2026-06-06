@@ -1,10 +1,17 @@
 import type { RequestHandler } from './$types';
+import { logAction } from '$lib/utils/reel/discordWebhook';
 
-export const GET: RequestHandler = async ({ url }) => {
+export const GET: RequestHandler = async ({ url, request }) => {
   const text = url.searchParams.get('text');
   const author = url.searchParams.get('author');
   const status = url.searchParams.get('status');
   
+  void logAction({
+    action: 'owoembed',
+    id: status || undefined,
+    request,
+  });
+
   const statusUrl = `https://www.instagram.com/reel/${status}`;
   
   const oembed = {
