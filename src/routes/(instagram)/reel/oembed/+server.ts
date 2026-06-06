@@ -38,20 +38,13 @@ export const GET: RequestHandler = async ({ url, request }) => {
   });
 
   const authorName = postInfo.owner_fullname || postInfo.owner_username || "Instagram User";
-  const authorHandle = `@${postInfo.owner_username}` || "unknown";
-  const captionPreview = (postInfo.caption || "No caption available")
-    .replace(/\r\n/g, "\n")
-    .split("\n")[0]
-    .trim();
-  const title = `${authorName} ${authorHandle}`.trim();
-  const description = `${captionPreview}\n\n❤️ ${postInfo.likes}  👀 ${mediaDetails.find((media) => typeof media.video_view_count === "number")?.video_view_count ?? "N/A"}`;
 
   const oembedResponse = {
     version: "1.0",
     type: "rich",
-    provider_name: "powerpcfan.xyz",
-    provider_url: url.origin,
-    author_name: authorName
+    // author_name: authorName,
+    provider_name: `❤️ ${postInfo.likes}  👀 ${mediaDetails.find((media) => typeof media.video_view_count === "number")?.video_view_count ?? "N/A"}`,
+    author_name: `❤️ ${postInfo.likes}  👀 ${mediaDetails.find((media) => typeof media.video_view_count === "number")?.video_view_count ?? "N/A"}`,
   };
 
   return new Response(JSON.stringify(oembedResponse), {

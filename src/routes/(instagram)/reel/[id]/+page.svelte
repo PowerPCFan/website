@@ -36,7 +36,7 @@
 
     const pageTitle = data.pageTitle ?? `Watch Reel ${data.id}`;
     const authorName = data.postInfo?.owner_fullname || data.postInfo?.owner_username || 'Instagram Reel';
-    const authorHandle = data.postInfo?.owner_username ? `@${data.postInfo.owner_username}` : '';
+    const authorHandle = data.postInfo?.owner_username || '';
     const captionPreview = (data.postInfo?.caption || 'No caption available')
         .replace(/\r\n/g, '\n')
         .split('\n')[0]
@@ -67,7 +67,7 @@
         <meta name="twitter:image" content={data.thumbnailUrl} />
     {/if}
     <meta name="twitter:card" content="player" />
-    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:title" content={`${authorName} (@${authorHandle})`.trim()} />
     <meta name="twitter:description" content={data.ogDescription ?? data.description} />
     <meta name="description" content={data.ogDescription ?? data.description} />
     <link rel="alternate" type="application/json+oembed" href={data.oembedUrl} title={pageTitle}>
