@@ -68,17 +68,19 @@
         <meta name="twitter:creator" content={`@${data.postInfo.owner_username}`} />
     {/if}
 
-    <meta property="twitter:card" content="player"/>
-    <meta name="twitter:player:stream" content={data.videoUrl} />
-    <meta name="twitter:player:stream:content_type" content="video/mp4" />
+    {#if !data.isDiscord}
+        <meta property="twitter:card" content="player"/>
+        <meta name="twitter:player:stream" content={data.videoUrl} />
+        <meta name="twitter:player:stream:content_type" content="video/mp4" />
 
-    <meta property="og:video" content={data.videoUrl} />
-    <meta property="og:video:secure_url" content={data.videoUrl} />
-    <meta property="og:video:type" content="video/mp4" />
-    <meta property="og:video:width" content={String(data.videoWidth)} />
-    <meta property="og:video:height" content={String(data.videoHeight)} />
-    <meta property="twitter:player:width" content={String(data.videoWidth)} />
-    <meta property="twitter:player:height" content={String(data.videoHeight)} />
+        <meta property="og:video" content={data.videoUrl} />
+        <meta property="og:video:secure_url" content={data.videoUrl} />
+        <meta property="og:video:type" content="video/mp4" />
+        <meta property="og:video:width" content={String(data.videoWidth)} />
+        <meta property="og:video:height" content={String(data.videoHeight)} />
+        <meta property="twitter:player:width" content={String(data.videoWidth)} />
+        <meta property="twitter:player:height" content={String(data.videoHeight)} />
+    {/if}
 
     <link rel="alternate" type="application/json+oembed" href={data.oembedUrl} title={pageTitle}>
     {#if data.isDiscord}

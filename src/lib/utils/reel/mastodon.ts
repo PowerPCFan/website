@@ -1,4 +1,4 @@
-import type { InstagramResponse } from './helper';
+import { idToReelUrl, type InstagramResponse } from './helper';
 
 function formatNumber(num: number | null | undefined): string {
   if (num === null || num === undefined) return 'N/A';
@@ -25,16 +25,10 @@ export function buildMastodonStatus(id: string, instaData: InstagramResponse, or
   const video = mediaDetails[0];
 
   const captionLine = previewFirstLine(postInfo.caption || 'Instagram reel', 140);
-  
-  // Format content body as requested
-  let content = captionLine;
-  content += '<br>\\u200A\\u200A<br>'; // Safe line break trick
-  
   const likesStr = formatNumber(postInfo.likes);
   const viewsStr = formatNumber(video?.video_view_count);
-  content += `<b>❤️ ${likesStr}&ensp;👁️ ${viewsStr}</b>`;
+  const content = `${captionLine}<br><br><b>❤️ ${likesStr}&ensp;👁️ ${viewsStr}</b>`;
 
-  // Scale video dimensions if needed
   let width = video?.dimensions.width ?? 720;
   let height = video?.dimensions.height ?? 1280;
   let mult = 1;
@@ -66,13 +60,13 @@ export function buildMastodonStatus(id: string, instaData: InstagramResponse, or
     });
   }
 
-  const postUrl = `https://www.instagram.com/reel/${id}`;
+  const postUrl = idToReelUrl(id);
 
   return {
     id: id,
     url: postUrl,
     uri: postUrl,
-    created_at: new Date().toISOString(), // Use current time if original timestamp is unknown
+    created_at: new Date().toISOString(),
     edited_at: null,
     reblog: null,
     in_reply_to_id: null,
@@ -91,7 +85,7 @@ export function buildMastodonStatus(id: string, instaData: InstagramResponse, or
       display_name: postInfo.owner_fullname || postInfo.owner_username,
       username: postInfo.owner_username,
       acct: postInfo.owner_username,
-      url: postUrl, // Discord uses this for the author link
+      url: postUrl,
       uri: postUrl,
       created_at: new Date().toISOString(),
       locked: false,
@@ -99,7 +93,7 @@ export function buildMastodonStatus(id: string, instaData: InstagramResponse, or
       discoverable: true,
       indexable: false,
       group: false,
-      avatar: `${origin}/reel/proxy/thumbnail/${id}`, // Fallback avatar to thumbnail
+      avatar: `${origin}/reel/proxy/thumbnail/${id}`,
       avatar_static: `${origin}/reel/proxy/thumbnail/${id}`,
       header: '',
       header_static: '',

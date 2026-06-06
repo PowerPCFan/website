@@ -1,5 +1,6 @@
 import type { RequestHandler } from './$types';
 import { logAction } from '$lib/utils/reel/discordWebhook';
+import { idToReelUrl } from '$lib/utils/reel/helper';
 
 export const GET: RequestHandler = async ({ url, request }) => {
   const text = url.searchParams.get('text');
@@ -12,8 +13,8 @@ export const GET: RequestHandler = async ({ url, request }) => {
     request,
   });
 
-  const statusUrl = `https://www.instagram.com/reel/${status}`;
-  
+  const statusUrl = idToReelUrl(status || '');
+
   const oembed = {
     type: 'rich',
     version: '1.0',
