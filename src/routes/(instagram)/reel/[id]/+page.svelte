@@ -2,7 +2,7 @@
     type PageData = {
         id: string;
         pageUrl: string;
-        oembedUrl: string;
+        activityUrl: string;
         reelUrl: string;
         videoUrl: string;
         thumbnailUrl?: string | null;
@@ -53,26 +53,18 @@
     <meta name="theme-color" content="#F77737" />
 
     <meta property="og:title" content={`${authorName} (@${authorHandle})`.trim()} />
-    <meta property="twitter:title" content={`${authorName} (@${authorHandle})`.trim()} />
-    <meta name="twitter:title" content={`${authorName} (@${authorHandle})`.trim()} />
-
-    <meta name="description" content={data.ogDescription ?? data.description} />
+    <meta property="og:site_name" content="powerpcfan.xyz" />
     <meta property="og:description" content={data.ogDescription ?? data.description} />
-    <meta property="twitter:description" content={data.ogDescription ?? data.description} />
-    <meta name="twitter:description" content={data.ogDescription ?? data.description} />
-
+    <meta property="og:url" content={data.pageUrl} />
     {#if data.postInfo?.owner_username}
         <meta name="twitter:creator" content={`@${data.postInfo.owner_username}`} />
     {/if}
-
-    <meta property="twitter:card" content="player"/>
-
     <meta property="og:video" content={data.videoUrl} />
     <meta property="og:video:secure_url" content={data.videoUrl} />
     <meta property="og:video:width" content={String(data.mediaDetails?.[0]?.dimensions.width ?? 720)} />
     <meta property="og:video:height" content={String(data.mediaDetails?.[0]?.dimensions.height ?? 1280)} />
 
-    <link rel="alternate" type="application/json+oembed" href={data.oembedUrl} title={pageTitle}>
+    <link rel="alternate" type="application/activity+json" href={data.activityUrl} />
 </svelte:head>
 
 <div class="page-shell">
