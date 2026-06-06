@@ -65,6 +65,8 @@
         <meta name="twitter:creator" content={`@${data.postInfo.owner_username}`} />
     {/if}
 
+    <meta property="twitter:card" content="player"/>
+
     <meta property="og:video" content={data.videoUrl} />
     <meta property="og:video:secure_url" content={data.videoUrl} />
     <meta property="og:video:width" content={String(data.mediaDetails?.[0]?.dimensions.width ?? 720)} />
