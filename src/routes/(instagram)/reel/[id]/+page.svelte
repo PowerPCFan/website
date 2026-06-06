@@ -53,7 +53,7 @@
 
     <link rel="canonical" href={data.pageUrl} />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#F77737" />
+    <meta name="theme-color" content="#405DE6" />
 
     <meta property="og:title" content={`${authorName} (@${authorHandle})`.trim()} />
     <meta property="twitter:title" content={`${authorName} (@${authorHandle})`.trim()} />
