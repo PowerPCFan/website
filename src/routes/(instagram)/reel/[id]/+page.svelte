@@ -68,13 +68,18 @@
     <meta property="og:video:width" content={String(data.mediaDetails?.[0]?.dimensions.width ?? 720)} />
     <meta property="og:video:height" content={String(data.mediaDetails?.[0]?.dimensions.height ?? 1280)} />
 
+    <meta name="twitter:card" content="player" />
+    <meta name="twitter:player" content={data.videoUrl} />
+    <meta name="twitter:player:width" content={String(data.mediaDetails?.[0]?.dimensions.width ?? 720)} />
+    <meta name="twitter:player:height" content={String(data.mediaDetails?.[0]?.dimensions.height ?? 1280)} />
+
     <meta property="twitter:title" content={`${authorName} (@${authorHandle})`.trim()} />
     <meta name="twitter:title" content={`${authorName} (@${authorHandle})`.trim()} />
     <meta property="twitter:description" content={data.ogDescription ?? data.description} />
     <meta name="twitter:description" content={data.ogDescription ?? data.description} />
 
     <meta name="description" content={data.ogDescription ?? data.description} />
-    <link rel="alternate" type="application/json+oembed" href={data.oembedUrl} title={pageTitle}>
+    <!-- <link rel="alternate" type="application/json+oembed" href={data.oembedUrl} title={pageTitle}> -->
 </svelte:head>
 
 <div class="page-shell">
