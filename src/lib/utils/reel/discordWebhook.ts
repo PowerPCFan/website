@@ -288,7 +288,7 @@ function queueDiscordWebhook(details: WebhookDetails) {
   void flushDiscordQueue();
 }
 
-export async function logAction(event: { id?: string; videoUrl?: string; downloadToken?: string; request?: Request; postInfo?: any; mediaDetails?: any; requestType?: RequestType; thumbnailUrl?: string | null }) {
+export async function logAction(event: { id?: string; videoUrl?: string; downloadToken?: string; request?: Request; postInfo?: any; mediaDetails?: any; requestType?: RequestType; thumbnailUrl?: string | null; action?: string }) {
   const req = event.request;
   const ip = req ? (getRemoteIp(req.headers) || 'unknown') : 'unknown';
   const ua = req ? req.headers.get('user-agent') : null;
@@ -298,7 +298,7 @@ export async function logAction(event: { id?: string; videoUrl?: string; downloa
   const ipLocation = await getIpLocation(ip);
 
   queueDiscordWebhook({
-    action: event.downloadToken ? 'download' : 'view',
+    action: event.action || (event.downloadToken ? 'download' : 'view'),
     id: event.id,
     videoUrl: event.videoUrl,
     downloadToken: event.downloadToken,

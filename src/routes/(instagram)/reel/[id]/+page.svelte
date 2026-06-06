@@ -69,6 +69,7 @@
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={data.ogDescription ?? data.description} />
     <meta name="description" content={data.ogDescription ?? data.description} />
+    <link rel="alternate" type="application/json+oembed" href="{`/reel/oembed?url=${encodeURIComponent(data.pageUrl)}`}" title={pageTitle}>
 </svelte:head>
 
 <div class="page-shell">
