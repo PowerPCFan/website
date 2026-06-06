@@ -1,6 +1,7 @@
 <script lang="ts">
     type PageData = {
         id: string;
+        pageUrl: string;
         reelUrl: string;
         videoUrl: string;
         thumbnailUrl?: string | null;
@@ -45,14 +46,17 @@
 
 <svelte:head>
     <title>{pageTitle}</title>
+    <link rel="canonical" href={data.pageUrl} />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#F77737" />
     <meta property="og:type" content="video.other" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={data.ogDescription ?? data.description} />
-    <meta property="og:url" content={data.reelUrl} />
+    <meta property="og:url" content={data.pageUrl} />
     {#if data.postInfo?.owner_username}
         <meta property="og:site_name" content={`Instagram reel by @${data.postInfo.owner_username}`} />
+        <meta name="twitter:site" content={`@${data.postInfo.owner_username}`} />
+        <meta name="twitter:creator" content={`@${data.postInfo.owner_username}`} />
     {/if}
     <meta property="og:video" content={data.videoUrl} />
     <meta property="og:video:secure_url" content={data.videoUrl} />

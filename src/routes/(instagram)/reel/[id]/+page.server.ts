@@ -4,7 +4,7 @@ import { createToken } from '$lib/utils/reel/reelDownloadStore';
 import { logAction } from '$lib/utils/reel/discordWebhook';
 import { fetchReelData, getRequestType, RequestType, validateId, idToReelUrl } from '$lib/utils/reel/helper';
 
-export const load: PageServerLoad = async ({ params, request }) => {
+export const load: PageServerLoad = async ({ params, request, url }) => {
   if (!validateId(params.id)) {
     throw error(400, 'Invalid reel ID');
   }
@@ -47,11 +47,13 @@ export const load: PageServerLoad = async ({ params, request }) => {
     thumbnailUrl,
   });
   const downloadUrl = `./dl?token=${token}`;
+  const pageUrl = `${url.origin}${url.pathname}`;
 
   void logAction({ id: params.id, videoUrl, postInfo, request, mediaDetails, requestType, thumbnailUrl });
 
   return {
     id: params.id,
+    pageUrl,
     reelUrl,
     videoUrl,
     thumbnailUrl,
