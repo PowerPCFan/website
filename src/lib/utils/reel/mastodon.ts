@@ -1,4 +1,4 @@
-import { idToReelUrl, type InstagramResponse } from './helper';
+import { idToReelUrl, smartTruncate, type InstagramResponse } from './helper';
 
 function formatNumber(num: number | null | undefined): string {
   if (num === null || num === undefined) return 'N/A';
@@ -7,27 +7,16 @@ function formatNumber(num: number | null | undefined): string {
   return num.toString();
 }
 
-function clamp(text: string, maxLength: number) {
-  return text.length > maxLength ? `${text.slice(0, maxLength - 1)}…` : text;
-}
-
-function previewFirstLine(text: string, maxLength: number) {
-  const normalized = text.replace(/\r\n/g, '\n');
-  const [firstLine = ''] = normalized.split('\n');
-  const trimmed = firstLine.trim();
-  const truncated = clamp(trimmed, maxLength);
-  return normalized.includes('\n') ? `${truncated}…` : truncated;
-}
-
 export function buildMastodonStatus(id: string, instaData: InstagramResponse, origin: string) {
   const postInfo = instaData.post_info;
   const mediaDetails = instaData.media_details;
   const video = mediaDetails[0];
 
-  const captionLine = previewFirstLine(postInfo.caption || 'Instagram reel', 140);
+  const truncatedCaption = smartTruncate(postInfo.caption || 'Instagram reel', 5, 300);
+  const captionHtml = truncatedCaption.replace(/\n/g, '<br>');
   const likesStr = formatNumber(postInfo.likes);
   const viewsStr = formatNumber(video?.video_view_count);
-  const content = `${captionLine}<br><br><b>❤️ ${likesStr}&ensp;👁️ ${viewsStr}</b>`;
+  const content = `${captionHtml}<br><br><b>❤️ ${likesStr}&ensp;👁️ ${viewsStr}</b>`;
 
   let width = video?.dimensions.width ?? 720;
   let height = video?.dimensions.height ?? 1280;
@@ -43,8 +32,8 @@ export function buildMastodonStatus(id: string, instaData: InstagramResponse, or
     media_attachments.push({
       id: '0',
       type: 'video',
-      url: `${origin}/reel/proxy/video/${id}`,
-      preview_url: `${origin}/reel/proxy/thumbnail/${id}`,
+      url: video.url,
+      preview_url: video.thumbnail ?? null,
       remote_url: null,
       preview_remote_url: null,
       text_url: null,

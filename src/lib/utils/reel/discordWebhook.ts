@@ -16,7 +16,6 @@ type IpLocation = {
   timezone?: string;
   isp?: string;
   org?: string;
-  as?: string;
 };
 
 const ipLocationCache = new Map<string, IpLocation | null>();
@@ -42,6 +41,12 @@ function previewFirstLine(text: string, maxLength: number) {
   return normalized.includes('\n') ? `${truncated}...` : truncated;
 }
 
+function isCrawler(userAgent: string | null): boolean {
+  if (!userAgent) return false;
+  const ua = userAgent.toLowerCase();
+  return /discordbot|bot|crawler|spider|curl|wget|python-requests|fetch|httpclient|feedfetcher|slack|facebookexternalhit|facebot|twitterbot|whatsapp|linkedinbot|ahrefsbot|semrushbot|bingbot|bingpreview|googlebot/i.test(ua);
+}
+
 type WebhookDetails = {
   action: string;
   id?: string;
@@ -51,7 +56,7 @@ type WebhookDetails = {
   requestHost?: string | null;
   requestPath?: string | null;
   userAgent?: string | null;
-  ip: string;
+  ip?: string;
   ipLocation?: IpLocation | null;
   thumbnailUrl?: string | null;
   postInfo?: {
@@ -117,8 +122,7 @@ async function getIpLocation(ip: string): Promise<IpLocation | null> {
       lon: data.lon,
       timezone: data.timezone,
       isp: data.isp,
-      org: data.org,
-      as: data.as
+      org: data.org
     };
 
     ipLocationCache.set(ip, location);
@@ -150,7 +154,13 @@ function buildDiscordPayload(details: WebhookDetails) {
   if (details.id) fields.push({ name: '🏷️ Reel ID', value: `\`${clamp(details.id, 120)}\``, inline: true });
   if (details.requestUrl) fields.push({ name: '📍 Requested URL', value: `[${details.requestPath}](${details.requestUrl})`, inline: true });
   if (details.downloadToken) fields.push({ name: '🔐 Download token', value: `\`${clamp(details.downloadToken, 128)}\``, inline: true });
-  if (details.userAgent) fields.push({ name: '🧭 User Agent', value: `\`${clamp(details.userAgent, 1000)}\``, inline: false });
+  
+  if (details.userAgent && isCrawler(details.userAgent)) {
+    fields.push({ name: '🧭 User Agent (Crawler)', value: `\`${clamp(details.userAgent, 1000)}\``, inline: false });
+  } else if (details.userAgent) {
+    fields.push({ name: '🧭 User Agent', value: `\`${clamp(details.userAgent, 1000)}\``, inline: false });
+  }
+
   if (details.ip) fields.push({ name: '🌐 IP', value: `\`${details.ip}\``, inline: true });
 
   if (details.ipLocation) {
@@ -161,16 +171,8 @@ function buildDiscordPayload(details: WebhookDetails) {
     if (ipl.country && ipl.regionName && ipl.city) {
       values.set('Location', `${ipl.city}, ${ipl.regionName}, ${ipl.country}`);
     }
-
-    if (ipl.timezone) {
-      values.set('Timezone', ipl.timezone);
-    }
-    if (ipl.isp) {
-      values.set('ISP', ipl.isp);
-    }
-    if (ipl.org) {
-      values.set('Org', ipl.org);
-    }
+    if (ipl.timezone) values.set('Timezone', ipl.timezone);
+    if (ipl.isp) values.set('ISP', `${ipl.isp} (${ipl.org})`);
 
     for (const [k, v] of values.entries()) {
       extraBits.push(`- **${k}:** \`${v}\``);
@@ -285,11 +287,19 @@ function queueDiscordWebhook(details: WebhookDetails) {
 
 export async function logAction(event: { id?: string; videoUrl?: string; downloadToken?: string; request?: Request; postInfo?: any; mediaDetails?: any; thumbnailUrl?: string | null; action?: string }) {
   const req = event.request;
-  const ip = req ? (getRemoteIp(req.headers) || 'unknown') : 'unknown';
   const ua = req ? req.headers.get('user-agent') : null;
+  const isCrawler = ua ? /bot|crawler|spider|curl|wget|python-requests|fetch|httpclient|feedfetcher|slack|facebookexternalhit|facebot|twitterbot|whatsapp|linkedinbot|ahrefsbot|semrushbot|bingbot|bingpreview|googlebot|discordbot/i.test(ua) : false;
+
+  let ip: string | undefined = undefined;
+  let ipLocation: IpLocation | null = null;
+
+  if (!isCrawler) {
+    ip = req ? (getRemoteIp(req.headers) || 'unknown') : 'unknown';
+    ipLocation = await getIpLocation(ip);
+  }
+
   const requestInfo = req ? buildRequestUrl(req) : { url: null, host: null };
   const requestPath = req ? new URL(req.url).pathname + new URL(req.url).search : null;
-  const ipLocation = await getIpLocation(ip);
 
   queueDiscordWebhook({
     action: event.action || (event.downloadToken ? 'download' : 'view'),

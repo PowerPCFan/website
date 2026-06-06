@@ -203,3 +203,23 @@ export async function fetchReelData(url_media: string, config = { retries: 5, de
     throw err;
   }
 }
+
+export function smartTruncate(text: string, maxLines = 5, maxLength = 300): string {
+  if (!text) return '';
+  const normalized = text.replace(/\r\n/g, '\n').trim();
+  let lines = normalized.split('\n');
+  let isTruncated = false;
+
+  if (lines.length > maxLines) {
+    lines = lines.slice(0, maxLines);
+    isTruncated = true;
+  }
+
+  let joined = lines.join('\n');
+  if (joined.length > maxLength) {
+    joined = joined.slice(0, maxLength).trim();
+    isTruncated = true;
+  }
+
+  return joined + (isTruncated ? '…' : '');
+}
