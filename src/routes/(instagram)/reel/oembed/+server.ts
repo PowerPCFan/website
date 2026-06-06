@@ -38,7 +38,7 @@ export const GET: RequestHandler = async ({ url, request }) => {
   });
 
   const authorName = postInfo.owner_fullname || postInfo.owner_username || "Instagram User";
-  const authorHandle = postInfo.owner_username ? `@${postInfo.owner_username}` : "";
+  const authorHandle = `@${postInfo.owner_username}` || "unknown";
   const captionPreview = (postInfo.caption || "No caption available")
     .replace(/\r\n/g, "\n")
     .split("\n")[0]
@@ -48,18 +48,10 @@ export const GET: RequestHandler = async ({ url, request }) => {
 
   const oembedResponse = {
     version: "1.0",
-    type: "video",
+    type: "rich",
     provider_name: "powerpcfan.xyz",
     provider_url: url.origin,
-    title: title,
-    author_name: authorName,
-    // thumbnail_url: thumbnailUrl,
-    // thumbnail_width: mediaDetails[0]?.dimensions.width || 320,
-    // thumbnail_height: mediaDetails[0]?.dimensions.height || 180,
-    width: mediaDetails[0]?.dimensions.width || 320,
-    height: mediaDetails[0]?.dimensions.height || 180,
-    url: videoUrl,
-    description: description,
+    author_name: authorName
   };
 
   return new Response(JSON.stringify(oembedResponse), {

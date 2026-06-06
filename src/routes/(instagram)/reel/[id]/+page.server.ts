@@ -26,7 +26,7 @@ export const load: PageServerLoad = async ({ params, request, url }) => {
   const captionSummary = captionPreview.length > 140 ? `${captionPreview.slice(0, 139)}…` : captionPreview;
   const videoViews = mediaDetails.find((media) => typeof media.video_view_count === 'number')?.video_view_count ?? null;
   const pageTitle = `${postInfo.owner_fullname || postInfo.owner_username} (@${postInfo.owner_username})`;
-  const ogDescription = `${captionSummary || 'Instagram reel preview'}\n\n❤️ ${postInfo.likes}  👀 ${videoViews ?? 'N/A'}`;
+  const ogDescription = captionSummary || 'Instagram reel preview';
 
   let videoUrl = reelUrl;
   try {
