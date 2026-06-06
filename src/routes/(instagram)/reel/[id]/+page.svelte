@@ -50,8 +50,8 @@
     <link rel="canonical" href={data.pageUrl} />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#F77737" />
-    <meta property="og:type" content="video.other" />
-    <meta property="og:title" content={pageTitle} />
+    <meta property="og:title" content={`${authorName} (@${authorHandle})`.trim()} />
+    <meta property="og:site_name" content="powerpcfan.xyz" />
     <meta property="og:description" content={data.ogDescription ?? data.description} />
     <meta property="og:url" content={data.pageUrl} />
     {#if data.postInfo?.owner_username}
@@ -61,13 +61,15 @@
     <meta property="og:video" content={data.videoUrl} />
     <meta property="og:video:secure_url" content={data.videoUrl} />
     <meta property="og:video:type" content="video/mp4" />
-    {#if data.thumbnailUrl}
-        <meta property="og:image" content={data.thumbnailUrl} />
-        <meta property="og:image:secure_url" content={data.thumbnailUrl} />
-        <meta name="twitter:image" content={data.thumbnailUrl} />
-    {/if}
+    <meta property="og:video:width" content={String(data.mediaDetails?.[0]?.dimensions.width ?? 720)} />
+    <meta property="og:video:height" content={String(data.mediaDetails?.[0]?.dimensions.height ?? 1280)} />
     <meta name="twitter:card" content="player" />
+    <meta name="twitter:player" content={data.videoUrl} />
+    <meta name="twitter:player:width" content={String(data.mediaDetails?.[0]?.dimensions.width ?? 720)} />
+    <meta name="twitter:player:height" content={String(data.mediaDetails?.[0]?.dimensions.height ?? 1280)} />
+    <meta property="twitter:title" content={`${authorName} (@${authorHandle})`.trim()} />
     <meta name="twitter:title" content={`${authorName} (@${authorHandle})`.trim()} />
+    <meta property="twitter:description" content={data.ogDescription ?? data.description} />
     <meta name="twitter:description" content={data.ogDescription ?? data.description} />
     <meta name="description" content={data.ogDescription ?? data.description} />
     <link rel="alternate" type="application/json+oembed" href={data.oembedUrl} title={pageTitle}>

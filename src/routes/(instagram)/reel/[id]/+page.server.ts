@@ -48,7 +48,7 @@ export const load: PageServerLoad = async ({ params, request, url }) => {
   });
   const downloadUrl = `./dl?token=${token}`;
   const pageUrl = `${url.origin}${url.pathname}`;
-  const oembedUrl = `${url.origin}/reel/oembed?url=${encodeURIComponent(pageUrl)}`;
+  const oembedUrl = `${url.origin}/reel/oembed?id=${encodeURIComponent(params.id)}`;
 
   void logAction({ id: params.id, videoUrl, postInfo, request, mediaDetails, requestType, thumbnailUrl });
 
