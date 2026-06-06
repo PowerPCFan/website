@@ -54,7 +54,6 @@
     <meta property="og:description" content={data.ogDescription ?? data.description} />
     <meta property="og:url" content={data.pageUrl} />
     {#if data.postInfo?.owner_username}
-        <meta property="og:site_name" content={`Instagram reel by @${data.postInfo.owner_username}`} />
         <meta name="twitter:site" content={`@${data.postInfo.owner_username}`} />
         <meta name="twitter:creator" content={`@${data.postInfo.owner_username}`} />
     {/if}
