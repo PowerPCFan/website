@@ -2,9 +2,12 @@
     type PageData = {
         id: string;
         pageUrl: string;
+        oembedUrl: string;
         activityUrl: string;
         reelUrl: string;
         videoUrl: string;
+        videoWidth: number;
+        videoHeight: number;
         thumbnailUrl?: string | null;
         downloadUrl?: string;
         description: string;
@@ -29,7 +32,7 @@
         }[];
         pageTitle?: string;
         ogDescription?: string;
-        requestType?: string;
+        isDiscord?: boolean;
     };
 
     let { data }: { data: PageData } = $props();
@@ -53,18 +56,34 @@
     <meta name="theme-color" content="#F77737" />
 
     <meta property="og:title" content={`${authorName} (@${authorHandle})`.trim()} />
-    <meta property="og:site_name" content="powerpcfan.xyz" />
+    <meta property="twitter:title" content={`${authorName} (@${authorHandle})`.trim()} />
+    <meta name="twitter:title" content={`${authorName} (@${authorHandle})`.trim()} />
+
+    <meta name="description" content={data.ogDescription ?? data.description} />
     <meta property="og:description" content={data.ogDescription ?? data.description} />
-    <meta property="og:url" content={data.pageUrl} />
+    <meta property="twitter:description" content={data.ogDescription ?? data.description} />
+    <meta name="twitter:description" content={data.ogDescription ?? data.description} />
+
     {#if data.postInfo?.owner_username}
         <meta name="twitter:creator" content={`@${data.postInfo.owner_username}`} />
     {/if}
+
+    <meta property="twitter:card" content="player"/>
+    <meta name="twitter:player:stream" content={data.videoUrl} />
+    <meta name="twitter:player:stream:content_type" content="video/mp4" />
+
     <meta property="og:video" content={data.videoUrl} />
     <meta property="og:video:secure_url" content={data.videoUrl} />
-    <meta property="og:video:width" content={String(data.mediaDetails?.[0]?.dimensions.width ?? 720)} />
-    <meta property="og:video:height" content={String(data.mediaDetails?.[0]?.dimensions.height ?? 1280)} />
+    <meta property="og:video:type" content="video/mp4" />
+    <meta property="og:video:width" content={String(data.videoWidth)} />
+    <meta property="og:video:height" content={String(data.videoHeight)} />
+    <meta property="twitter:player:width" content={String(data.videoWidth)} />
+    <meta property="twitter:player:height" content={String(data.videoHeight)} />
 
-    <link rel="alternate" type="application/activity+json" href={data.activityUrl} />
+    <link rel="alternate" type="application/json+oembed" href={data.oembedUrl} title={pageTitle}>
+    {#if data.isDiscord}
+        <link rel="alternate" type="application/activity+json" href={data.activityUrl} />
+    {/if}
 </svelte:head>
 
 <div class="page-shell">

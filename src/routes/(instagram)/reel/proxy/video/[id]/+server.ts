@@ -1,6 +1,7 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { error } from '@sveltejs/kit';
 import { fetchReelData, idToReelUrl, validateId } from '$lib/utils/reel/helper';
+import { logAction } from '$lib/utils/reel/discordWebhook';
 
 export const GET: RequestHandler = async ({ params, request }) => {
   const { id } = params;
@@ -13,6 +14,14 @@ export const GET: RequestHandler = async ({ params, request }) => {
   if (!instaData || !instaData.url_list || instaData.url_list.length === 0) {
     throw error(404, 'Video not found');
   }
+
+  void logAction({
+    action: 'proxy-video',
+    id, 
+    request,
+    postInfo: instaData.post_info,
+    mediaDetails: instaData.media_details,
+  });
 
   const videoUrl = instaData.url_list[0];
 

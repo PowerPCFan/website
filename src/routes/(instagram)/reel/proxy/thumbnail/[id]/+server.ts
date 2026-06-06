@@ -1,8 +1,9 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { error } from '@sveltejs/kit';
 import { fetchReelData, validateId, idToReelUrl } from '$lib/utils/reel/helper';
+import { logAction } from '$lib/utils/reel/discordWebhook';
 
-export const GET: RequestHandler = async ({ params }) => {
+export const GET: RequestHandler = async ({ params, request }) => {
   const { id } = params;
   if (!validateId(id)) {
     throw error(400, 'Invalid reel ID');
@@ -13,6 +14,14 @@ export const GET: RequestHandler = async ({ params }) => {
   if (!instaData || !instaData.media_details || instaData.media_details.length === 0) {
     throw error(404, 'Thumbnail not found');
   }
+
+  void logAction({
+    action: 'proxy-thumbnail',
+    id,
+    request,
+    postInfo: instaData.post_info,
+    mediaDetails: instaData.media_details,
+  });
 
   const thumbnailUrl = instaData.media_details.find((m) => m.thumbnail)?.thumbnail ?? instaData.media_details[0]?.url;
 

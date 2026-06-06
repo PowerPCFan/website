@@ -148,9 +148,9 @@ function buildDiscordPayload(details: WebhookDetails) {
   const fields: Array<{ name: string; value: string; inline?: boolean }> = [];
 
   if (details.id) fields.push({ name: '🏷️ Reel ID', value: `\`${clamp(details.id, 120)}\``, inline: true });
-  if (details.downloadToken) fields.push({ name: '🔐 Download token', value: `\`${clamp(details.downloadToken, 64)}\``, inline: true });
-  if (details.userAgent) fields.push({ name: '🧭 User Agent', value: `\`${clamp(details.userAgent, 900)}\``, inline: false });
-  if (details.requestUrl) fields.push({ name: '📍 Requested URL', value: clamp(details.requestUrl, 900), inline: false });
+  if (details.requestUrl) fields.push({ name: '📍 Requested URL', value: `[${details.requestPath}](${details.requestUrl})`, inline: true });
+  if (details.downloadToken) fields.push({ name: '🔐 Download token', value: `\`${clamp(details.downloadToken, 128)}\``, inline: true });
+  if (details.userAgent) fields.push({ name: '🧭 User Agent', value: `\`${clamp(details.userAgent, 1000)}\``, inline: false });
   if (details.ip) fields.push({ name: '🌐 IP', value: `\`${details.ip}\``, inline: true });
 
   if (details.ipLocation) {
@@ -171,16 +171,13 @@ function buildDiscordPayload(details: WebhookDetails) {
     if (ipl.org) {
       values.set('Org', ipl.org);
     }
-    if (ipl.as) {
-      values.set('AS', ipl.as);
-    }
 
     for (const [k, v] of values.entries()) {
       extraBits.push(`- **${k}:** \`${v}\``);
     }
 
     fields.push({
-      name: '🌎 IP Location',
+      name: '🌎 Location',
       value: extraBits.join('\n') || 'N/A',
       inline: false,
     });
@@ -196,7 +193,7 @@ function buildDiscordPayload(details: WebhookDetails) {
   const media = details.mediaDetails;
 
   if (post) {
-    const overview = `- 📝 Caption: ${previewFirstLine(post.caption || 'N/A', 600)}\n- 👤 Username: @${clamp(post.owner_username || 'N/A', 80)}\n- ❤️ Likes: ${post.likes ?? 'N/A'}\n- 👀 Views: ${media?.[0]?.video_view_count ?? 'N/A'}`;
+    const overview = `- 📝 Caption: ${previewFirstLine(post.caption || 'N/A', 600)}\n- 👤 Username: @${post.owner_username || 'N/A'}\n- 📊 Stats: ❤️ ${post.likes ?? 'N/A'}  •  👀 ${media?.[0]?.video_view_count ?? 'N/A'}`;
     fields.unshift({ name: '📄 Post Overview', value: overview, inline: false });
   }
 
