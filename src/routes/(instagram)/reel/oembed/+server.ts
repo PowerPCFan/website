@@ -33,8 +33,6 @@ export const GET: RequestHandler = async ({ url, request }) => {
   const oembedResponse = {
     author_name: `❤️ ${postInfo.likes}  👀 ${mediaDetails.find((media) => typeof media.video_view_count === "number")?.video_view_count ?? "N/A"}`,
     author_url: `${url.origin}/reel/${id}`,
-    provider_name: `❤️ ${postInfo.likes}  👀 ${mediaDetails.find((media) => typeof media.video_view_count === "number")?.video_view_count ?? "N/A"}`,
-    provider_url: `${url.origin}/reel/${id}`,
     title: "Embed",
     type: "rich",
     version: "1.0"
