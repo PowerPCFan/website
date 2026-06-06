@@ -28,7 +28,7 @@ export const GET: RequestHandler = async ({ params, url, request }) => {
 
   return new Response(JSON.stringify(statusJson), {
     headers: {
-      'Content-Type': 'application/activity+json',
+      'Content-Type': 'application/json',
       'Cache-Control': 'public, max-age=300',
     },
   });
