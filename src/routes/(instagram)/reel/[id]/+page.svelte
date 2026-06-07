@@ -11,7 +11,6 @@
         videoWidth: number;
         videoHeight: number;
         thumbnailUrl?: string | null;
-        downloadUrl?: string;
         description: string;
         postInfo?: InstagramResponse["post_info"];
         mediaDetails?: InstagramResponse["media_details"];
@@ -21,6 +20,29 @@
     };
 
     let { data }: { data: PageData } = $props();
+    let isDownloading = $state(false);
+
+    async function downloadVideo() {
+        if (isDownloading) return;
+        isDownloading = true;
+        try {
+            const response = await fetch(data.videoUrl);
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `reel-${data.id}.mp4`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            isDownloading = false;
+        } catch (error) {
+            console.error('Download failed:', error);
+            alert('Download failed. Try right-clicking the video and selecting "Save video as..."');
+            isDownloading = false;
+        }
+    }
 
     const pageTitle = data.pageTitle ?? `Watch Reel ${data.id}`;
     const authorName = data.postInfo?.owner_fullname || data.postInfo?.owner_username || 'Instagram Reel';
@@ -77,7 +99,7 @@
     <div class="container">
         <h1>View Reel <code>{data.id}</code></h1>
         <!-- svelte-ignore a11y_media_has_caption -->
-        <video controls preload="metadata" poster={data.thumbnailUrl ?? undefined}>
+        <video controls preload="auto" crossorigin="anonymous">
             <source src={data.videoUrl} type="video/mp4" />
         </video>
 
@@ -99,9 +121,13 @@
 
             <div class="links">
                 <a class="button" href={data.reelUrl} target="_blank" rel="noopener noreferrer">View on Instagram</a>
-                {#if data.downloadUrl}
-                    <a class="button" href={data.downloadUrl} download>Download Video</a>
-                {/if}
+                <button class="button" onclick={downloadVideo} disabled={isDownloading}>
+                    {#if isDownloading}
+                        <div class="spinner"></div>
+                    {:else}
+                        Download Video
+                    {/if}
+                </button>
                 <a class="button" href={data.videoUrl} target="_blank" rel="noopener noreferrer">Open Raw Video</a>
             </div>
         </div>
@@ -156,8 +182,8 @@
         margin-top: 16px;
         padding: 14px 16px;
         border-radius: 18px;
-        background: rgba(255, 255, 255, 0.06);
-        border: 1px solid rgba(255, 255, 255, 0.12);
+        background-color: g.$lighter-dark;
+        border: 2px solid lighten(g.$lighter-dark, 10%);
         backdrop-filter: blur(12px);
         display: flex;
         flex-direction: column;
@@ -214,14 +240,38 @@
         justify-content: center;
         padding: 11px 16px;
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.08);
         color: g.$light;
         text-decoration: none;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        backdrop-filter: blur(12px);
+        font-family: inherit;
+        cursor: pointer;
+        font-size: 1rem;
+        background-color: g.$lighter-dark;
+        border: 2px solid lighten(g.$lighter-dark, 10%);
+
+        transition: background-color 0.2s ease;
 
         &:hover {
-            background: rgba(255, 255, 255, 0.14);
+            background-color: lighten(g.$lighter-dark, 5%);
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    }
+
+    .spinner {
+        width: 20px;
+        height: 20px;
+        border: 3px solid g.$lighter-dark;
+        border-top-color: g.$primary;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
         }
     }
 </style>

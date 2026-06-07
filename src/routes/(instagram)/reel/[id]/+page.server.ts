@@ -1,6 +1,5 @@
 import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
-import { createToken } from '$lib/utils/reel/reelDownloadStore';
 import { logAction } from '$lib/utils/reel/discordWebhook';
 import { fetchReelData, validateId, idToReelUrl, smartTruncate } from '$lib/utils/reel/helper';
 
@@ -20,7 +19,7 @@ export const load: PageServerLoad = async ({ params, request, url }) => {
   const urlList = Array.isArray(instaData.url_list) ? instaData.url_list : [];
   const postInfo = instaData.post_info;
   const mediaDetails = instaData.media_details;
-  const thumbnailUrl = mediaDetails.find((media) => media.thumbnail)?.thumbnail ?? mediaDetails[0]?.url ?? null;
+  const thumbnailUrl = mediaDetails.find((media) => media.thumbnail)?.thumbnail ?? null;
   const firstVideoUrl = urlList[0] ?? reelUrl;
   const caption = postInfo.caption || '';
   const captionSummary = smartTruncate(caption, 5, 300);
@@ -43,14 +42,8 @@ export const load: PageServerLoad = async ({ params, request, url }) => {
     videoUrl = reelUrl;
   }
 
-  const token = createToken(params.id, videoUrl, {
-    postInfo,
-    mediaDetails,
-    thumbnailUrl,
-  });
-  const downloadUrl = `./dl?token=${token}`;
   const pageUrl = `${url.origin}${url.pathname}`;
-  
+
   const oembedUrl = `${url.origin}/owoembed?text=${encodeURIComponent(pageTitle)}&author=${postInfo.owner_username}&status=${params.id}`;
   const activityUrl = `${url.origin}/users/${postInfo.owner_username}/statuses/${params.id}`;
 
@@ -66,7 +59,6 @@ export const load: PageServerLoad = async ({ params, request, url }) => {
     videoWidth,
     videoHeight,
     thumbnailUrl,
-    downloadUrl,
     description: 'Watch or download this Instagram reel.',
     postInfo,
     mediaDetails,
