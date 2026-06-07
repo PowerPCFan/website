@@ -192,10 +192,9 @@ function buildDiscordPayload(details: WebhookDetails) {
   }
 
   const post = details.postInfo;
-  const media = details.mediaDetails;
 
   if (post) {
-    const overview = `- 📝 Caption: ${previewFirstLine(post.caption || 'N/A', 600)}\n- 👤 Username: @${post.owner_username || 'N/A'}\n- 📊 Stats: ❤️ ${post.likes ?? 'N/A'}  •  👀 ${media?.[0]?.video_view_count ?? 'N/A'}`;
+    const overview = `- 📝 Caption: ${previewFirstLine(post.caption || 'N/A', 600)}\n- 👤 Username: @${post.owner_username || 'N/A'}`;
     fields.unshift({ name: '📄 Post Overview', value: overview, inline: false });
   }
 

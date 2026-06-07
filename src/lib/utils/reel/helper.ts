@@ -9,6 +9,11 @@ export interface InstagramResponse {
     likes: number;
     is_ad: boolean;
     caption: string;
+    profile_pic_url: string;
+    followers_count: number;
+    taken_at_timestamp: number;
+    comment_count: number;
+    like_and_view_counts_disabled: boolean;
   };
   media_details: {
     type: string;
@@ -18,6 +23,7 @@ export interface InstagramResponse {
     };
     url: string;
     video_view_count?: number;
+    video_play_count?: number;
     thumbnail?: string;
   }[];
 }
@@ -52,6 +58,11 @@ function formatPostInfo(requestData: any) {
       likes: requestData.edge_media_preview_like.count,
       is_ad: requestData.is_ad,
       caption: capt,
+      profile_pic_url: requestData.owner.profile_pic_url,
+      followers_count: requestData.owner.edge_followed_by.count,
+      taken_at_timestamp: requestData.taken_at_timestamp,
+      comment_count: requestData.edge_media_to_parent_comment.count,
+      like_and_view_counts_disabled: requestData.like_and_view_counts_disabled,
     };
   } catch (err: any) {
     throw new Error(`Failed to format post info: ${err.message}`);
@@ -65,6 +76,7 @@ function formatMediaDetails(mediaData: any) {
         type: 'video',
         dimensions: mediaData.dimensions,
         video_view_count: mediaData.video_view_count,
+        video_play_count: mediaData.video_play_count,
         url: mediaData.video_url,
         thumbnail: mediaData.display_url,
       };
@@ -222,4 +234,11 @@ export function smartTruncate(text: string, maxLines = 5, maxLength = 300): stri
   }
 
   return joined + (isTruncated ? '…' : '');
+}
+
+export function formatNumber(num: number | null | undefined): string {
+  if (num === null || num === undefined) return 'N/A';
+  if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+  if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+  return num.toString();
 }

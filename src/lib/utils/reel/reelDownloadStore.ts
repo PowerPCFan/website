@@ -25,7 +25,8 @@ function generateTokenHex() {
   return s.slice(0, 32);
 }
 
-export function createToken(id: string, videoUrl: string, ttlMs = 2 * 60 * 1000, meta?: any) {
+export function createToken(id: string, videoUrl: string, meta?: any) {
+  const ttlMs = 20 * 60 * 1000; // 20 minutes
   const token = generateTokenHex();
   const expiresAt = Date.now() + ttlMs;
   store.set(token, { id, videoUrl, meta, expiresAt });

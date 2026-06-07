@@ -1,11 +1,4 @@
-import { idToReelUrl, smartTruncate, type InstagramResponse } from './helper';
-
-function formatNumber(num: number | null | undefined): string {
-  if (num === null || num === undefined) return 'N/A';
-  if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
-  if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
-  return num.toString();
-}
+import { idToReelUrl, smartTruncate, formatNumber, type InstagramResponse } from './helper';
 
 export function buildMastodonStatus(id: string, instaData: InstagramResponse, origin: string) {
   const postInfo = instaData.post_info;
@@ -13,10 +6,17 @@ export function buildMastodonStatus(id: string, instaData: InstagramResponse, or
   const video = mediaDetails[0];
 
   const truncatedCaption = smartTruncate(postInfo.caption || 'Instagram reel', 5, 300);
-  const captionHtml = truncatedCaption.replace(/\n/g, '<br>');
+  const captionHtml = truncatedCaption.replace(/\r?\n/g, '<br>');
   const likesStr = formatNumber(postInfo.likes);
   const viewsStr = formatNumber(video?.video_view_count);
-  const content = `${captionHtml}<br><br><b>❤️ ${likesStr}&ensp;👁️ ${viewsStr}</b>`;
+  const followersStr = formatNumber(postInfo.followers_count);
+
+  let content: string = captionHtml + '<br><br>';
+  if (!postInfo.like_and_view_counts_disabled) {
+    content += `<b>❤️ ${likesStr}&ensp;👀 ${viewsStr}&ensp;💬 ${postInfo.comment_count}&ensp;👥 ${followersStr}</b>`;
+  } else {
+    content = `<i>Stats are hidden for this reel</i>`;
+  }
 
   let width = video?.dimensions.width ?? 720;
   let height = video?.dimensions.height ?? 1280;
@@ -55,7 +55,7 @@ export function buildMastodonStatus(id: string, instaData: InstagramResponse, or
     id: id,
     url: postUrl,
     uri: postUrl,
-    created_at: new Date().toISOString(),
+    created_at: new Date(postInfo.taken_at_timestamp * 1000).toISOString(),
     edited_at: null,
     reblog: null,
     in_reply_to_id: null,
@@ -76,14 +76,14 @@ export function buildMastodonStatus(id: string, instaData: InstagramResponse, or
       acct: postInfo.owner_username,
       url: postUrl,
       uri: postUrl,
-      created_at: new Date().toISOString(),
+      created_at: null,
       locked: false,
       bot: false,
       discoverable: true,
       indexable: false,
       group: false,
-      avatar: `${origin}/images/reel/account.png`,
-      avatar_static: `${origin}/images/reel/account.png`,
+      avatar: postInfo.profile_pic_url,
+      avatar_static: postInfo.profile_pic_url,
       header: '',
       header_static: '',
       followers_count: 0,

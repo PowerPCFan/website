@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { formatNumber, type InstagramResponse } from "$lib/utils/reel/helper";
+
     type PageData = {
         id: string;
         pageUrl: string;
@@ -11,25 +13,8 @@
         thumbnailUrl?: string | null;
         downloadUrl?: string;
         description: string;
-        postInfo?: {
-            owner_username: string;
-            owner_fullname: string;
-            is_verified: boolean;
-            is_private: boolean;
-            likes: number;
-            is_ad: boolean;
-            caption: string;
-        };
-        mediaDetails?: {
-            type: string;
-            dimensions: {
-                height: number;
-                width: number;
-            };
-            url: string;
-            video_view_count?: number;
-            thumbnail?: string;
-        }[];
+        postInfo?: InstagramResponse["post_info"];
+        mediaDetails?: InstagramResponse["media_details"];
         pageTitle?: string;
         ogDescription?: string;
         isDiscord?: boolean;
@@ -49,7 +34,7 @@
 </script>
 
 <svelte:head>
-    <title>{pageTitle}</title>
+    <title>{pageTitle} | PowerPCFan's Website</title>
 
     <link rel="canonical" href={data.pageUrl} />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -101,12 +86,14 @@
                 <div class="meta-card">
                     <div class="meta-topline">
                         <span class="meta-author">{authorName}</span>
-                        {#if authorHandle}
-                            <span class="meta-handle">{authorHandle}</span>
-                        {/if}
+                        <span class="meta-handle">{authorHandle ? `@${authorHandle} • ` : ''}👥 {formatNumber(data.postInfo.followers_count)}</span>
                     </div>
                     <div class="meta-caption">{captionSnippet}</div>
-                    <div class="meta-stats">❤️ {data.postInfo.likes}&nbsp;&nbsp;👀 {views}</div>
+                    {#if !data.postInfo.like_and_view_counts_disabled}
+                        <div class="meta-stats">❤️ {formatNumber(data.postInfo.likes)}&nbsp;&nbsp;👀 {typeof(views) === "number" ? formatNumber(views) : views}&nbsp;&nbsp;💬 {formatNumber(data.postInfo.comment_count)}</div>
+                    {:else}
+                        <div class="meta-stats">Stats are hidden for this reel</div>
+                    {/if}
                 </div>
             {/if}
 
@@ -139,7 +126,7 @@
         align-items: flex-start;
         justify-content: center;
         color: g.$light;
-        font-family: Inter, system-ui, sans-serif;
+        font-family: "Inter", system-ui, sans-serif;
     }
 
     .container {

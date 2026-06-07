@@ -1,4 +1,4 @@
-import { error, redirect } from "@sveltejs/kit";
+import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 import { createToken } from '$lib/utils/reel/reelDownloadStore';
 import { logAction } from '$lib/utils/reel/discordWebhook';
@@ -24,9 +24,8 @@ export const load: PageServerLoad = async ({ params, request, url }) => {
   const firstVideoUrl = urlList[0] ?? reelUrl;
   const caption = postInfo.caption || '';
   const captionSummary = smartTruncate(caption, 5, 300);
-  const videoViews = mediaDetails.find((media) => typeof media.video_view_count === 'number')?.video_view_count ?? null;
-  const pageTitle = `${postInfo.owner_fullname || postInfo.owner_username} (@${postInfo.owner_username})`;
-  const ogDescription = `${captionSummary || 'Instagram reel preview'}\n\n❤️ ${postInfo.likes}  👀 ${videoViews ?? 'N/A'}`;
+  const pageTitle = `@${postInfo.owner_username}`;
+  const ogDescription = captionSummary || 'Instagram reel preview';
 
   let videoWidth = mediaDetails[0]?.dimensions.width ?? 720;
   let videoHeight = mediaDetails[0]?.dimensions.height ?? 1280;
@@ -44,7 +43,7 @@ export const load: PageServerLoad = async ({ params, request, url }) => {
     videoUrl = reelUrl;
   }
 
-  const token = createToken(params.id, videoUrl, undefined, {
+  const token = createToken(params.id, videoUrl, {
     postInfo,
     mediaDetails,
     thumbnailUrl,

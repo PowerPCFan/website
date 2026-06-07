@@ -47,7 +47,7 @@
             ], closeMenu)}
             {@render navbarDropdown("Music", [
                 { path: "/music/songs", text: "Song Lyrics/Reviews" },
-                { path: "/music/radio", text: "Portal 2 Radio" }
+                // { path: "/music/radio", text: "Portal 2 Radio" }
             ], closeMenu)}
 
             {@render navbarDropdown("Resources", [
