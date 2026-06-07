@@ -28,11 +28,6 @@ export const load: PageServerLoad = async ({ params, request, url }) => {
 
   let videoWidth = mediaDetails[0]?.dimensions.width ?? 720;
   let videoHeight = mediaDetails[0]?.dimensions.height ?? 1280;
-  let mult = 1;
-  if (videoWidth > 1920 || videoHeight > 1920) mult = 0.5;
-  if (videoWidth < 400 && videoHeight < 400) mult = 2;
-  videoWidth = Math.round(videoWidth * mult);
-  videoHeight = Math.round(videoHeight * mult);
 
   let videoUrl = reelUrl;
   try {
