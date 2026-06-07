@@ -2,9 +2,6 @@ import { env } from '$env/dynamic/private';
 import { idToReelUrl } from './helper';
 
 const REEL_HOOK: string | null = env.REEL_HOOK || null;
-const DISCORD_SEND_TIMEOUT_MS = 10_000;
-const IP_API_TIMEOUT_MS = 5_000;
-const DISCORD_MAX_RETRIES = 3;
 
 type IpLocation = {
   country?: string;
@@ -19,15 +16,6 @@ type IpLocation = {
 };
 
 const ipLocationCache = new Map<string, IpLocation | null>();
-
-type QueueItem = {
-  payload: Record<string, unknown>;
-  attempt: number;
-};
-
-const discordQueue: QueueItem[] = [];
-let discordQueueFlushing = false;
-let discordQueueTimer: ReturnType<typeof setInterval> | null = null;
 
 function clamp(text: string, maxLength: number) {
   return text.length > maxLength ? `${text.slice(0, maxLength - 1)}…` : text;
@@ -96,12 +84,10 @@ async function getIpLocation(ip: string): Promise<IpLocation | null> {
   }
 
   try {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), IP_API_TIMEOUT_MS);
     const response = await fetch(`http://ip-api.com/json/${encodeURIComponent(ip)}?fields=status,message,country,regionName,city,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query`, {
-      signal: controller.signal,
+      signal: AbortSignal.timeout(5000),
     });
-    clearTimeout(timeout);
+
     if (!response.ok) {
       ipLocationCache.set(ip, null);
       return null;
@@ -215,84 +201,32 @@ function buildDiscordPayload(details: WebhookDetails) {
   };
 }
 
-async function postDiscordPayload(payload: Record<string, unknown>) {
+export function sendDiscordWebhook(details: WebhookDetails): void {
   if (!REEL_HOOK) {
     console.warn('Discord webhook for reel telemetry not configured (REEL_HOOK)');
     return;
   }
 
-  try {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), DISCORD_SEND_TIMEOUT_MS);
-    const res = await fetch(REEL_HOOK, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-      signal: controller.signal,
-    });
-    clearTimeout(timeout);
-    if (!res.ok) {
-      const body = await res.text().catch(() => '<no body>');
-      throw new Error(`Discord webhook responded with ${res.status}: ${body}`);
-    }
-  } catch (e) {
-    throw e;
-  }
-}
-
-function ensureDiscordQueuePump() {
-  if (discordQueueTimer) return;
-
-  discordQueueTimer = setInterval(() => {
-    void flushDiscordQueue();
-  }, 5_000);
-
-  const timer = discordQueueTimer as unknown as { unref?: () => void };
-  if (typeof timer.unref === 'function') {
-    timer.unref();
-  }
-}
-
-async function flushDiscordQueue() {
-  if (discordQueueFlushing || discordQueue.length === 0) return;
-  discordQueueFlushing = true;
-
-  try {
-    while (discordQueue.length > 0) {
-      const item = discordQueue.shift();
-      if (!item) continue;
-
-      try {
-        await postDiscordPayload(item.payload);
-      } catch (error) {
-        if (item.attempt < DISCORD_MAX_RETRIES) {
-          discordQueue.push({ payload: item.payload, attempt: item.attempt + 1 });
-        } else {
-          console.error('Discord webhook dropped after retries', error);
-        }
-      }
-    }
-  } finally {
-    discordQueueFlushing = false;
-  }
-}
-
-function queueDiscordWebhook(details: WebhookDetails) {
   const payload = buildDiscordPayload(details);
-  discordQueue.push({ payload, attempt: 0 });
-  ensureDiscordQueuePump();
-  void flushDiscordQueue();
+  fetch(REEL_HOOK, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+    signal: AbortSignal.timeout(10_000),
+  }).catch((err) => {
+    console.error('Discord webhook failed:', err);
+  });
 }
 
 export async function logAction(event: { id?: string; videoUrl?: string; downloadToken?: string; request?: Request; postInfo?: any; mediaDetails?: any; thumbnailUrl?: string | null; action?: string }) {
   const req = event.request;
   const ua = req ? req.headers.get('user-agent') : null;
-  const isCrawler = ua ? /bot|crawler|spider|curl|wget|python-requests|fetch|httpclient|feedfetcher|slack|facebookexternalhit|facebot|twitterbot|whatsapp|linkedinbot|ahrefsbot|semrushbot|bingbot|bingpreview|googlebot|discordbot/i.test(ua) : false;
+  const userIsCrawler = isCrawler(ua);
 
   let ip: string | undefined = undefined;
   let ipLocation: IpLocation | null = null;
 
-  if (!isCrawler) {
+  if (!userIsCrawler) {
     ip = req ? (getRemoteIp(req.headers) || 'unknown') : 'unknown';
     ipLocation = await getIpLocation(ip);
   }
@@ -300,7 +234,7 @@ export async function logAction(event: { id?: string; videoUrl?: string; downloa
   const requestInfo = req ? buildRequestUrl(req) : { url: null, host: null };
   const requestPath = req ? new URL(req.url).pathname + new URL(req.url).search : null;
 
-  queueDiscordWebhook({
+  sendDiscordWebhook({
     action: event.action || (event.downloadToken ? 'download' : 'view'),
     id: event.id,
     videoUrl: event.videoUrl,
@@ -314,7 +248,5 @@ export async function logAction(event: { id?: string; videoUrl?: string; downloa
     ...(event.postInfo ? { postInfo: event.postInfo } : {}),
     ...(event.mediaDetails ? { mediaDetails: event.mediaDetails } : {}),
     ...(event.thumbnailUrl ? { thumbnailUrl: event.thumbnailUrl } : {}),
-  } as any);
+  });
 }
-
-export { queueDiscordWebhook as sendDiscordWebhook };
