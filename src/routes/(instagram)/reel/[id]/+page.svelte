@@ -53,6 +53,8 @@
         .trim();
     const captionSnippet = captionPreview.length > 160 ? `${captionPreview.slice(0, 159)}…` : captionPreview;
     const views = data.mediaDetails?.find((media) => typeof media.video_view_count === 'number')?.video_view_count ?? 'N/A';
+
+    console.log("w, h:", data.videoWidth, data.videoHeight)
 </script>
 
 <svelte:head>
@@ -76,17 +78,22 @@
     {/if}
 
     {#if !data.isDiscord}
-        <meta property="twitter:card" content="player"/>
-        <meta name="twitter:player:stream" content={data.videoUrl} />
-        <meta name="twitter:player:stream:content_type" content="video/mp4" />
+        <meta property="og:image" content={data.thumbnailUrl ?? undefined} />
+        <meta property="twitter:image" content={data.thumbnailUrl ?? undefined} />
 
         <meta property="og:video" content={data.videoUrl} />
         <meta property="og:video:secure_url" content={data.videoUrl} />
         <meta property="og:video:type" content="video/mp4" />
         <meta property="og:video:width" content={String(data.videoWidth)} />
         <meta property="og:video:height" content={String(data.videoHeight)} />
-        <meta property="twitter:player:width" content={String(data.videoWidth)} />
-        <meta property="twitter:player:height" content={String(data.videoHeight)} />
+
+        <meta property="twitter:card" content="player" />
+        <meta name="twitter:player" content={data.pageUrl} />
+        <meta name="twitter:player:stream" content={data.videoUrl} />
+        <meta name="twitter:player:stream:content_type" content="video/mp4" />
+
+        <meta name="twitter:player:width" content={String(data.videoWidth)} />
+        <meta name="twitter:player:height" content={String(data.videoHeight)} />
     {/if}
 
     <link rel="alternate" type="application/json+oembed" href={data.oembedUrl} title={pageTitle}>
