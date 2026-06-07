@@ -9,11 +9,12 @@ export function buildMastodonStatus(id: string, instaData: InstagramResponse, or
   const captionHtml = truncatedCaption.replace(/\r?\n/g, '<br>');
   const likesStr = formatNumber(postInfo.likes);
   const viewsStr = formatNumber(video?.video_view_count);
+  const commentsStr = formatNumber(postInfo.comment_count);
   const followersStr = formatNumber(postInfo.followers_count);
 
   let content: string = captionHtml + '<br><br>';
   if (!postInfo.like_and_view_counts_disabled) {
-    content += `<b>❤️ ${likesStr}&ensp;👀 ${viewsStr}&ensp;💬 ${postInfo.comment_count}&ensp;👥 ${followersStr}</b>`;
+    content += `<b>❤️ ${likesStr}&ensp;👀 ${viewsStr}&ensp;💬 ${commentsStr}&ensp;👥 ${followersStr}</b>`;
   } else {
     content = `<i>Stats are hidden for this reel</i>`;
   }
