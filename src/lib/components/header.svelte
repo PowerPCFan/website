@@ -43,38 +43,39 @@
             {@render navbarDropdown("Other Sites", [
                 { path: "https://blog.powerpcfan.xyz", text: "Blog" },
                 { path: "https://blinkl.ink", text: "BlinkLink" },
-                { path: "https://www.opticalmediagood.top", text: "Optical Media Good" }
+                { path: "https://www.opticalmediagood.top", text: "Optical Media Good" },
             ], closeMenu)}
             {@render navbarDropdown("Music", [
                 { path: "/music/songs", text: "Song Lyrics/Reviews" },
-                // { path: "/music/radio", text: "Portal 2 Radio" }
+                // { path: "/music/radio", text: "Portal 2 Radio" },
             ], closeMenu)}
 
             {@render navbarDropdown("Resources", [
                 { path: "/resources/pc-resource-document/", text: "PC Resource Document" },
                 { path: "/resources/pc-resource-document/install-windows", text: "Installing Windows" },
-                { path: "/resources/keys/", text: "Product Keys" }
+                { path: "/resources/keys/", text: "Product Keys" },
             ], closeMenu)}
 
             {@render navbarDropdown("Learn", [
-                { path: "/learn/python/", text: "Python" }
+                { path: "/learn/python/", text: "Python" },
             ], closeMenu)}
 
             {@render navbarDropdown("Project Docs", [
                 { path: "/docs/hardwareswap-listing-scraper/", text: "HardwareSwap Listing Scraper" },
-                { path: "/docs/kroma/v2", text: "Kroma" }
+                { path: "/docs/kroma/v2", text: "Kroma" },
             ], closeMenu)}
 
             {@render navbarDropdown("Tools", [
                 { path: "/tools/touch-tones/", text: "Phone Touch Tone Simulator" },
                 { path: "/tools/sine-wave-soundboard", text: "Sine Wave Soundboard" },
-                { path: "/calculators/price-scaler", text: "Price Scaler Calculator" }
+                { path: "/calculators/price-scaler", text: "Price Scaler Calculator" },
+                { path: "/tools/travel-timezone-adjustment", text: "Travel Timezone Adjustment" },
             ], closeMenu)}
 
             {@render navbarDropdown("Retro Computing", [
                 { path: "/retro-computing/start-retro-computing/", text: "Get Started with Retro Computing" },
                 { path: "/retro-computing/good-sites/", text: "Good Sites for Old Macs" },
-                { path: "/retro-computing/common-issues/", text: "Common Issues with Old Macs" }
+                { path: "/retro-computing/common-issues/", text: "Common Issues with Old Macs" },
             ], closeMenu)}
         </nav>
 
