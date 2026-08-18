@@ -16,7 +16,7 @@
 
         departureDate: string;
 
-        targetShiftHours: number;
+        targetShiftHours: number | null;
         speed: Speed;
         customShiftPerDay: number;
 
@@ -48,7 +48,7 @@
 
         departureDate: '',
 
-        targetShiftHours: 2,
+        targetShiftHours: null,
         speed: 'moderate',
         customShiftPerDay: 1,
 
@@ -73,10 +73,6 @@
         "custom": "This allows you to set your own shift amount per day."
     }
 
-    /* ---------------------------------------------------------
-     * Persistence
-     * --------------------------------------------------------- */
-
     $effect(() => {
         if (!browser || !hydrated) return;
 
@@ -99,17 +95,11 @@
                         ...parsed
                     };
                 }
-            } catch {
-                // Ignore corrupt localStorage data.
-            }
+            } catch { }
         }
 
         hydrated = true;
     });
-
-    /* ---------------------------------------------------------
-     * Time helpers
-     * --------------------------------------------------------- */
 
     function timeToMinutes(time: string): number {
         const [hours, minutes] = time.split(':').map(Number);
@@ -281,8 +271,8 @@
     }
 
     function getScheduleColor(day: number, totalDays: number): string {
-        const start = [61, 116, 255]; // starting blue
-        const end = [59, 227, 119]; // destination green
+        const start = [61, 116, 255];
+        const end = [59, 227, 119];
         const progress = totalDays <= 1 ? 1 : day / (totalDays - 1);
         const rgb = start.map((channel, index) => Math.round(channel + (end[index] - channel) * progress));
         return `rgb(${rgb.join(', ')})`;
@@ -294,10 +284,6 @@
 
         return date.toISOString().slice(0, 10);
     }
-
-    /* ---------------------------------------------------------
-     * Timezone helpers
-     * --------------------------------------------------------- */
 
     function getTimezoneOffsetMinutes(timeZone: string, dateString: string): number {
         try {
@@ -353,7 +339,12 @@
             plState.departureDate
         );
 
-        return (destination - current) / 60;
+        const rawDifference = destination - current;
+        let shortestDifference = ((rawDifference + 720) % 1440 + 1440) % 1440 - 720;
+
+        if (shortestDifference === -720) shortestDifference = 720;
+
+        return shortestDifference / 60;
     }
 
     function getShiftPerDay(): number {
@@ -374,28 +365,20 @@
     }
 
     function getNumberOfDays(): number {
-        const target = Math.abs(plState.targetShiftHours);
+        const target = Math.abs(plState.targetShiftHours ?? 0);
         const perDay = getShiftPerDay();
 
         return Math.max(1, Math.ceil(target / perDay));
     }
 
     function getDirection(): number {
-        /*
-         * Positive = destination is later than current timezone.
-         *
-         * If destination is ahead, the traveler needs to shift
-         * their sleep/wake times later.
-         *
-         * If destination is behind, they need to shift earlier.
-         */
         return getTimezoneDifference() >= 0 ? 1 : -1;
     }
 
     function buildSchedule(): ScheduleDay[] {
         if (!plState.departureDate) return [];
 
-        const totalTarget = Math.abs(plState.targetShiftHours);
+        const totalTarget = Math.abs(plState.targetShiftHours ?? 0);
         const direction = getDirection();
         const perDay = getShiftPerDay();
         const days = getNumberOfDays();
@@ -448,7 +431,7 @@
 
     let timezoneDifference = $derived(getTimezoneDifference());
 
-    let targetDifference = $derived(Math.abs(plState.targetShiftHours));
+    let targetDifference = $derived(Math.abs(plState.targetShiftHours ?? 0));
 
     let finalSleep = $derived(
         schedule.length ? schedule[schedule.length - 1].sleep : plState.sleepTime
@@ -457,10 +440,6 @@
     let finalWake = $derived(
         schedule.length ? schedule[schedule.length - 1].wake : plState.wakeTime
     );
-
-    /* ---------------------------------------------------------
-     * Validation
-     * --------------------------------------------------------- */
 
     function canContinue(): boolean {
         switch (step) {
@@ -474,7 +453,7 @@
                 return Boolean(plState.departureDate);
 
             case 3:
-                return plState.targetShiftHours > 0;
+                return (plState.targetShiftHours ?? 0) > 0;
 
             case 4:
                 return Boolean(plState.speed);
@@ -515,10 +494,6 @@
             localStorage.removeItem(SAVED_KEY);
         }
     }
-
-    /* ---------------------------------------------------------
-     * JSON import/export
-     * --------------------------------------------------------- */
 
     function exportJSON() {
         const json = JSON.stringify(plState, null, 2);
@@ -568,10 +543,6 @@
 
         input.value = '';
     }
-
-    /* ---------------------------------------------------------
-     * UI helpers
-     * --------------------------------------------------------- */
 
     function describeShift(): string {
         if (timezoneDifference === 0) {
@@ -1375,7 +1346,7 @@
     select {
         padding: 0.7rem 0.8rem;
         border: 1px solid g.$border;
-        // border-radius: 0.5rem;
+        border-radius: 0.5rem;
         background: g.$dark;
         color: g.$light;
         outline: none;
@@ -1639,9 +1610,6 @@
         }
     }
 
-    /* ---------------------------------------------------------
-     * Sleep Wheel Styles
-     * --------------------------------------------------------- */
     .wheel-section {
         display: grid;
         grid-template-columns: minmax(280px, 340px) 1fr;
