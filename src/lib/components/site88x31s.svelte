@@ -30,18 +30,15 @@
         <a target="_blank" href="https://www.rarlab.com/download.htm">
             <img alt="WinRAR" src="/images/88x31/winrar.gif" />
         </a>
-        <a target="_blank" href="https://www.frii.site">
+        <!-- <a target="_blank" href="https://www.frii.site">
             <img alt="frii.site" src="/images/88x31/frii-site.png" />
-        </a>
-        <a target="_blank" href="https://ctih1.frii.site/">
+        </a> -->
+        <a target="_blank" href="https://ctih1.fi/">
             <img alt="ctih1" src="/images/88x31/ctih1.png" />
         </a>
         <a target="_blank" href="https://restartb.xyz/">
             <img alt="RestartB" src="/images/88x31/restart.png" />
         </a>
-        <!-- <a target="_blank" href="https://eesa.lol">
-            <img alt="eesa" src="/images/88x31/eesa.png" />
-        </a> -->
         <a target="_blank" href="https://figgy.oops.wtf">
             <img alt="figgy" src="/images/88x31/figgy.gif" />
         </a>
