@@ -38,7 +38,6 @@
 
         <nav class:open={isMenuOpen}>
             {@render navbarItem("/", "Home", closeMenu)}
-            {@render navbarItem("/shop", "Shop", closeMenu)}
             {@render navbarItem("/gallery", "Photography", closeMenu)}
             {@render navbarDropdown("Other Sites", [
                 { path: "https://blog.powerpcfan.xyz", text: "Blog" },
