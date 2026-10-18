@@ -40,13 +40,10 @@
             {@render navbarItem("/", "Home", closeMenu)}
             {@render navbarItem("/gallery", "Photography", closeMenu)}
             {@render navbarDropdown("Other Sites", [
+                { path: "https://www.eepy.page", text: "eepy.page" },
                 { path: "https://blog.powerpcfan.xyz", text: "Blog" },
                 { path: "https://blinkl.ink", text: "BlinkLink" },
                 { path: "https://www.opticalmediagood.top", text: "Optical Media Good" },
-            ], closeMenu)}
-            {@render navbarDropdown("Music", [
-                { path: "/music/songs", text: "Song Lyrics/Reviews" },
-                // { path: "/music/radio", text: "Portal 2 Radio" },
             ], closeMenu)}
 
             {@render navbarDropdown("Resources", [
