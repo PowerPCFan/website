@@ -1,27 +1,16 @@
 <script lang="ts">
-    let { children } = $props();
-
+    import "../../app.css";
     import Header from "$lib/components/header.svelte";
-    import Footer from "$lib/components/footer.svelte";
-
     import { dev } from '$app/environment';
     import { injectAnalytics } from '@vercel/analytics/sveltekit';
+
+    let { children } = $props();
+
     injectAnalytics({ mode: dev ? 'development' : 'production' });
 </script>
 
 <Header />
 
-<main>
+<main class="flex-1 m-0 p-0 w-full">
     {@render children()}
 </main>
-
-<Footer />
-
-<style lang="scss">
-    main {
-        flex: 1;
-        margin: 0;
-        padding: 0;
-        width: 100%;
-    }
-</style>

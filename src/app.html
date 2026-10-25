@@ -3,101 +3,15 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
         <link rel="shortcut icon" href="%sveltekit.assets%/favicon.ico" type="image/x-icon">
-
-        <!-- Google Fonts -->
-        <!-- not all of the imported fonts are used but i cba to remove them lol -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Cabin:ital,wght@0,400..700;1,400..700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Manrope:wght@200..800&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">
-
-        <!-- Font Awesome -->
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
         <script src="https://kit.fontawesome.com/a451a38510.js" crossorigin="anonymous"></script>
 
         %sveltekit.head%
-
-        <style>
-            @import '/scss/global.css';
-
-            *, *::before, *::after {
-                box-sizing: border-box;
-            }
-
-            html {
-                height: 100%;
-                width: 100%;
-                margin: 0;
-            }
-
-            body {
-                height: 100%;
-                width: 100%;
-                margin: 0;
-                background-color: var(--dark);
-                font-family: var(--stack);
-                font-variant-ligatures: no-contextual; /* disable smart replacement of 'x' for '×' when 'x' is typed between two numbers */
-                color: var(--light);
-
-                /* font clarity improvements */
-                -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale;
-                text-rendering: optimizeLegibility;
-            }
-
-            .sveltekit-body {
-                display: flex;
-                flex-direction: column;
-                height: 100%;
-                width: 100%;
-                margin: 0;
-                padding: 0;
-            }
-
-            button.anchor-tag-styles {
-                all: unset;
-            }
-
-            a, button.anchor-tag-styles {
-                font-size: inherit;
-                text-decoration: none;
-                color: var(--link);
-
-                transition: color 0.15s ease;
-            }
-
-            a:hover, button.anchor-tag-styles:hover {
-                color: color-mix(in srgb, var(--link), white 25%);
-                text-decoration: underline;
-                text-underline-offset: 2px;
-                cursor: pointer;
-            }
-
-            .ul {
-                text-decoration: underline;
-                text-underline-offset: 2px;
-            }
-
-            hr {
-                border: 0;
-                border-top: 1px solid var(--border);
-                height: 0;
-                background: transparent;
-            }
-
-            .rehype-autolink-headings-link {
-                color: rgba(255, 255, 255, 0);
-                font-size: 0.75em;
-                margin-left: 0.5rem;
-            }
-
-            .rehype-autolink-headings-link:hover {
-                color: rgba(255, 255, 255, 0.5);
-            }
-            
-        </style>
      </head>
     <body data-sveltekit-preload-data="hover">
-        <div class="sveltekit-body">%sveltekit.body%</div>
+        <div style="display: flex; flex-direction: column; height: 100%; width: 100%; margin: 0; padding: 0;">%sveltekit.body%</div>
     </body>
 </html>

@@ -4,7 +4,7 @@
 
 <Title title="Installing Windows"></Title>
 
-<div class="box">
+<div class="text-foreground bg-muted w-[88vw] my-4 mx-auto py-1 px-5 squircle-md">
 
 # How to Install Windows 10/11
 
@@ -79,20 +79,8 @@ Follow the exact same process as Windows 10 but ensure that Secure Boot is enabl
 
 </div>
 
-<style lang="scss">
-    @use '/static/scss/global.scss' as g;
-
-    .box {
-        background-color: #262626;
-        color: g.$light;
-        width: 88vw;
-        margin: 1rem auto;
-        padding: 0.2rem 1.2rem;
-        border-radius: 10px;
-    }
-
-    a {
-        text-align: left;
-        margin: 0;
-    }
+<style>
+    @reference "tailwindcss";
+    a { @apply text-left m-0; }
+    /* p { @apply my-2; } */
 </style>

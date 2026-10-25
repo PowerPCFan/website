@@ -1,5 +1,7 @@
 <script lang="ts">
-    import Title from "$lib/components/title.svelte";
+    import Holder from "$lib/components/Holder.svelte";
+import Title from "$lib/components/title.svelte";
+  import Button from "$lib/components/ui/button/button.svelte";
     import { onMount } from "svelte";
 
     type ToneStep = {
@@ -499,258 +501,119 @@
 
 <Title title="Sine Wave Soundboard" />
 
-<div class="container">
-    <h1 ondblclick={() => (debugMode = !debugMode)}>Sine Wave Soundboard</h1>
+{#snippet debugPanel(preset: SoundPreset)}
+    <div class="w-full mt-2 p-2 border border-border rounded-lg bg-background flex flex-col gap-1 text-xs">
+        <div><strong>loop:</strong> {preset.loop ? "true" : "false"}</div>
+        <div><strong>jitter:</strong> {preset.jitterHz && preset.jitterHz > 0 ? preset.jitterHz : "disabled"}</div>
+        <div><strong>one-shot duration (ms):</strong> {preset.oneShotMs ?? "n/a"}</div>
+        {#if preset.sweep}
+            <div>
+                <strong>sweep:</strong>
+                {preset.sweep.minHz}-{preset.sweep.maxHz}Hz @ {preset.sweep.rateHz}Hz, on {preset.sweep.onMs ?? "inf"}ms / off {preset.sweep.offMs ?? 0}ms
+            </div>
+        {/if}
+        {#if preset.sweep?.harmonicLimitHz || preset.sweep?.harmonicRollOff}
+            <div>
+                <strong>harmonics:</strong>
+                limit {preset.sweep?.harmonicLimitHz ?? "base"}Hz, rolloff {preset.sweep?.harmonicRollOff ?? "default"}
+            </div>
+        {/if}
+        {#if preset.frequencies}
+            <div>
+                <strong>frequencies:</strong>
+                {preset.frequencies ? `${preset.frequencies.length > 1 ? "[" : ""}${preset.frequencies.join(" Hz, ")+" Hz"}${preset.frequencies.length > 1 ? "]" : ""}` : "n/a"}
+            </div>
+        {/if}
 
-    <div class="controls">
-        <div class="field">
-            <label for="volume-slider">Volume: {Math.round(volume*200)}%</label>
-            <input id="volume-slider" type="range" min="0" max="0.5" step="0.005" bind:value={volume} />
+        {#if preset.introSequence}
+            <div>
+                <strong>intro sequence:</strong>
+                <ul class="pl-4 [&_li]:leading-tight">
+                    {#each preset.introSequence as step, stepIndex}
+                        <li>
+                            {#if step.frequencies.length === 1}
+                                #{stepIndex + 1}: {step.frequencies[0]} Hz for {step.durationMs}ms
+                            {:else if step.frequencies.length > 1}
+                                #{stepIndex + 1}: [{step.frequencies.join(" Hz, ")+" Hz"}] for {step.durationMs}ms
+                            {:else}
+                                #{stepIndex + 1}: Silence for {step.durationMs}ms
+                            {/if}
+                        </li>
+                    {/each}
+                </ul>
+            </div>
+        {/if}
+
+        {#if preset.sustainFrequencies}
+            <div>
+                <strong>sustain:</strong>
+                {preset.sustainFrequencies.length > 1 ? `[${preset.sustainFrequencies.join(" Hz, ")} Hz]` : `${preset.sustainFrequencies[0]} Hz`}
+            </div>
+        {/if}
+
+        {#if preset.sequence}
+            <div>
+                <strong>sequence:</strong>
+                <ul class="pl-4 [&_li]:leading-tight">
+                    {#each preset.sequence as step, stepIndex}
+                        <li>
+                            {#if step.frequencies.length === 1}
+                                #{stepIndex + 1}: {step.frequencies[0]} Hz for {step.durationMs}ms
+                            {:else if step.frequencies.length > 1}
+                                #{stepIndex + 1}: [{step.frequencies.join(" Hz, ")+" Hz"}] for {step.durationMs}ms
+                            {:else}
+                                #{stepIndex + 1}: Silence for {step.durationMs}ms
+                            {/if}
+                        </li>
+                    {/each}
+                </ul>
+            </div>
+        {/if}
+    </div>
+{/snippet}
+
+<Holder>
+    <div class="max-w-250 my-0 mx-auto p-2 flex flex-col gap-4">
+        <h1 class="m-0 text-[2rem]" ondblclick={() => (debugMode = !debugMode)}>Sine Wave Soundboard</h1>
+
+        <div class="grid grid-cols-[1fr] md:grid-cols-[1fr_auto] gap-4 items-end bg-muted border border-border rounded-xl p-4">
+            <div class="flex flex-col gap-1">
+                <label for="volume-slider">Volume: {Math.round(volume * 200)}%</label>
+                <input id="volume-slider" type="range" class="w-full" min="0" max="0.5" step="0.005" bind:value={volume} />
+            </div>
+            <Button variant="destructive" class="h-8 rounded-none squircle-xs!" onclick={stopAll}>Stop All</Button>
         </div>
 
-        <button class="stop-button" type="button" onclick={stopAll}>Stop All</button>
-    </div>
+        {#each categories as category}
+            <section class="flex flex-col gap-2.5">
+                <h2 class="m-0 text-lg">{categoryLabels[category]}</h2>
+                <div class="grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-3">
+                    {#each presets.filter((preset) => preset.category === category) as preset}
+                        <div class="bg-muted border border-border squircle-xs flex flex-col items-start text-left gap-1 p-3 leading-[1.2]">
+                            <span class="text-base font-bold leading-[inherit]">{preset.name}</span>
+                            <span class="text-[0.85rem] text-muted-foreground leading-[inherit]">{preset.description}</span>
 
-    {#each categories as category}
-        <section class="category-section">
-            <h2>{categoryLabels[category]}</h2>
-            <div class="preset-grid">
-                {#each presets.filter((preset) => preset.category === category) as preset}
-                    <div class="preset-card">
-                        <span class="name">{preset.name}</span>
-                        <span class="description">{preset.description}</span>
+                            {#if debugMode}
+                                {@render debugPanel(preset)}
+                            {/if}
 
-                        {#if debugMode}
-                            <div class="debug-panel">
-                                <div><strong>loop:</strong> {preset.loop ? "true" : "false"}</div>
-                                <div><strong>jitter:</strong> {preset.jitterHz && preset.jitterHz > 0 ? preset.jitterHz : "disabled"}</div>
-                                <div><strong>one-shot duration (ms):</strong> {preset.oneShotMs ?? "n/a"}</div>
-                                {#if preset.sweep}
-                                    <div>
-                                        <strong>sweep:</strong>
-                                        {preset.sweep.minHz}-{preset.sweep.maxHz}Hz @ {preset.sweep.rateHz}Hz, on {preset.sweep.onMs ?? "inf"}ms / off {preset.sweep.offMs ?? 0}ms
-                                    </div>
-                                {/if}
-                                {#if preset.sweep?.harmonicLimitHz || preset.sweep?.harmonicRollOff}
-                                    <div>
-                                        <strong>harmonics:</strong>
-                                        limit {preset.sweep?.harmonicLimitHz ?? "base"}Hz, rolloff {preset.sweep?.harmonicRollOff ?? "default"}
-                                    </div>
-                                {/if}
-                                {#if preset.frequencies}
-                                    <div>
-                                        <strong>frequencies:</strong>
-                                        {preset.frequencies ? `${preset.frequencies.length > 1 ? "[" : ""}${preset.frequencies.join(" Hz, ")+" Hz"}${preset.frequencies.length > 1 ? "]" : ""}` : "n/a"}
-                                    </div>
-                                {/if}
-
-                                {#if preset.introSequence}
-                                    <div>
-                                        <strong>intro sequence:</strong>
-                                        <ul>
-                                            {#each preset.introSequence as step, stepIndex}
-                                                <li>
-                                                    {#if step.frequencies.length === 1}
-                                                        #{stepIndex + 1}: {step.frequencies[0]} Hz for {step.durationMs}ms
-                                                    {:else if step.frequencies.length > 1}
-                                                        #{stepIndex + 1}: [{step.frequencies.join(" Hz, ")+" Hz"}] for {step.durationMs}ms
-                                                    {:else}
-                                                        #{stepIndex + 1}: Silence for {step.durationMs}ms
-                                                    {/if}
-                                                </li>
-                                            {/each}
-                                        </ul>
-                                    </div>
-                                {/if}
-
-                                {#if preset.sustainFrequencies}
-                                    <div>
-                                        <strong>sustain:</strong>
-                                        {preset.sustainFrequencies.length > 1 ? `[${preset.sustainFrequencies.join(" Hz, ")} Hz]` : `${preset.sustainFrequencies[0]} Hz`}
-                                    </div>
-                                {/if}
-
-                                {#if preset.sequence}
-                                    <div>
-                                        <strong>sequence:</strong>
-                                        <ul>
-                                            {#each preset.sequence as step, stepIndex}
-                                                <li>
-                                                    {#if step.frequencies.length === 1}
-                                                        #{stepIndex + 1}: {step.frequencies[0]} Hz for {step.durationMs}ms
-                                                    {:else if step.frequencies.length > 1}
-                                                        #{stepIndex + 1}: [{step.frequencies.join(" Hz, ")+" Hz"}] for {step.durationMs}ms
-                                                    {:else}
-                                                        #{stepIndex + 1}: Silence for {step.durationMs}ms
-                                                    {/if}
-                                                </li>
-                                            {/each}
-                                        </ul>
-                                    </div>
-                                {/if}
+                            <div class="w-full flex mt-2 flex-1">
+                                <Button
+                                    variant="outline"
+                                    class="bg-card w-full mt-auto h-8 rounded-none squircle-xs! toggle-button {isPlaying(preset.name) ? 'stop' : 'play'}"
+                                    onclick={() => (isPlaying(preset.name) ? stopPreset(preset.name) : playPreset(preset))}
+                                >{isPlaying(preset.name) ? "Stop" : "Play"}</Button>
                             </div>
-                        {/if}
-
-                        <div class="card-buttons">
-                            <button
-                                class="toggle-button {isPlaying(preset.name) ? 'stop' : 'play'}"
-                                type="button"
-                                onclick={() => (isPlaying(preset.name) ? stopPreset(preset.name) : playPreset(preset))}
-                            >
-                                {isPlaying(preset.name) ? "Stop" : "Play"}
-                            </button>
                         </div>
-                    </div>
-                {/each}
-            </div>
-        </section>
-    {/each}
-</div>
+                    {/each}
+                </div>
+            </section>
+        {/each}
+    </div>
+</Holder>
 
-<style lang="scss">
-    @use "/static/scss/global.scss" as g;
-
-    .container {
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 2rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    h1 {
-        margin: 0;
-    }
-
-    h2 {
-        margin: 0;
-        font-size: 1.1rem;
-    }
-
-    .controls {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 1rem;
-        align-items: end;
-        background: #252525;
-        border: 1px solid g.$border;
-        border-radius: 0.75rem;
-        padding: 1rem;
-    }
-
-    .field {
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-    }
-
-    .stop-button {
-        border: 1px solid g.$border;
-        border-radius: 0.6rem;
-        color: g.$light;
-        font-family: g.$stack;
-        cursor: pointer;
-        background: darken(g.$red, 20%);
-        padding: 0.5rem 1rem;
-    }
-
-    .card-buttons button {
-        border: 1px solid g.$border;
-        border-radius: 0.6rem;
-        color: g.$light;
-        font-family: g.$stack;
-        cursor: pointer;
-    }
-
-    .category-section {
-        display: flex;
-        flex-direction: column;
-        gap: 0.6rem;
-    }
-
-    .preset-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-        gap: 0.75rem;
-    }
-
-    .preset-card {
-        background: #252525;
-        border: 1px solid g.$border;
-        border-radius: 0.6rem;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        text-align: left;
-        gap: 0.25rem;
-        padding: 0.75rem;
-
-        .name {
-            font-size: 1rem;
-            font-weight: 700;
-        }
-
-        .description {
-            color: g.$darker-light;
-            font-size: 0.85rem;
-        }
-    }
-
-    .debug-panel {
-        width: 100%;
-        margin-top: 0.5rem;
-        padding: 0.5rem;
-        border: 1px dashed g.$border;
-        border-radius: 0.5rem;
-        background: g.$dark;
-        display: flex;
-        flex-direction: column;
-        gap: 0.2rem;
-        font-size: 0.75rem;
-
-        ul {
-            margin-top: 0.25rem;
-            margin-left: 1.25rem;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.2rem;
-        }
-    }
-
-    .card-buttons {
-        width: 100%;
-        display: flex;
-        margin-top: 0.5rem;
-
-        .toggle-button {
-            width: 100%;
-            padding: 0.5rem 0.75rem;
-            background: #303030;
-            border: 1px solid g.$border;
-            border-radius: 0.6rem;
-            color: g.$light;
-            font-family: g.$stack;
-            cursor: pointer;
-        }
-
-        .toggle-button.stop {
-            background: darken(g.$red, 20%);
-        }
-    }
-
-    input[type="range"] {
-        width: 100%;
-    }
-
-    @media (max-width: 760px) {
-        .container {
-            padding: 1rem;
-        }
-
-        .controls {
-            grid-template-columns: 1fr;
-        }
+<style>
+    :global(.toggle-button.stop) {
+        background-color: var(--color-destructive);
     }
 </style>

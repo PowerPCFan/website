@@ -353,84 +353,7 @@ Note - this list is quite old but it still applies to modern Windows versions fo
 </Accordion>
 </div>
 
-<!--
-<style lang="scss">
-    @use "/static/scss/global.scss" as g;
-
-    #page-container {
-        margin: 2rem;
-    }
-
-    h1 {
-        font-size: 2.25rem;
-    }
-
-    h3, h4 {
-        margin-bottom: -0.5rem;
-    }
-
-    h4 {
-        font-size: 1.1rem;
-    }
-
-    h6 {
-        margin-top: 1.5rem;
-        margin-bottom: -0.5rem;
-        font-size: 1rem;
-        font-weight: bold;
-    }
-
-    a {
-        font-size: 1rem;
-        text-decoration: underline;
-        color: g.$link;
-    }
-
-    img {
-        width: auto;
-        max-width: 100%;
-        max-height: 500px;
-        height: auto;
-        display: block;
-        object-fit: contain;
-    }
-</style>
-
-<style lang="scss">
-    @use '/static/scss/global.scss' as g;
-
-    // thanks to chatgpt for this
-    // the spacing on this page is SO fucked
-    h1, h2, h3, h4, h5, h6 {line-height: 1.25;margin-top: 1.5rem;margin-bottom: 0.4rem;font-weight: bold;} 
-    h3 {margin-top: 2rem;margin-bottom: 1rem;}
-    h3 + h4 {margin-top: 1rem;}
-    h4 {font-size: 1.1rem;margin-top: 1.5rem;margin-bottom: 0.6rem;}
-    h4 + p, h4 + ul, h4 + ol {margin-top: 0.6rem;}
-    p, ul, ol {margin-top: 0;margin-bottom: 0.75rem;line-height: 1.5;}
-
-    #page-container {
-        margin: 2rem;
-    }
-
-    a {
-        font-size: 1rem;
-        text-decoration: underline;
-        color: g.$link;
-    }
-
-    img {
-        width: auto;
-        max-width: 100%;
-        max-height: 500px;
-        height: auto;
-        display: block;
-        object-fit: contain;
-    }
-</style> -->
-
-<style lang="scss">
-    @use '/static/scss/global.scss' as g;
-
+<style>
     #page-container {
         margin: 2rem auto;
         max-width: 1100px;
@@ -444,17 +367,33 @@ Note - this list is quite old but it still applies to modern Windows versions fo
         margin-bottom: 0.75rem;
     }
 
-    h4 {
-        margin-bottom: 0.2rem;
+    h5, h6 {
+        margin-top: 0; margin-bottom: 1rem; font-weight: 600;
     }
 
-    h1 { font-size: 2.25rem; }
-    h2 { font-size: 1.75rem; }
-    h3 { font-size: 1.4rem; }
-    h4 { font-size: 1.2rem; }
+    h1 {
+        font-size: 2.25rem;
+    }
 
-    h5 { font-size: 1.05rem; margin-top: 0; margin-bottom: 1rem; font-weight: 600; }
-    h6 { font-size: 0.9rem; margin-top: 0; margin-bottom: 1rem; font-weight: 600; }
+    h2 {
+        font-size: 1.75rem;
+    }
+
+    h3 {
+        font-size: 1.4rem;
+    }
+
+    h4 {
+        font-size: 1.2rem; margin-bottom: 0.2rem;
+    }
+
+    h5 {
+        font-size: 1.05rem;
+    }
+
+    h6 {
+        font-size: 0.9rem;
+    }
 
     p, ul, ol {
         margin-top: 0;
@@ -464,7 +403,7 @@ Note - this list is quite old but it still applies to modern Windows versions fo
     }
 
     p + ul, p + ol {
-    margin-top: -1rem;
+        margin-top: -1rem;
     }
 
     img {

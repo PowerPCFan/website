@@ -8,48 +8,61 @@
 </script>
 
 {#snippet navbarItem(path: string, text: string, onclick?: () => void)}
-    <a class="navbar-item" href={path} onclick={onclick}>{text}</a>
+    <a
+        class="w-full md:w-auto max-w-none md:max-w-50 h-auto md:h-full md:inline-block font-bold no-underline text-inherit text-left px-6 py-2 md:px-5 md:mr-1 rounded-none md:squircle-md border-b border-white/10 md:border-b-0 transition-colors duration-300 ease hover:bg-[#bccfff] hover:text-[#171717]"
+        href={path}
+        onclick={onclick}
+    >
+        {text}
+    </a>
 {/snippet}
 
 {#snippet navbarDropdown(name: string, items: Array<{path: string, text: string}>, onclick?: () => void)}
-    <div class="navbar-item navbar-dropdown">
-        <span class="navbar-dropdown-trigger">{name} <i class="chevron fa-solid fa-circle-chevron-down"></i></span>
-        <div class="navbar-dropdown-menu">
+    <div class="group relative w-full md:w-auto max-w-none md:max-w-50 h-auto md:h-full md:inline-block font-bold no-underline text-inherit text-left px-6 py-2 md:px-5 md:mr-1 rounded-none md:squircle-md border-b border-white/10 md:border-b-0 transition-colors duration-300 ease hover:bg-[#bccfff] hover:text-[#171717]">
+        <span class="cursor-pointer flex items-center whitespace-nowrap">
+            {name} <i class="ml-2 inline-block transition-transform duration-200 group-hover:rotate-180 fa-solid fa-circle-chevron-down"></i>
+        </span>
+        <div class="absolute top-full left-0 bg-primary border border-[#89abff] rounded shadow-[0_4px_8px_rgba(0,0,0,0.1)] min-w-50 z-1000 opacity-0 invisible -translate-y-2.5 transition-all duration-300 ease group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
             {#each items as item}
-                <a class="navbar-dropdown-item" href={item.path} onclick={onclick}>{item.text}</a>
+                <a
+                    class="block px-5 py-2 text-[#ebebeb] no-underline font-bold transition-colors duration-300 ease rounded-none first:rounded-t last:rounded-b hover:bg-[#bccfff] hover:text-[#171717]"
+                    href={item.path}
+                    onclick={onclick}
+                >
+                    {item.text}
+                </a>
             {/each}
         </div>
     </div>
 {/snippet}
 
-<header>
-    <div class="left-side">
-        <h1><a href="/">PowerPCFan's Website</a></h1>
+<header class="sticky top-0 flex flex-row justify-between md:justify-start items-center px-6 py-1 mx-0 my-0 h-fit w-full bg-primary text-foreground z-100">
+    <div class="flex md:hidden flex-row justify-center items-center">
+        <h1 class="text-xl m-0 py-3 inline-block">
+            <a class="no-underline text-inherit hover:no-underline hover:text-inherit focus:no-underline focus:text-inherit active:no-underline active:text-inherit" href="/">PowerPCFan's Website</a>
+        </h1>
     </div>
-    <div class="right-side">
-        <button class="hamburger-button" class:open={isMenuOpen} onclick={toggleMenu} aria-label="Toggle menu">
-            <div class="hamburger-icon">
-                <div class="icon-1" class:a={isMenuOpen}></div>
-                <div class="icon-2" class:b={isMenuOpen}></div>
-                <div class="icon-3" class:c={isMenuOpen}></div>
-                <div class="clear"></div>
+    <div class="flex items-center">
+        <button
+            class="flex md:hidden items-center justify-center bg-transparent border-none cursor-pointer p-0 size-8 relative z-10003"
+            onclick={toggleMenu}
+            aria-label="Toggle menu"
+        >
+            <div class="relative size-full cursor-pointer rounded-full transition-all duration-200 ease-in-out flex items-center justify-center hover:scale-110">
+                <div class="absolute w-6 h-0.5 bg-popover-foreground transition-all duration-400 ease-in-out {isMenuOpen ? 'translate-y-0 rotate-45' : '-translate-y-2 rotate-0'}"></div>
+                <div class="absolute w-6 h-0.5 bg-popover-foreground transition-all duration-400 ease-in-out {isMenuOpen ? '-rotate-45' : 'rotate-0 translate-y-0'}"></div>
+                <div class="absolute w-6 h-0.5 bg-popover-foreground transition-all duration-400 ease-in-out translate-y-2 {isMenuOpen ? 'opacity-0' : 'opacity-100'}"></div>
             </div>
         </button>
 
-        <nav class:open={isMenuOpen}>
+        <nav class="fixed top-0 right-0 h-screen w-75 bg-[#171717] flex flex-col pt-16 pb-8 shadow-[-2px_0_10px_rgba(0,0,0,0.3)] z-10002 transition-transform duration-350 ease-in-out md:static md:h-auto md:w-auto md:bg-transparent md:flex-row md:flex-wrap md:p-0 md:shadow-none md:z-auto md:translate-x-0 md:transition-none {isMenuOpen ? 'translate-x-0' : 'translate-x-full'}">
             {@render navbarItem("/", "Home", closeMenu)}
-            {@render navbarItem("/gallery", "Photography", closeMenu)}
-            {@render navbarDropdown("Other Sites", [
-                { path: "https://www.eepy.page", text: "eepy.page" },
-                { path: "https://blog.powerpcfan.xyz", text: "Blog" },
-                { path: "https://blinkl.ink", text: "BlinkLink" },
-                { path: "https://www.opticalmediagood.top", text: "Optical Media Good" },
-            ], closeMenu)}
+            {@render navbarItem("/gallery", "Gallery", closeMenu)}
+            {@render navbarItem("https://blog.powerpcfan.xyz/", "Blog", closeMenu)}
 
             {@render navbarDropdown("Resources", [
                 { path: "/resources/pc-resource-document/", text: "PC Resource Document" },
                 { path: "/resources/pc-resource-document/install-windows", text: "Installing Windows" },
-                { path: "/resources/keys/", text: "Product Keys" },
             ], closeMenu)}
 
             {@render navbarDropdown("Learn", [
@@ -68,301 +81,23 @@
                 { path: "/tools/travel-timezone-adjustment", text: "Travel Timezone Adjustment" },
             ], closeMenu)}
 
-            {@render navbarDropdown("Retro Computing", [
+            <!-- {@render navbarDropdown("Retro Computing", [
                 { path: "/retro-computing/start-retro-computing/", text: "Get Started with Retro Computing" },
                 { path: "/retro-computing/good-sites/", text: "Good Sites for Old Macs" },
                 { path: "/retro-computing/common-issues/", text: "Common Issues with Old Macs" },
-            ], closeMenu)}
+            ], closeMenu)} -->
         </nav>
 
         {#if isMenuOpen}
-            <div transition:fade={{ duration: 500 }} onkeydown={void(0)} onclick={closeMenu} class="overlay" tabindex="-1" role="dialog" aria-modal="true"></div>   
+            <div
+                transition:fade={{ duration: 350 }}
+                onkeydown={void(0)}
+                onclick={closeMenu}
+                class="fixed inset-0 w-screen h-screen bg-black/50 z-9999 md:hidden"
+                tabindex="-1"
+                role="dialog"
+                aria-modal="true"
+            ></div>   
         {/if}
     </div>
 </header>
-
-<style lang="scss">
-    @use "/static/scss/global.scss" as g;
-    @use 'sass:color';
-
-    header {
-        position: sticky;
-        top: 0;
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        padding-inline: 1.5rem;
-        padding-block: 0.3rem;
-        margin-inline: 0;
-        margin-block: 0;
-        height: fit-content;
-        width: 100%;
-        background: g.$primary;
-        color: g.$light;
-        z-index: 100;
-    }
-
-    .left-side {
-        display: none;
-        flex-direction: row;
-        justify-content: center;
-
-        h1 {
-            font-size: 1.8rem;
-            margin: 0;
-            padding-block: 0.7rem;
-            display: inline-block;
-
-            a {
-                text-decoration: none;
-                color: inherit;
-
-                &:hover, &:focus, &:active {
-                    text-decoration: none;
-                    color: inherit;
-                }
-            }
-        }
-    }
-
-    .right-side {
-        display: flex;
-        align-items: center;
-
-        .hamburger-button {
-            display: none;
-            align-items: center;
-            justify-content: center;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-            width: 2rem;
-            height: 2rem;
-            position: relative;
-            z-index: 10003;
-
-            .hamburger-icon {
-                position: relative;
-                height: 100%;
-                width: 100%;
-                cursor: pointer;
-                border-radius: 50%;
-                transition: all 0.2s ease-in-out;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                &:hover {
-                    transform: scale(1.2);
-                }
-            }
-
-            .icon-1, .icon-2, .icon-3 {
-                position: absolute;
-                width: 1.5rem;
-                height: 0.120rem;
-                background-color: g.$light;
-                transition: transform 400ms cubic-bezier(0.84, 0.06, 0.52, 1), opacity 400ms cubic-bezier(0.84, 0.06, 0.52, 1);
-            }
-
-            .icon-1 {
-                transform: translateY(-8px);
-
-                &.a {
-                    transform: rotate(45deg);
-                }
-            }
-
-            .icon-2 {
-                transform: translateY(0);
-
-                &.b {
-                    transform: rotate(-45deg);
-                }
-            }
-
-            .icon-3 {
-                transform: translateY(8px);
-
-                &.c {
-                    opacity: 0;
-                }
-            }
-        }
-
-        nav {
-            display: flex;
-            flex-wrap: wrap;
-
-            .navbar-item {
-                display: inline-block;
-                max-width: 200px;
-                height: 100%;
-
-                font-weight: bold;
-                text-decoration: none !important;
-
-                color: inherit;
-
-                border-radius: 4px;
-
-                padding-left: 1.2rem;
-                padding-right: 1.2rem;
-
-                padding-top: 0.7rem;
-                padding-bottom: 0.7rem;
-
-                margin-right: 0.2rem;
-
-                transition: background-color 0.3s ease, color 0.3s ease;
-
-                &:hover {
-                    background-color: lighten($color: g.$primary, $amount: 25);
-                    color: g.$dark;
-                }
-            }
-        }
-    }
-
-    .overlay {
-        display: none;
-    }
-
-    @media (max-width: 768px) {
-        header {
-            justify-content: space-between;
-        }
-
-        .left-side {
-            display: flex;
-        }
-
-        .left-side h1 {
-            font-size: 1.5rem;
-        }
-        .right-side {
-            .hamburger-button {
-                display: flex;
-            }
-
-            nav {
-                position: fixed;
-                top: 0;
-                right: 0;
-                height: 100vh;
-                width: 300px;
-                background-color: g.$dark;
-                display: flex;
-                flex-direction: column;
-                padding: 4rem 0 2rem 0;
-                box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
-                z-index: 10002;
-                transform: translateX(100%);
-                transition: transform 0.5s cubic-bezier(0.6, 0, 0.4, 1);
-
-                &.open {
-                    transform: translateX(0);
-                }
-
-                .navbar-item {
-                    width: 100%;
-                    max-width: none;
-                    text-align: left;
-                    padding: 0.8rem 1.5rem;
-                    height: auto;
-                    border-radius: 0;
-                    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-
-                    &:hover {
-                        background-color: lighten($color: g.$primary, $amount: 25);
-                        color: g.$dark;
-                    }
-                }
-            }
-        }
-
-        .overlay {
-            display: block;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(black, 0.5);
-            z-index: 9999;
-        }
-    }
-
-    nav {
-        .navbar-dropdown {
-            position: relative;
-            
-            .navbar-dropdown-trigger {
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                white-space: nowrap;
-
-                .chevron {
-                    transition: transform 0.2s;
-                    margin-left: 0.5rem;
-                }
-            }
-
-            &:hover {
-                .navbar-dropdown-trigger .chevron {
-                    transform: rotate(180deg);
-                }
-            }
-
-            .navbar-dropdown-menu {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                background: g.$primary;
-                border: 1px solid lighten($color: g.$primary, $amount: 15);
-                border-radius: 4px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                min-width: 200px;
-                z-index: 1000;
-                opacity: 0;
-                visibility: hidden;
-                transform: translateY(-10px);
-                transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-            }
-
-            &:hover .navbar-dropdown-menu {
-                opacity: 1;
-                visibility: visible;
-                transform: translateY(0);
-            }
-
-            .navbar-dropdown-item {
-                display: block;
-                padding: 0.8rem 1.2rem;
-                color: g.$light;
-                text-decoration: none !important;
-                font-weight: bold;
-                transition: background-color 0.3s ease, color 0.3s ease;
-                border-radius: 0;
-
-                &:hover {
-                    background-color: lighten($color: g.$primary, $amount: 25);
-                    color: g.$dark;
-                }
-
-                &:first-child {
-                    border-top-left-radius: 4px;
-                    border-top-right-radius: 4px;
-                }
-
-                &:last-child {
-                    border-bottom-left-radius: 4px;
-                    border-bottom-right-radius: 4px;
-                }
-            }
-        }
-    }
-</style>

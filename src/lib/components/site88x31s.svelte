@@ -1,7 +1,10 @@
-<div class="box-88x31">
-    <div class="grid-88x31">
+<div class="flex flex-col mt-2 justify-center items-center">
+    <div class="grid-88x31 grid p-0 m-0 justify-center">
         <a target="_blank" href="https://www.powerpcfan.xyz">
             <img alt="PowerPCFan" src="/images/88x31/powerpcfan-88x31-new.png" />
+        </a>
+        <a target="_blank" href="https://www.eepy.page">
+            <img alt="eepy.page" src="/images/88x31/eepypage2.png" />
         </a>
         <a target="_blank" href="https://www.apple.com/mac/">
             <img alt="Made with Macintosh" src="/images/88x31/madewithmac.gif" />
@@ -30,61 +33,42 @@
         <a target="_blank" href="https://www.rarlab.com/download.htm">
             <img alt="WinRAR" src="/images/88x31/winrar.gif" />
         </a>
-        <!-- <a target="_blank" href="https://www.frii.site">
-            <img alt="frii.site" src="/images/88x31/frii-site.png" />
-        </a> -->
         <a target="_blank" href="https://ctih1.fi/">
             <img alt="ctih1" src="/images/88x31/ctih1.png" />
         </a>
         <a target="_blank" href="https://restartb.xyz/">
             <img alt="RestartB" src="/images/88x31/restart.png" />
         </a>
-        <a target="_blank" href="https://figgy.oops.wtf">
-            <img alt="figgy" src="/images/88x31/figgy.gif" />
-        </a>
     </div>
 </div>
 
 <style lang="scss">
-    .box-88x31 {
-        margin-top: 2rem;
+    .grid-88x31 {
+        grid-template-columns: repeat(5, 88px);
+        gap: 2px 6px;
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
+        @media (max-width: 520px) {grid-template-columns: repeat(4, 88px)}
+        @media (max-width: 416px) {grid-template-columns: repeat(3, 88px)}
+        @media (max-width: 312px) {grid-template-columns: repeat(2, 88px)}
 
-        .grid-88x31 {
-            display: grid;
-            grid-template-columns: repeat(5, 88px);
-            gap: 2px 6px;
-            justify-content: center;
-            padding: 0;
+        img {
+            image-rendering: pixelated !important;
+            width: 88px !important;
+            height: 31px !important;
+            transition: transform 0.2s;
+            border: 1px solid transparent;
             margin: 0;
 
-            @media (max-width: 520px) {grid-template-columns: repeat(4, 88px)}
-            @media (max-width: 416px) {grid-template-columns: repeat(3, 88px)}
-            @media (max-width: 312px) {grid-template-columns: repeat(2, 88px)}
-
-            img {
-                image-rendering: pixelated !important;
-                width: 88px !important;
-                height: 31px !important;
-                transition: transform 0.2s;
-                border: 1px solid transparent;
-                margin: 0;
-
-                &:hover {
-                    filter: brightness(1.1);
-                    transform: scale(1.1);
-                    box-shadow:
-                        0 1px 1px rgba(0, 0, 0, 0.11),
-                        0 2px 2px rgba(0, 0, 0, 0.11),
-                        0 4px 4px rgba(0, 0, 0, 0.11),
-                        0 8px 8px rgba(0, 0, 0, 0.11),
-                        0 16px 16px rgba(0, 0, 0, 0.11),
-                        0 32px 32px rgba(0, 0, 0, 0.11);
-                }
+            &:hover {
+                filter: brightness(1.2);
+                transform: scale(1.1);
+                box-shadow:
+                    0 1px 1px rgba(0, 0, 0, 0.11),
+                    0 2px 2px rgba(0, 0, 0, 0.11),
+                    0 4px 4px rgba(0, 0, 0, 0.11),
+                    0 8px 8px rgba(0, 0, 0, 0.11),
+                    0 16px 16px rgba(0, 0, 0, 0.11),
+                    0 32px 32px rgba(0, 0, 0, 0.11);
             }
         }
     }

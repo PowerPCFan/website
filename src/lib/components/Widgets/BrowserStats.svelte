@@ -1,9 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import Card from '$lib/components/Card/Card.svelte';
-    import CardContent from '$lib/components/Card/CardContent.svelte';
-    import CardHeader from '$lib/components/Card/CardHeader.svelte';
-    import StatusText from '$lib/components/Card/Utilities/StatusText.svelte';
+    import * as Card from '$lib/components/ui/card/index.js';
 
     interface ClientString {
         s: string;
@@ -118,44 +115,44 @@
 
 <svelte:window on:resize={refresh} />
 
-<Card height_100percent>
-    <CardHeader inlineStyles="margin-bottom: 0.25rem;">
-        <StatusText inlineStyles="text-transform: none;">Operating System</StatusText>
-    </CardHeader>
-    <CardContent><h3 class="text">{os}</h3></CardContent>
+<Card.Root class="h-full max-w-100 gap-2">
+    <Card.Content>
+        <p class="m-0 text-sm text-muted-foreground font-semibold">Operating System</p>
+        <h4 class="text">{os}</h4>
+    </Card.Content>
 
-    <CardHeader inlineStyles="margin-bottom: 0.25rem; margin-top: 1rem;">
-        <StatusText inlineStyles="text-transform: none;">Browser User Agent</StatusText>
-    </CardHeader>
-    <CardContent><h3 class="text">{browserUserAgent}</h3></CardContent>
+    <Card.Content>
+        <p class="m-0 text-sm text-muted-foreground font-semibold">Browser User Agent</p>
+        <h4 class="text">{browserUserAgent}</h4>
+    </Card.Content>
 
     {#if batteryPercentageSupported}
-        <CardHeader inlineStyles="margin-bottom: 0.25rem; margin-top: 1rem;">
-            <StatusText inlineStyles="text-transform: none;">Battery Percentage</StatusText>
-        </CardHeader>
-        <CardContent><h3 class="text">{batteryPercentage}</h3></CardContent>
+        <Card.Content>
+            <p class="m-0 text-sm text-muted-foreground font-semibold">Battery Percentage</p>
+            <h4 class="text">{batteryPercentage}</h4>
+        </Card.Content>
     {/if}
 
-    <CardHeader inlineStyles="margin-bottom: 0.25rem; margin-top: 1rem;">
-        <StatusText inlineStyles="text-transform: none;">Viewport Size</StatusText>
-    </CardHeader>
-    <CardContent><h3 class="text">{viewportSize}</h3></CardContent>
+    <Card.Content>
+        <p class="m-0 text-sm text-muted-foreground font-semibold">Viewport Size</p>
+        <h4 class="text">{viewportSize}</h4>
+    </Card.Content>
 
-    <CardHeader inlineStyles="margin-bottom: 0.25rem; margin-top: 1rem;">
-        <StatusText inlineStyles="text-transform: none;">Screen Resolution</StatusText>
-    </CardHeader>
-    <CardContent><h3 class="text">{screenResolution}</h3></CardContent>
+    <Card.Content>
+        <p class="m-0 text-sm text-muted-foreground font-semibold">Screen Resolution</p>
+        <h4 class="text">{screenResolution}</h4>
+    </Card.Content>
 
-    <CardHeader inlineStyles="margin-bottom: 0.25rem; margin-top: 1rem;">
-        <StatusText inlineStyles="text-transform: none;">Timezone</StatusText>
-    </CardHeader>
-    <CardContent><h3 class="text">{timezone}</h3></CardContent>
+    <Card.Content>
+        <p class="m-0 text-sm text-muted-foreground font-semibold">Timezone</p>
+        <h4 class="text">{timezone}</h4>
+    </Card.Content>
 
-    <CardHeader inlineStyles="margin-bottom: 0.25rem; margin-top: 1rem;">
-        <StatusText inlineStyles="text-transform: none;">Language</StatusText>
-    </CardHeader>
-    <CardContent><h3 class="text">{language}</h3></CardContent>
-</Card>
+    <Card.Content>
+        <p class="m-0 text-sm text-muted-foreground font-semibold">Language</p>
+        <h4 class="text">{language}</h4>
+    </Card.Content>
+</Card.Root>
 
 <style>
     .text {

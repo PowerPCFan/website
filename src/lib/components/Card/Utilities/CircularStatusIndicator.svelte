@@ -1,7 +1,7 @@
 <script lang="ts">
     let { loading = false, error = false, green = false, yellow = false } = $props();
 
-    const classes = `status-indicator${loading ? ' loading' : ''}${error ? ' error' : ''}${green ? ' green' : ''}${yellow ? ' yellow' : ''}`;
+    const classes = $derived(`status-indicator bg-muted-foreground w-3 h-3 ${loading ? 'loading' : ''} ${error ? 'error' : ''} ${green ? 'green' : ''} ${yellow ? 'yellow' : ''}`);
 </script>
 
 
@@ -23,14 +23,10 @@
     }
 
     .status-indicator {
-        width: 12px;
-        height: 12px;
         border-radius: 50%;
-        background: g.$border;
         transition: all 0.3s ease;
 
         &.loading {
-            background: g.$border;
             animation: pulse 1s linear infinite;
         }
 

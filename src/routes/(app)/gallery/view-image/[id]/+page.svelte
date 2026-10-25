@@ -1,14 +1,10 @@
-<!-- NOTE: -->
-<!-- This file was human written except for the pan/zoom code which was partially AI generated -->
-<!-- not ideal but i couldn't figure out a good solution on my own that worked as good as this -->
-<!-- i tried to get mobile pan/zoom working as well but nothing that I tried or Claude Sonnet 4 tried worked well enough for me to use it -->
-
-
 <script lang="ts">
     import { onMount, tick } from 'svelte';
     import { page } from '$app/state';
     import type { GalleryImage } from '$lib/types/image.ts';
     import Title from '$lib/components/title.svelte';
+    import * as Dialog from '$lib/components/ui/dialog/index.js';
+    import Button from '$lib/components/ui/button/button.svelte';
 
     let imageData: GalleryImage | null = $state(null);
     let loading = $state(true);
@@ -18,23 +14,6 @@
     let popupImageZoomed = $state(false);
     let popupContainer: HTMLDivElement | null = $state(null);
     let zoomImg: HTMLImageElement | null = $state(null);
-
-    // function createDateString(iso8601: string): string {
-    //     const d = new Date(iso8601);
-    //     const dt = d.toLocaleString("en-US", {
-    //         year: "numeric",
-    //         month: "long",
-    //         day: "numeric",
-    //         hour: "numeric",
-    //         minute: "2-digit",
-    //         hour12: true
-    //     });
-    //     const offset = -d.getTimezoneOffset();
-    //     const hr = String(Math.floor(Math.abs(offset) / 60)).padStart(2, "0");
-    //     const min = String(Math.abs(offset) % 60).padStart(2, "0");
-
-    //     return `${dt} (UTC${offset >= 0 ? "+" : "-"}${hr}:${min})`;
-    // }
 
     function createDateString(iso8601: string): string {
         const [datePart, timePart] = iso8601.split("T");
@@ -182,13 +161,55 @@
             </div>
             <div class="info-container" id="info-container">
                 <h2 id="title">{imageData.metadata.title}</h2>
-                <!-- <p id="date">{new Date(imageData.metadata.date).toLocaleString()}</p> -->
                 <p id="date">Taken on {createDateString(imageData.metadata.date)}</p>
-                <!-- <p>Taken with {startsWithVowel(imageData.metadata.device) ? 'an' : 'a'} {imageData.metadata.device}</p> -->
                 <div id="idk">
                     <p id="device">Device: {imageData.metadata.device}</p>
                     <p id="location">Location: {imageData.metadata.location}</p>
                 </div>
+
+                <div class="h-full">
+                    <!-- take up space to push down button -->
+                </div>
+
+                <Dialog.Root>
+                    <Dialog.Trigger>
+                        <Button variant="outline">View License (CC BY-NC-ND 4.0)</Button>
+                    </Dialog.Trigger>
+                    <Dialog.Content>
+                        <Dialog.Header class="gap-4">
+                            <h3 class="font-semibold text-muted-foreground text-base text-center">License Info</h3>
+                            <p class="text-center">© PowerPCFan. Licensed under CC BY-NC-ND 4.0.</p>
+                            <div class="flex flex-col gap-2">
+                                <h4 class="font-bold">License Summary</h4>
+
+                                <ul>
+                                    <li>
+                                        <h5 class="font-bold">You are free to:</h5>
+                                        <ul>
+                                            <li><span class="font-semibold">Share</span> — copy and redistribute the material in any medium or format</li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <h5 class="font-bold">Under the following terms:</h5>
+                                        <ul>
+                                            <li><span class="font-semibold">Attribution</span> — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.</li>
+                                            <li><span class="font-semibold">Non-Commercial</span> — You may not use the material for commercial purposes.</li>
+                                            <li><span class="font-semibold">No Derivatives</span> — If you remix, transform, or build upon the material, you may not distribute the modified material.</li>
+                                            <li><span class="font-semibold">No additional restrictions</span> — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <a
+                                href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >Read the full legal text</a>
+                        </Dialog.Header>
+                    </Dialog.Content>
+                </Dialog.Root>
             </div>
         </div>
         {#if imagePopupShouldShow}
@@ -223,7 +244,6 @@
     $backgroundBrightness: 0.75;
 
     .page-container {
-        // outline: 2px solid green;
         height: 100%;
         margin: 0;
         display: flex;
@@ -232,7 +252,6 @@
         justify-content: flex-start;
         padding: 1.2rem;
         gap: 1.2rem;
-        // min-height: 100vh;
         min-height: fit-content;
         box-sizing: border-box;
         overflow: hidden;
@@ -311,9 +330,7 @@
         }
 
         .image-container {
-            // background-color: rgba(255, 255, 255, 0.03);
             background-color: rgba(gv.$dark, $containerTransparency);
-            // border: 2px solid rgba(gv.$primary, 0.2);
             padding: 1rem;
             border-radius: 8px;
             max-width: 65%;
@@ -322,12 +339,6 @@
             align-items: center;
             justify-content: center;
             flex: 1.6;
-
-            // transition: $containerHoverOpacityTransition;
-
-            &:hover {
-                // background-color: rgba(gv.$dark, $containerHoverTransparency);
-            }
 
             img {
                 max-width: 100%;
@@ -345,8 +356,6 @@
             min-width: 300px;
             max-width: 40%;
             padding: 2rem;
-            // border: 2px solid rgba(gv.$primary, 0.2);
-            // background-color: rgba(255, 255, 255, 0.05);
             background-color: rgba(gv.$dark, $containerTransparency);
             border-radius: 8px;
 
@@ -355,12 +364,6 @@
             align-items: flex-start;
             justify-content: flex-start;
             gap: 1.5rem;
-
-            // transition: $containerHoverOpacityTransition;
-
-            &:hover {
-                // background-color: rgba(gv.$dark, $containerHoverTransparency);
-            }
 
             #title {
                 margin: 0;
@@ -375,7 +378,6 @@
                 font-size: 1.25rem;
                 font-weight: 600;
                 color: gv.$light;
-                // padding: 0.5rem 1rem;
                 border-radius: 6px;
             }
 

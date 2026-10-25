@@ -1,6 +1,8 @@
 <script lang="ts">
     import { tick } from "svelte";
     import Title from "$lib/components/title.svelte";
+    import Button from "$lib/components/ui/button/button.svelte";
+    import Holder from "$lib/components/Holder.svelte";
 
     type ItemInput = {
         id: number;
@@ -354,446 +356,186 @@
     }
 </script>
 
+{#snippet sectionHeading(text: string)}
+    <h3 class="m-0 text-xl md:text-[1.25rem]">{text}</h3>
+{/snippet}
+
+{#snippet tableHeader(text: string)}
+    <th scope="col" class="text-left align-top text-muted-foreground border-b border-border py-1.5 px-1 text-[0.9rem] font-semibold whitespace-nowrap">
+        {text}
+    </th>
+{/snippet}
+
+{#snippet currencyInput(
+    valueGetter: () => string,
+    valueSetter: (v: string) => void,
+    placeholder = "Enter a price...",
+    ariaLabel?: string,
+    dataItemId?: number,
+    dataItemField?: string,
+    onkeydown?: (e: KeyboardEvent) => void
+)}
+    <div class="currency-input relative before:content-['$'] before:absolute before:inset-[1px_auto_1px_1px] before:w-[1.9rem] before:flex before:items-center before:justify-center before:leading-none before:text-muted-foreground before:bg-[#414141] before:font-semibold before:pointer-events-none before:rounded-l-[calc(0.5rem-1px)] before:border-r before:border-border [&>input]:pl-[2.6rem]">
+        <input
+            type="text"
+            inputmode="decimal"
+            class="w-full rounded-lg px-3 py-2.5 font-sans h-9 text-sm border border-border bg-background text-foreground"
+            bind:value={valueGetter, valueSetter}
+            {placeholder}
+            aria-label={ariaLabel}
+            data-item-id={dataItemId}
+            data-item-field={dataItemField}
+            {onkeydown}
+        />
+    </div>
+{/snippet}
+
+{#snippet resultRow(label: string, value: string, extraClass = "border-border")}
+    <div class="result-row flex flex-wrap justify-between items-center gap-1.5 rounded-lg p-3 bg-[#181818] border sm:flex-nowrap sm:gap-0 {extraClass}">
+        <span>{label}</span>
+        <strong>{value}</strong>
+    </div>
+{/snippet}
+
+{#snippet itemsTable()}
+    <div class="table-wrap overflow-x-visible md:overflow-x-auto">
+        <table class="item-table block w-full border-collapse md:table">
+            <thead class="hidden md:table-header-group">
+                <tr>
+                    {@render tableHeader("Label (optional)")}
+                    {@render tableHeader("Original Price")}
+                    {@render tableHeader("Action")}
+                </tr>
+            </thead>
+            <tbody class="flex flex-col gap-3 mt-2 md:table-row-group md:gap-0 md:mt-0">
+                {#each items as item, index (item.id)}
+                    <tr class="block w-full bg-[#1a1a1a] border border-border rounded-lg p-[0.55rem] md:table-row md:bg-transparent md:border-0 md:rounded-none md:p-0">
+                        <td
+                            data-label="Label"
+                            class="block w-full py-[0.3rem] px-0 text-left before:block before:content-[attr(data-label)] before:text-muted-foreground before:text-[0.78rem] before:font-bold before:mb-1 md:table-cell md:w-[48%] md:align-top md:py-1.5 md:px-1 md:before:hidden"
+                        >
+                            <input
+                                type="text"
+                                class="w-full rounded-lg px-3 py-2.5 font-sans h-9 text-sm border border-border bg-background text-foreground"
+                                bind:value={items[index].label}
+                                placeholder={`Item #${index + 1}`}
+                                aria-label={`Label for item ${index + 1}`}
+                                data-item-id={item.id}
+                                data-item-field="label"
+                                onkeydown={(event) => handleFieldKeydown(event, index, "label")}
+                            />
+                        </td>
+                        <td
+                            data-label="Original Price"
+                            class="block w-full py-[0.3rem] px-0 text-left before:block before:content-[attr(data-label)] before:text-muted-foreground before:text-[0.78rem] before:font-bold before:mb-1 md:table-cell md:w-[40%] md:align-top md:py-1.5 md:px-1 md:before:hidden"
+                        >
+                            <div class="amount-cell">
+                                {@render currencyInput(
+                                    () => items[index].amount,
+                                    (value) => setItemAmount(index, value),
+                                    "Enter a price...",
+                                    `Amount for item ${index + 1}`,
+                                    item.id,
+                                    "amount",
+                                    (event) => handleFieldKeydown(event, index, "amount")
+                                )}
+                                {#if parsedRows[index].hasAmount && !parsedRows[index].isAmountValid}
+                                    <small class="block text-xs mt-1 md:mt-1.5 text-destructive">Enter a valid non-negative amount (max 2 decimals).</small>
+                                {/if}
+                            </div>
+                        </td>
+                        <td
+                            class="action-cell block w-full py-[0.3rem] px-0 text-left before:block before:content-[attr(data-label)] before:text-muted-foreground before:text-[0.78rem] before:font-bold before:mb-1 md:table-cell md:w-[12%] md:align-top md:py-1.5 md:px-1 md:before:hidden"
+                            data-label="Action"
+                        >
+                            <Button
+                                variant="destructive"
+                                class="w-full"
+                                onclick={() => removeRow(item.id)}
+                                disabled={items.length === 1}
+                            >
+                                Remove
+                            </Button>
+                        </td>
+                    </tr>
+                {/each}
+            </tbody>
+        </table>
+    </div>
+{/snippet}
+
+{#snippet outputSection()}
+    {@render sectionHeading("Output")}
+    <div class="bg-card border border-border flex flex-row gap-2.5 mb-4">
+        <div class="flex-1 rounded-lg p-3">
+            <span class="block text-xs mb-1 text-muted-foreground">Original subtotal</span>
+            <strong class="text-[1.05rem]">{formatCents(sourceSubtotalCents)}</strong>
+        </div>
+        <div class="flex-1 rounded-lg p-3">
+            <span class="block text-xs mb-1 text-muted-foreground">Scale factor</span>
+            <strong class="text-[1.05rem]">{parseFloat(scaleFactor?.toFixed(6) ?? "0").toString()}</strong>
+        </div>
+    </div>
+
+    <div class="result-list flex flex-col gap-2">
+        {#each scaledBreakdown as row}
+            {@render resultRow(row.label, formatCents(row.scaledCents))}
+        {/each}
+    </div>
+
+    {@render resultRow("Scaled total", formatCents(scaledSubtotalCents), "totals-check border-green-700 mt-3")}
+{/snippet}
+
 <Title title="Price Scaler" />
 
-<div class="calculator-page">
-    <div class="card">
-        <div>
-            <h1>Price Scaler</h1>
-            <p>
-                This calculator can be used for many purposes,
-                one of which is evenly distributing a total price across
-                multiple item prices.
-                <br><br>
-                Enter the total that you were charged and the item prices.
-                Each item's price keeps the same ratio while being increased
-                evenly to add up to the total price.
-            </p>
+<Holder class="card flex flex-col gap-4 rounded-xl">
+    <div class="flex flex-col gap-2">
+        <h1 class="m-0 text-2xl md:text-3xl">Price Scaler</h1>
+        <p class="leading-[1.35] text-muted-foreground">
+            This calculator can be used for many purposes,
+            one of which is evenly distributing a total price across
+            multiple item prices.
+        </p>
+        <p class="leading-[1.35] text-muted-foreground">
+            Enter the total that you were charged and the item prices.
+            Each item's price keeps the same ratio while being increased
+            evenly to add up to the total price.
+        </p>
+    </div>
+
+    <div class="total flex flex-col gap-2">
+        {@render sectionHeading("Total")}
+        {@render currencyInput(() => totalInput, setTotalInput)}
+    </div>
+
+    <div class="flex flex-col gap-1">
+        <div class="rows-header flex flex-wrap items-center justify-between gap-2 md:flex-nowrap md:gap-0">
+            {@render sectionHeading("Items")}
+            <Button onclick={addRow} class="w-full md:w-auto">
+                Add Item
+            </Button>
         </div>
 
-        <div class="total">
-            <h2>Total</h2>
-            <div class="currency-input">
-                <input
-                    type="text"
-                    inputmode="decimal"
-                    bind:value={() => totalInput, setTotalInput}
-                    placeholder="Enter a price..."
-                />
-            </div>
-        </div>
+        {@render itemsTable()}
+    </div>
 
-        <div style="display: flex; flex-direction: column; gap: 0.25rem;">
-            <div class="rows-header">
-                <h2>Items</h2>
-                <button type="button" onclick={addRow}>Add Item</button>
-            </div>
-
-            <div class="table-wrap">
-                <table class="item-table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Label (optional)</th>
-                            <th scope="col">Original Price</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {#each items as item, index (item.id)}
-                            <tr>
-                                <td data-label="Label">
-                                    <input
-                                        type="text"
-                                        bind:value={items[index].label}
-                                        placeholder={`Item #${index + 1}`}
-                                        aria-label={`Label for item ${index + 1}`}
-                                        data-item-id={item.id}
-                                        data-item-field="label"
-                                        onkeydown={(event) => handleFieldKeydown(event, index, "label")}
-                                    />
-                                </td>
-                                <td data-label="Original Price">
-                                    <div class="amount-cell">
-                                        <div class="currency-input">
-                                            <input
-                                                type="text"
-                                                inputmode="decimal"
-                                                bind:value={() => items[index].amount, (value) => setItemAmount(index, value)}
-                                                placeholder="Enter a price..."
-                                                aria-label={`Amount for item ${index + 1}`}
-                                                data-item-id={item.id}
-                                                data-item-field="amount"
-                                                onkeydown={(event) => handleFieldKeydown(event, index, "amount")}
-                                            />
-                                        </div>
-                                        {#if parsedRows[index].hasAmount && !parsedRows[index].isAmountValid}
-                                            <small>Enter a valid non-negative amount (max 2 decimals).</small>
-                                        {/if}
-                                    </div>
-                                </td>
-                                <td class="action-cell" data-label="Action">
-                                    <button
-                                        type="button"
-                                        class="danger"
-                                        onclick={() => removeRow(item.id)}
-                                        disabled={items.length === 1}
-                                    >
-                                        Remove
-                                    </button>
-                                </td>
-                            </tr>
-                        {/each}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div>
-            {#if totalCents === null || totalCents <= 0}
-                <p class="error">Enter a total price.</p>
-            {:else if invalidAmountCount > 0}
-                {#if invalidAmountCount === 1}
-                    <p class="error">One of your item prices is invalid.</p>
-                {:else}
-                    <p class="error">Multiple of your item prices are invalid.</p>
-                {/if}
-            {:else if sourceItems.length === 0}
-                <p class="error">Add at least one item price.</p>
-            {:else if sourceSubtotalCents === 0}
-                <p class="error">Item price subtotal must be greater than $0.00.</p>
+    <div>
+        {#if totalCents === null || totalCents <= 0}
+            <p class="m-0 text-destructive">Enter a total price.</p>
+        {:else if invalidAmountCount > 0}
+            {#if invalidAmountCount === 1}
+                <p class="m-0 text-destructive">One of your item prices is invalid.</p>
+            {:else}
+                <p class="m-0 text-destructive">Multiple of your item prices are invalid.</p>
             {/if}
-        </div>
-
-        {#if canScale && totalCents !== null}
-            <h2>Output</h2>
-            <div class="summary-grid">
-                <div>
-                    <span>Original subtotal</span>
-                    <strong>{formatCents(sourceSubtotalCents)}</strong>
-                </div>
-                <div>
-                    <span>Scale factor</span>
-                    <strong>{parseFloat(scaleFactor?.toFixed(6) ?? "0").toString()}</strong>
-                </div>
-            </div>
-
-            <div class="result-list">
-                {#each scaledBreakdown as row}
-                    <div class="result-row">
-                        <span>{row.label}</span>
-                        <strong>{formatCents(row.scaledCents)}</strong>
-                    </div>
-                {/each}
-            </div>
-
-            <div class="totals-check">
-                <span>Scaled total</span>
-                <strong>{formatCents(scaledSubtotalCents)}</strong>
-            </div>
+        {:else if sourceItems.length === 0}
+            <p class="m-0 text-destructive">Add at least one item price.</p>
+        {:else if sourceSubtotalCents === 0}
+            <p class="m-0 text-destructive">Item price subtotal must be greater than $0.00.</p>
         {/if}
     </div>
-</div>
 
-<style lang="scss">
-    @use "/static/scss/global.scss" as g;
-
-    .calculator-page {
-        display: grid;
-        grid-template-columns: 1fr;
-        min-height: auto;
-        gap: 1.5rem;
-        padding: 1.5rem;
-        color: g.$light;
-        background: g.$dark;
-        max-width: 1024px;
-        margin-inline: auto;
-    }
-
-    .card {
-        background: #252525;
-        border: 1px solid g.$border;
-        border-radius: 0.75rem;
-        padding: 1rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    h1 {
-        margin: 0;
-        font-size: 1.8rem;
-    }
-
-    h2 {
-        margin: 0;
-    }
-
-    p {
-        color: g.$darker-light;
-        line-height: 1.35;
-    }
-
-    input {
-        width: 100%;
-        border: 1px solid g.$border;
-        border-radius: 0.5rem;
-        background: g.$dark;
-        color: g.$light;
-        padding: 0.6rem 0.75rem;
-        font-family: g.$stack;
-    }
-
-    .total {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .currency-input {
-        position: relative;
-        --w: 1.9rem;
-
-        &::before {
-            content: "$";
-            position: absolute;
-            inset: 1px auto 1px 1px;
-            width: var(--w);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1;
-            color: g.$darker-light;
-            background-color: #414141;
-            font-weight: 600;
-            pointer-events: none;
-            border-top-left-radius: calc(0.5rem - 1px);
-            border-bottom-left-radius: calc(0.5rem - 1px);
-            border-right: 1px solid g.$border;
-        }
-
-        input {
-            padding-left: calc(var(--w) + 0.7rem);
-        }
-    }
-
-    button {
-        border: none;
-        border-radius: 0.5rem;
-        font-weight: 500;
-        font-family: g.$stack;
-        padding: 0.5rem 1rem;
-        cursor: pointer;
-        background: g.$primary;
-        color: g.$light;
-
-        &:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-    }
-
-    .danger {
-        background: darken(g.$red, 20%);
-        border: 1px solid g.$red;
-    }
-
-    .rows-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .table-wrap {
-        overflow-x: auto;
-    }
-
-    .item-table {
-        width: 100%;
-        border-collapse: collapse;
-
-        th,
-        td {
-            text-align: left;
-            vertical-align: top;
-            padding: 0.35rem 0.3rem;
-        }
-
-        th {
-            color: g.$darker-light;
-            font-size: 0.9rem;
-            font-weight: 600;
-            border-bottom: 1px solid g.$border;
-            white-space: nowrap;
-        }
-
-        td:first-child {
-            width: 48%;
-        }
-
-        td:nth-child(2) {
-            width: 40%;
-        }
-
-        td:last-child {
-            width: 12%;
-
-            button {
-                width: 100%;
-            }
-        }
-    }
-
-    .amount-cell small {
-        display: block;
-        color: g.$red;
-        margin-top: 0.35rem;
-        font-size: 0.75rem;
-    }
-
-    .action-cell {
-        width: 100%;
-    }
-
-    .error {
-        color: g.$red;
-        margin: 0;
-    }
-
-    .summary-grid {
-        display: flex;
-        flex-direction: row;
-        gap: 0.6rem;
-        margin-bottom: 1rem;
-
-        div {
-            flex: 1;
-            background: #181818;
-            border-radius: 0.5rem;
-            padding: 0.7rem;
-            border: 1px solid #2f2f2f;
-
-            span {
-                display: block;
-                font-size: 0.78rem;
-                color: g.$darker-light;
-                margin-bottom: 0.2rem;
-            }
-
-            strong {
-                font-size: 1.05rem;
-            }
-        }
-    }
-
-    .result-list {
-        display: flex;
-        flex-direction: column;
-        gap: 0.45rem;
-    }
-
-    .result-row,
-    .totals-check {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: #181818;
-        border-radius: 0.5rem;
-        padding: 0.75rem 0.75rem;
-        border: 1px solid g.$border;
-    }
-
-    .totals-check {
-        margin-top: 0.8rem;
-        border-color: darken(g.$green, 15%);
-    }
-
-    @media (max-width: 680px) {
-        .calculator-page {
-            padding: 0.9rem;
-            gap: 1rem;
-        }
-
-        .card {
-            padding: 0.85rem;
-        }
-
-        h1 {
-            font-size: 1.5rem;
-        }
-
-        h2 {
-            font-size: 1.25rem;
-        }
-
-        .rows-header {
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .rows-header button {
-            width: 100%;
-        }
-
-        .table-wrap {
-            overflow-x: visible;
-        }
-
-        .item-table,
-        .item-table thead,
-        .item-table tbody,
-        .item-table tr,
-        .item-table th,
-        .item-table td {
-            display: block;
-            width: 100%;
-        }
-
-        .item-table thead {
-            display: none;
-        }
-
-        .item-table tbody {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            margin-top: 0.5rem;
-        }
-
-        .item-table tr {
-            background: #1a1a1a;
-            border: 1px solid g.$border;
-            border-radius: 0.5rem;
-            padding: 0.55rem;
-        }
-
-        .item-table td {
-            padding: 0.3rem 0;
-            text-align: left !important;
-        }
-
-        .item-table td::before {
-            content: attr(data-label);
-            display: block;
-            color: g.$darker-light;
-            font-size: 0.78rem;
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-        }
-
-        .item-table td {
-            width: 100% !important;
-        }
-
-        .amount-cell small {
-            margin-top: 0.25rem;
-        }
-    }
-
-    @media (max-width: 420px) {
-        .result-row,
-        .totals-check {
-            flex-wrap: wrap;
-            gap: 0.35rem;
-        }
-    }
-</style>
+    {#if canScale && totalCents !== null}
+        {@render outputSection()}
+    {/if}
+</Holder>

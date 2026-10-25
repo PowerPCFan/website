@@ -3,7 +3,9 @@
     import { onMount } from "svelte";
 
     let context: AudioContext;
-    let osc1: OscillatorNode | null = null, osc2: OscillatorNode | null = null, gainNode: GainNode | null = null;
+    let osc1: OscillatorNode | null = null
+    let osc2: OscillatorNode | null = null
+    let gainNode: GainNode | null = null;
     let mouseDown = $state(false);
     let draggingEnabled = $state(false);
     let volume = $state(0.25);
@@ -83,11 +85,9 @@
 
     function handleTouchEnter(event: TouchEvent, tones?: string, tone?: string) {
         if (draggingEnabled && mouseDown) {
-            // Get the element under the touch point
             const touch = event.touches[0];
             const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
-            
-            // Only trigger if we're over a button element
+
             if (elementBelow && (elementBelow.classList.contains('key') || elementBelow.classList.contains('small-button'))) {
                 if (tones) {
                     const frequencies = tones.split(',');
@@ -117,266 +117,92 @@
     ontouchend={handleGlobalTouchEnd} 
     ontouchcancel={handleGlobalTouchEnd} />
 
-<div class="container">
-    <div class="toggle">
+{#snippet buttonBase(tone: string, text: string, btnClass: string)}
+    {#if tone.includes(',')}
+        <div
+            class={btnClass}
+            onmousedown={() => handleKeyPress(tone)}
+            onmouseenter={() => handleMouseEnter(tone)}
+            ontouchstart={() => handleKeyPress(tone)}
+            ontouchmove={(e) => handleTouchEnter(e, tone)}
+        >{text}</div>
+    {:else}
+        <div
+            class={btnClass}
+            onmousedown={() => handleSingleTonePress(tone)}
+            onmouseenter={() => handleMouseEnter(undefined, tone)}
+            ontouchstart={() => handleSingleTonePress(tone)}
+            ontouchmove={(e) => handleTouchEnter(e, undefined, tone)}
+        >{text}</div>
+    {/if}
+{/snippet}
+
+{#snippet button(tone: string, text: string)}
+    {@const btnClass = `
+        flex justify-center items-center text-4xl w-25 h-25 bg-foreground text-background
+        rounded-[10px] cursor-pointer text-center [user-select:none] [-webkit-user-select:none]
+        [-webkit-touch-callout:none] [-webkit-tap-highlight-color:transparent]
+        touch-manipulation transition-all duration-200 ease-in-out hover:bg-foreground/90
+        active:bg-card-foreground/75 active:scale-95
+    `}
+
+    {@render buttonBase(tone, text, btnClass)}
+{/snippet}
+
+{#snippet smallButton(tone: string, text: string)}
+    {@const btnClass = `
+        flex justify-center items-center text-lg w-25 h-12.5 bg-foreground text-background
+        rounded-[10px] cursor-pointer text-center [user-select:none] [-webkit-user-select:none]
+        [-webkit-touch-callout:none] [-webkit-tap-highlight-color:transparent]
+        touch-manipulation transition-all duration-200 ease-in-out hover:bg-foreground/90
+        active:bg-card-foreground/75 active:scale-95
+    `}
+
+    {@render buttonBase(tone, text, btnClass)}
+{/snippet}
+
+<div class="p-8 flex flex-col items-center">
+    <div class="mb-2.5">
         <label for="drag-toggle">Enable Dragging: </label>
         <input type="checkbox" id="drag-toggle" bind:checked={draggingEnabled}>
     </div>
 
-    <div class="keypad-wrapper">
-        <!-- Main Keypad -->
-        <div class="keypad">
-            <!-- svelte-ignore a11y_no_static_element_interactions -->
-            <div class="key" 
-                 onmousedown={() => handleKeyPress("697,1209")}
-                 onmouseenter={() => handleMouseEnter("697,1209")}
-                 ontouchstart={() => handleKeyPress("697,1209")}
-                 ontouchmove={(e) => handleTouchEnter(e, "697,1209")}>1</div>
-            <!-- svelte-ignore a11y_no_static_element_interactions -->
-            <div class="key" 
-                 onmousedown={() => handleKeyPress("697,1336")}
-                 onmouseenter={() => handleMouseEnter("697,1336")}
-                 ontouchstart={() => handleKeyPress("697,1336")}
-                 ontouchmove={(e) => handleTouchEnter(e, "697,1336")}>2</div>
-            <!-- svelte-ignore a11y_no_static_element_interactions -->
-            <div class="key" 
-                 onmousedown={() => handleKeyPress("697,1477")}
-                 onmouseenter={() => handleMouseEnter("697,1477")}
-                 ontouchstart={() => handleKeyPress("697,1477")}
-                 ontouchmove={(e) => handleTouchEnter(e, "697,1477")}>3</div>
-            <!-- svelte-ignore a11y_no_static_element_interactions -->
-            <div class="key" 
-                 onmousedown={() => handleKeyPress("770,1209")}
-                 onmouseenter={() => handleMouseEnter("770,1209")}
-                 ontouchstart={() => handleKeyPress("770,1209")}
-                 ontouchmove={(e) => handleTouchEnter(e, "770,1209")}>4</div>
-            <!-- svelte-ignore a11y_no_static_element_interactions -->
-            <div class="key" 
-                 onmousedown={() => handleKeyPress("770,1336")}
-                 onmouseenter={() => handleMouseEnter("770,1336")}
-                 ontouchstart={() => handleKeyPress("770,1336")}
-                 ontouchmove={(e) => handleTouchEnter(e, "770,1336")}>5</div>
-            <!-- svelte-ignore a11y_no_static_element_interactions -->
-            <div class="key" 
-                 onmousedown={() => handleKeyPress("770,1477")}
-                 onmouseenter={() => handleMouseEnter("770,1477")}
-                 ontouchstart={() => handleKeyPress("770,1477")}
-                 ontouchmove={(e) => handleTouchEnter(e, "770,1477")}>6</div>
-            <!-- svelte-ignore a11y_no_static_element_interactions -->
-            <div class="key" 
-                 onmousedown={() => handleKeyPress("852,1209")}
-                 onmouseenter={() => handleMouseEnter("852,1209")}
-                 ontouchstart={() => handleKeyPress("852,1209")}
-                 ontouchmove={(e) => handleTouchEnter(e, "852,1209")}>7</div>
-            <!-- svelte-ignore a11y_no_static_element_interactions -->
-            <div class="key" 
-                 onmousedown={() => handleKeyPress("852,1336")}
-                 onmouseenter={() => handleMouseEnter("852,1336")}
-                 ontouchstart={() => handleKeyPress("852,1336")}
-                 ontouchmove={(e) => handleTouchEnter(e, "852,1336")}>8</div>
-            <!-- svelte-ignore a11y_no_static_element_interactions -->
-            <div class="key" 
-                 onmousedown={() => handleKeyPress("852,1477")}
-                 onmouseenter={() => handleMouseEnter("852,1477")}
-                 ontouchstart={() => handleKeyPress("852,1477")}
-                 ontouchmove={(e) => handleTouchEnter(e, "852,1477")}>9</div>
-            <!-- svelte-ignore a11y_no_static_element_interactions -->
-            <div class="key" 
-                 onmousedown={() => handleKeyPress("941,1209")}
-                 onmouseenter={() => handleMouseEnter("941,1209")}
-                 ontouchstart={() => handleKeyPress("941,1209")}
-                 ontouchmove={(e) => handleTouchEnter(e, "941,1209")}>*</div>
-            <!-- svelte-ignore a11y_no_static_element_interactions -->
-            <div class="key" 
-                 onmousedown={() => handleKeyPress("941,1336")}
-                 onmouseenter={() => handleMouseEnter("941,1336")}
-                 ontouchstart={() => handleKeyPress("941,1336")}
-                 ontouchmove={(e) => handleTouchEnter(e, "941,1336")}>0</div>
-            <!-- svelte-ignore a11y_no_static_element_interactions -->
-            <div class="key" 
-                 onmousedown={() => handleKeyPress("941,1477")}
-                 onmouseenter={() => handleMouseEnter("941,1477")}
-                 ontouchstart={() => handleKeyPress("941,1477")}
-                 ontouchmove={(e) => handleTouchEnter(e, "941,1477")}>#</div>
+    <div class="flex flex-row items-start gap-2.5">
+        <div class="grid grid-cols-[repeat(3,100px)] gap-2.5 pt-2.5">
+            {@render button("697,1209", "1")}
+            {@render button("697,1336", "2")}
+            {@render button("697,1477", "3")}
+
+            {@render button("770,1209", "4")}
+            {@render button("770,1336", "5")}
+            {@render button("770,1477", "6")}
+
+            {@render button("852,1209", "7")}
+            {@render button("852,1336", "8")}
+            {@render button("852,1477", "9")}
+
+            {@render button("941,1209", "*")}
+            {@render button("941,1336", "0")}
+            {@render button("941,1477", "#")}
         </div>
 
-        <!-- Vertical A, B, C, D Buttons -->
-        <div class="vertical-buttons">
-            <!-- svelte-ignore a11y_no_static_element_interactions -->
-            <div class="key" 
-                 onmousedown={() => handleKeyPress("697,1633")}
-                 onmouseenter={() => handleMouseEnter("697,1633")}
-                 ontouchstart={() => handleKeyPress("697,1633")}
-                 ontouchmove={(e) => handleTouchEnter(e, "697,1633")}>A</div>
-            <!-- svelte-ignore a11y_no_static_element_interactions -->
-            <div class="key" 
-                 onmousedown={() => handleKeyPress("770,1633")}
-                 onmouseenter={() => handleMouseEnter("770,1633")}
-                 ontouchstart={() => handleKeyPress("770,1633")}
-                 ontouchmove={(e) => handleTouchEnter(e, "770,1633")}>B</div>
-            <!-- svelte-ignore a11y_no_static_element_interactions -->
-            <div class="key" 
-                 onmousedown={() => handleKeyPress("852,1633")}
-                 onmouseenter={() => handleMouseEnter("852,1633")}
-                 ontouchstart={() => handleKeyPress("852,1633")}
-                 ontouchmove={(e) => handleTouchEnter(e, "852,1633")}>C</div>
-            <!-- svelte-ignore a11y_no_static_element_interactions -->
-            <div class="key" 
-                 onmousedown={() => handleKeyPress("941,1633")}
-                 onmouseenter={() => handleMouseEnter("941,1633")}
-                 ontouchstart={() => handleKeyPress("941,1633")}
-                 ontouchmove={(e) => handleTouchEnter(e, "941,1633")}>D</div>
+        <div class="flex flex-col gap-2.5 mt-2.5 pr-2.5">
+            {@render button("697,1633", "A")}
+            {@render button("770,1633", "B")}
+            {@render button("852,1633", "C")}
+            {@render button("941,1633", "D")}
         </div>
     </div>
 
-    <!-- Small Buttons for Extra Tones -->
-    <div class="small-buttons">
-        <!-- svelte-ignore a11y_no_static_element_interactions -->
-        <div class="small-button" 
-             onmousedown={() => handleKeyPress("350,440")}
-             onmouseenter={() => handleMouseEnter("350,440")}
-             ontouchstart={() => handleKeyPress("350,440")}
-             ontouchmove={(e) => handleTouchEnter(e, "350,440")}>Dial</div>
-        <!-- svelte-ignore a11y_no_static_element_interactions -->
-        <div class="small-button" 
-             onmousedown={() => handleKeyPress("480,620")}
-             onmouseenter={() => handleMouseEnter("480,620")}
-             ontouchstart={() => handleKeyPress("480,620")}
-             ontouchmove={(e) => handleTouchEnter(e, "480,620")}>Busy</div>
-        <!-- svelte-ignore a11y_no_static_element_interactions -->
-        <div class="small-button" 
-             onmousedown={() => handleKeyPress("440,480")}
-             onmouseenter={() => handleMouseEnter("440,480")}
-             ontouchstart={() => handleKeyPress("440,480")}
-             ontouchmove={(e) => handleTouchEnter(e, "440,480")}>Ringback</div>
-        <!-- svelte-ignore a11y_no_static_element_interactions -->
-        <div class="small-button" 
-             onmousedown={() => handleSingleTonePress("2600")}
-             onmouseenter={() => handleMouseEnter(undefined, "2600")}
-             ontouchstart={() => handleSingleTonePress("2600")}
-             ontouchmove={(e) => handleTouchEnter(e, undefined, "2600")}>2600Hz</div>
+    <div class="flex flex-wrap justify-center gap-2.5 pt-3.5 mr-2.5">
+        {@render smallButton("350,440", "Dial")}
+        {@render smallButton("480,620", "Busy")}
+        {@render smallButton("440,480", "Ringback")}
+        {@render smallButton("2600", "2600Hz")}
     </div>
 
-    <!-- Volume Control -->
-    <div class="volume-control">
-        <label for="volume-slider">Volume</label>
-        <input type="range" id="volume-slider" min="0" max="0.5" step="0.01" bind:value={volume}>
+    <div class="mt-3.5 flex flex-col items-center">
+        <label for="vol-slider">Volume</label>
+        <input type="range" class="w-50" id="vol-slider" min="0" max="0.5" step="0.01" bind:value={volume}>
     </div>
 </div>
-
-<style lang="scss">
-    @use '/static/scss/global.scss' as g;
-
-    .container {
-        padding: 2rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .toggle {
-        margin-bottom: 10px;
-    }
-
-    .keypad-wrapper {
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-        flex-direction: row;
-    }
-
-    .keypad {
-        display: grid;
-        grid-template-columns: repeat(3, 100px);
-        gap: 10px;
-        padding-top: 10px;
-    }
-
-    .key {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 2.25rem;  /* Increased font size for large keys */
-        width: 100px;
-        height: 100px;
-        background-color: g.$light;
-        color: g.$dark;
-        border-radius: 10px;
-        cursor: pointer;
-        user-select: none;
-        text-align: center;
-        -webkit-user-select: none;
-        -webkit-touch-callout: none;
-        -webkit-tap-highlight-color: transparent;
-        touch-action: manipulation;
-
-        transition: background-color 0.2s ease;
-
-        &:hover {
-            background-color: darken(g.$light, 15);
-        }
-
-        &:active {
-            background-color: darken(g.$light, 25);
-            transform: scale(0.95);
-        }
-    }
-
-    .vertical-buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin-top: 10px; /* Adjusted to fix alignment */
-        padding-right: 10px;
-    }
-
-    .small-buttons {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-        padding-top: 15px;
-        margin-right: 10px;
-    }
-
-    .small-button {
-        width: 100px;
-        height: 50px;
-        background-color: g.$light;
-        color: g.$dark;
-        border-radius: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        font-size: 18px;
-        text-align: center;
-        user-select: none;
-        -webkit-user-select: none;
-        -webkit-touch-callout: none;
-        -webkit-tap-highlight-color: transparent;
-        touch-action: manipulation;
-
-        transition: background-color 0.2s ease, transform 0.1s ease;
-
-        &:hover {
-            background-color: darken(g.$light, 15);
-        }
-
-        &:active {
-            background-color: darken(g.$light, 25);
-            transform: scale(0.95);
-        }
-    }
-
-    .volume-control {
-        margin-top: 15px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        input[type="range"] {
-            width: 200px;
-        }
-    }
-</style>

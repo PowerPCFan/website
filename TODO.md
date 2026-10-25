@@ -1,0 +1,1 @@
+- Finish removing rest of `dark:` Tailwind styles (having them will just mess up styles -- since I got rid of light/dark styles and promoted dark styles to default ones, I want to change all `dark:` styles to the base ones, e.g. `bg-card/50 dark:bg-card/80` -> `bg-card/80`)

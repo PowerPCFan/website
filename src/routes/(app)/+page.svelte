@@ -1,222 +1,273 @@
 <script lang="ts">
-    import Title from "$lib/components/title.svelte";
+    import ContactMethod from "$lib/components/ContactMethod.svelte";
+    import Project from "$lib/components/Project.svelte";
     import Site88x31s from "$lib/components/site88x31s.svelte";
+    import Title from "$lib/components/title.svelte";
     import NowPlaying from "$lib/components/Widgets/NowPlaying.svelte";
     import TimeWidget from "$lib/components/Widgets/TimeWidget.svelte";
-    import Countdown from "$lib/components/Widgets/Countdown.svelte";
-    import Pet from "$lib/components/Widgets/Pet.svelte";
     import BrowserStats from "$lib/components/Widgets/BrowserStats.svelte";
     import VSCodeStatus from "$lib/components/Widgets/VSCodeStatus.svelte";
+  import Countdown from "$lib/components/Widgets/Countdown.svelte";
 
-    let xp: boolean = $state(true);
+    let scrollY = $state(0);
 </script>
+
+<svelte:window bind:scrollY />
 
 <Title title="Home" />
 
-<noscript>
-    <center>
-        <h1 style="margin-inline: 1rem;">
-            Warning: Your browser does not support JavaScript.
-            Some pages on this website require JavaScript to function properly.
-        </h1>
-    </center>
-</noscript>
+<div class="[&>div]:p-4 [&>div]:md:p-8 [&>div]:lg:p-16 [&div>]:xl:p-32">
+    <div id="introduction" class="bg flex h-[90vh] w-screen items-start sm:items-center">
+        <div class="hidden sm:block flex-1 w-full"></div>
+        <div
+            class="mr-4 w-full h-min max-w-lg squircle-md bg-black/30 p-6 outline-1 outline-white/20 backdrop-blur-md md:mb-24 lg:mb-38"
+        >
+            <h1 class="text-4xl!">Welcome</h1>
+            <h2 class="mb-1! text-2xl! font-medium opacity-85 leading-tight">
+                I'm PowerPCFan, a developer and computer enthusiast
+            </h2>
 
-<div id="page-container" class="{xp ? 'xp' : ''}">
-    <h1 id="page-title">Welcome to PowerPCFan's Website</h1>
-    <div class="container-thing{xp ? ' xp' : ''}">
-        <h2>about me</h2>
-        <hr />
-        <div class="about-me">
-            <p>
-                Hi, I’m Charlie! I love computers - whether it's building and selling PCs, messing around with hardware, or coding &lpar;usually Python, Svelte, TypeScript, PowerShell, and C++&rpar;.
-                I’m also into gaming and my favorite game is probably BeamNG.drive.
-                I love retro tech as well - especially Apple's PowerPC Macs of the 90s-2000s.
-                Music-wise, I like new wave/synthpop, alt/indie/punk rock, nu-metal, and sometimes modern country and pop.
-                Check out my widgets below!
-            </p>
-        </div>
-
-        <div class="widget-grid">
-            <div class="widget">
-                <h2>last.fm</h2>
-                <!-- <hr /> -->
-                <NowPlaying username="PowerPCFan" />
-            </div>
-
-            <div class="widget">
-                <h2>vscode status</h2>
-                <VSCodeStatus userId="3818207096435605" />
-            </div>
-
-            <div class="widget">
-                <h2>time</h2>
-                <!-- <hr /> -->
-                <TimeWidget />
-            </div>
-
-            <div class="widget">
-                <h2>countdowns</h2>
-                <!-- <hr /> -->
-                <Countdown />
-            </div>
-
-            <div class="widget">
-                <h2>buddy the gifypet</h2>
-                <!-- <hr /> -->
-                <Pet />
-            </div>
-
-            <div class="widget">
-                <h2>browser stats</h2>
-                <!-- <hr /> -->
-                <BrowserStats />
+            <div class="mt-4 flex flex-row gap-2">
+                <ContactMethod link="https://github.com/PowerPCFan/" />
+                <ContactMethod link="https://youtube.com/@charliesretrocomputing/" />
+                <ContactMethod link="https://open.spotify.com/user/31nmpykqw3mfa7luhps4bchppusy" />
+                <ContactMethod link="https://steamcommunity.com/profiles/76561199516243582" />
+                <ContactMethod link="mailto:charlie@powerpcfan.xyz" />
             </div>
         </div>
+    </div>
 
-        <h2>links</h2>
-        <hr />
-        <div class="links">
-            <a class="link" href="https://github.com/PowerPCFan/" target="_blank">
-                <i class="font-awesome-icon fa-brands fa-github"></i>
-                <span class="ul">GitHub</span>
-            </a>
-            <a class="link" href="https://youtube.com/@charliesretrocomputing/" target="_blank">
-                <i class="font-awesome-icon fa-brands fa-square-youtube"></i>
-                <span class="ul">YouTube</span>
-            </a>
-            <a class="link" href="https://open.spotify.com/user/31nmpykqw3mfa7luhps4bchppusy" target="_blank">
-                <i class="font-awesome-icon fa-brands fa-spotify"></i>
-                <span class="ul">Spotify</span>
-            </a>
-            <a class="link" href="https://steamcommunity.com/profiles/76561199516243582" target="_blank">
-                <i class="font-awesome-icon fa-brands fa-steam"></i>
-                <span class="ul">Steam</span>
-            </a>
-            <a class="link" href="mailto:charlie@powerpcfan.xyz" target="_blank">
-                <i class="fa-solid fa-envelope"></i>
-                <span class="ul">Email</span>
-            </a>
+    <div class="bg flex flex-col items-center" id="projects">
+        <div class="max-w-300">
+            <h2>Project showcase</h2>
+
+            <div class="flex flex-col md:flex-row md:justify-between md:px-8 md:py-16">
+                <div
+                    class="space-y-24 pr-16 md:w-1/2 md:space-y-52"
+                    id="left"
+                >
+                    <Project
+                        name="eepy.page"
+                        description="A free subdomain registrar. It uses a SvelteKit frontend and a Python backend to manipulate DNS records on my PowerDNS instance. This project has been extremely valuable for teaching me about networking, DNS, server administration, and managing complex, full-stack applications like this."
+                    >
+                        <ContactMethod link="https://github.com/PowerPCFan/eepy.page-frontend" />
+                        <ContactMethod link="https://github.com/PowerPCFan/eepy.page-backend" />
+                        <ContactMethod link="https://github.com/PowerPCFan/eepy.page-admin-panel" />
+                        <ContactMethod link="https://www.eepy.page" />
+                    </Project>
+
+                    <Project
+                        name="PC Flipper Windows Script"
+                        description="One of my older but updated projects, the PC Flipper Windows Script helps PC flippers set up a Windows installation quickly. This project taught me a lot about Windows administration, scripting, automation, and programming in general."
+                    >
+                        <ContactMethod link="https://github.com/PowerPCFan/pc-flipper-windows-script" />
+                    </Project>
+
+                    <Project
+                        name="r/HardwareSwap Listing Scraper"
+                        description="A tool that searches the HardwareSwap subreddit for posts that match specific criteria. Proved to be challenging since each poster formats their posts differently, so there was no way to parse items properly, but this project taught me about working with APIs and making the best of imperfect data."
+                    >
+                        <ContactMethod link="https://github.com/PowerPCFan/hardwareswap-listing-scraper" />
+                        <ContactMethod link="https://github.com/PowerPCFan/hardwareswap-listing-scraper-discord-pings" />
+                    </Project>
+
+                    <Project
+                        name="Kroma"
+                        description="A lightweight and powerful Python library for formatting terminal output. Through this project, I learned about ANSI escape codes, working around terminal quirks, and creating Python libraries."
+                    >
+                        <ContactMethod link="https://github.com/PowerPCFan/kroma" />
+                    </Project>
+
+                    <Project
+                        name="Optical Media Good"
+                        description="A joke site I built for fun (project name is a Bringus Studios reference). Allowed me to experience the painful process of making modern CSS and JavaScript compatible with archaic browsers."
+                    >
+                        <ContactMethod link="https://github.com/PowerPCFan/optical-media-good" />
+                    </Project>
+
+                    <Project
+                        name="Ruff Rule Browser"
+                        description="A VSCode extension that adds a Quick Fix to Ruff errors that, when clicked, opens the Ruff rule documentation inside VSCode. Taught me how to build tools to improve your workflow when you're working with limited hardware."
+                    >
+                        <ContactMethod link="https://github.com/PowerPCFan/ruff-browser" />
+                    </Project>
+
+                    <Project
+                        name="GlowControl"
+                        description="A native DDC/CI control app for systems running KDE Plasma + Wayland with compatible monitors. Taught me about interacting with peripherals and integrating with system APIs to provide native dialogs and OSDs."
+                    >
+                        <ContactMethod link="https://github.com/PowerPCFan/GlowControl" />
+                    </Project>
+
+                    <Project
+                        name="Betterfox Installer"
+                        description="A PowerShell script that installs the Betterfox tweaks for Firefox into your Firefox profile."
+                    >
+                        <ContactMethod link="https://github.com/PowerPCFan/new-project" />
+                    </Project>
+                </div>
+
+                <div
+                    class="mt-24 space-y-24 md:mt-52 md:w-1/2 md:justify-end md:space-y-52 md:pl-16 md:text-right"
+                    id="right"
+                >
+                    <Project
+                        name="SensorProject"
+                        description="The all-encompassing term for the various &quot;Sensor Projects&quot; I've done, with ESP32s, sensors, APIs, and more. These projects taught me a lot about embedded systems, IoT, working with hardware, and integrating multiple systems together to create a fully functional solution."
+                    >
+                        <ContactMethod link="https://github.com/PowerPCFan/SensorProject" />
+                    </Project>
+
+                    <Project
+                        name="eBay Listing Scraper"
+                        description="A tool that searches eBay for PC part listings that match a certain criteria, to help flippers find good deals on items. Taught me about interacting with existing APIs, managing states, and working with precise configuration to ensure listings meet criteria."
+                    >
+                        <ContactMethod link="https://github.com/PowerPCFan/ebay-listing-scraper-discord-pings" />
+                    </Project>
+
+                    <Project
+                        name="VSCode Status"
+                        description="An all-in-one solution for uploading and retrieving your current VSCode status to an API. The VSCode extension pushes updates to a POST endpoint, and there is a public GET endpoint to retrieve the status. Taught me about creating public APIs and handling real-time updates. Scroll down a bit to see it in action in the 'Fun stuff' section!"
+                    >
+                        <ContactMethod link="https://github.com/PowerPCFan/vscode-status-api" />
+                    </Project>
+
+                    <Project
+                        name="BlinkLink"
+                        description="A simple URL shortener service that converts URLs to blinkl.ink URLs (e.g. blinkl.ink/Abc123). Although it's a bit rough around the edges, it's one of my earlier Svelte projects, and it was a good learning experience when it comes to building web apps."
+                    >
+                        <ContactMethod link="https://github.com/PowerPCFan/url-shortener" />
+                        <ContactMethod link="https://blinkl.ink/" />
+                    </Project>
+
+                    <Project
+                        name="BlinkBin"
+                        description="The sister project of BlinkLink. A zero-authentication pastebin service that uses proof-of-work verification for file uploads. Taught me about implementing security mechanisms while keeping an API authentication-free."
+                    >
+                        <ContactMethod link="https://github.com/PowerPCFan/BlinkBin" />
+                        <ContactMethod link="https://bin.blinkl.ink/" />
+                    </Project>
+
+                    <Project
+                        name="Website"
+                        description="None other than this site! My oldest project by far, dating back to a time where I knew not a thing about programming, however most of its history is lost since I was at the stage where I was using Notepad and .zip files to edit and store code, not Git. :)"
+                    >
+                        <ContactMethod link="https://github.com/PowerPCFan/hardwareswap-listing-scraper" />
+                    </Project>
+
+                    <Project
+                        name="KDE Wayland Color Picker"
+                        description="A basic tool that opens a native color selector tool to get the HEX code from any color on your screen. This taught me about interacting with KDE APIs and D-Bus, and improved my C++ skills."
+                    >
+                        <ContactMethod link="https://github.com/PowerPCFan/kde-wayland-color-picker" />
+                    </Project>
+
+                    <Project
+                        name="Windows Wallpaper Switcher"
+                        description="A tool that switches your Windows wallpaper to any wallpaper out of a list of predefined wallpapers. Although not the most useful tool, creating this taught me how to make C++ GUI apps and how to work with Win32 APIs."
+                    >
+                        <ContactMethod link="https://github.com/PowerPCFan/WindowsWallpaperSwitcher" />
+                    </Project>
+
+                    <br />
+                </div>
+            </div>
+            <div class="text-center">
+                <h2>...and more!</h2>
+                <p class="text-sm">(Check out my <a href="https://github.com/PowerPCFan">GitHub</a> page)</p>
+            </div>
         </div>
+    </div>
 
-        <h2>88&times;31s</h2>
-        <hr />
+    <div class="bg flex flex-col items-center" id="fun">
+        <div class="max-w-300">
+            <h2>Fun stuff</h2>
+            <div class="widget-grid mt-4 items-stretch gap-5 grid grid-cols-1 md:grid-cols-2">
+                <div class="flex flex-col w-full h-full gap-2">
+                    <h3 class="font-semibold! text-2xl!">Last.fm</h3>
+                    <NowPlaying username="PowerPCFan" />
+                </div>
+
+                <div class="flex flex-col w-full h-full gap-2">
+                    <h3 class="font-semibold! text-2xl!">VSCode Status</h3>
+                    <VSCodeStatus userId="3818207096435605" />
+                </div>
+
+                <div class="flex flex-col w-full h-full gap-2">
+                    <h3 class="font-semibold! text-2xl!">World Clock</h3>
+                    <TimeWidget />
+                </div>
+
+                <div class="flex flex-col w-full h-full gap-2">
+                    <h3 class="font-semibold! text-2xl!">Browser Stats</h3>
+                    <BrowserStats />
+                </div>
+
+                <div class="flex flex-col w-full h-full gap-2">
+                    <h3 class="font-semibold! text-2xl!">Countdown</h3>
+                    <Countdown />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg" id="badges">
         <Site88x31s />
-
-        <div id="toggle-button-wrapper">
-            <button onclick={(() => {xp = !xp})}>you found the secret button! click me to toggle page theme</button>
-        </div>
+        <p class="text-center mt-6 text-xs">&copy; 2026 PowerPCFan</p>
     </div>
 </div>
 
-<style lang="scss">
-    @use "/static/scss/global.scss" as g;
-
-    #page-container {
-        padding: 0.5rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
-        &.xp {
-            background-image: url('/images/bliss.jpg');
-            background-size: cover;
-        }
-
-        #page-title {
-            font-size: 3rem;
-            text-align: center;
-            align-self: center;
-        }
-
-        .container-thing {
-            border: 1px g.$border solid;
-            border-radius: 0.5rem;
-            padding: 0.5rem 2.5rem 1rem 2.5rem;
-            // box-shadow: 0 0 0.8rem rgba(g.$border, 0.2);
-
-
-            // lowest value that max width can be
-            $min: 275px;
-            // highest value that max width can be
-            // DO NOT CHANGE THIS IT MESSES UP WIDGETS
-            $max: 900px;
-            // highest value that max width can be on small screens
-            $small-screen-max: 98vw;
-
-            // dont touch this
-            max-width: clamp($min, min($small-screen-max, $max), $max);
-
-
-            &.xp {
-                background-color: rgba(g.$dark, 0.7);
-                backdrop-filter: blur(5px);
-                border-radius: 2rem;
-            }
-
-            p {
-                text-wrap: normal;
-                line-height: 1.5;
-            }
-
-            h2 {
-                margin: 1.2rem 0 0.5rem 0;
-            }
-
-            .links {
-                > a:first-child {
-                    margin-top: 1rem;
-                }
-
-                .link {
-                    font-size: 1.2rem;
-                    color: g.$light;
-                    text-decoration: none;
-
-                    margin-top: 0.35rem;
-
-                    display: flex;
-                    align-items: center;
-                    flex-direction: row;
-
-                    width: fit-content;
-
-                    .font-awesome-icon, .fa-solid {
-                        font-size: 2.2rem;
-                        margin-right: 0.5rem;
-                    }
-                }
-            }
-        }
-    }
-
-    #toggle-button-wrapper {
-        text-align: center;
-        width: 100%;
-        margin-inline: auto;
-        margin-block: 1.5rem 0;
-
-        button {
-            font-family: g.$stack;
-            font-size: 0.8rem;
-        }
-    }
-
-    .widget-grid {
-        display: grid;
-        gap: 16px;
-        align-items: stretch;
-        grid-template-columns: repeat(
-            auto-fit,
-            minmax(clamp(200px, 100%, 400px), 1fr)
+<style>
+    :root {
+        --vignette: radial-gradient(
+            ellipse 200% 50% at center,
+            rgba(0, 0, 0, 0.5) 0%,
+            rgba(0, 0, 0, 0.5) 60%,
+            rgba(0, 0, 0, 1) 100%
+        );
+        --vignette-linear-bottomonly: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.5) 0%,
+            rgba(0, 0, 0, 0.5) 60%,
+            rgba(0, 0, 0, 1) 100%
+        );
+        --vignette-linear: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0.5) 20%,
+            rgba(0, 0, 0, 0.5) 80%,
+            rgba(0, 0, 0, 1) 100%
         );
     }
 
-    .widget {
-        display: flex;
-        width: 100%;
-        height: 100%;
-        flex-direction: column;
+    #introduction {
+        background-image:
+            var(--vignette-linear-bottomonly),
+            url("/images/gallery/17.jpg"),
+            url("/images/gallery/17-thumbnail.webp");
+    }
+
+    #projects {
+        background-image:
+            var(--vignette-linear),
+            url("/images/gallery/13.jpg"),
+            url("/images/gallery/13-thumbnail.webp");
+    }
+
+    #fun {
+        background-image:
+            var(--vignette-linear),
+            url("/images/gallery/4.jpg"),
+            url("/images/gallery/4-thumbnail.webp");
+    }
+
+    #badges {
+        background-image:
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='20000' height='20000' fill='%23000000'/%3E%3C/svg%3E");
+    }
+
+    .bg {
+        background-size: cover;
+        background-position: center;
     }
 </style>

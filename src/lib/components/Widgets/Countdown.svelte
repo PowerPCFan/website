@@ -1,9 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import Card from '$lib/components/Card/Card.svelte';
-    import CardContent from '$lib/components/Card/CardContent.svelte';
-    import CardHeader from '$lib/components/Card/CardHeader.svelte';
-    import StatusText from '$lib/components/Card/Utilities/StatusText.svelte';
+    import * as Card from '$lib/components/ui/card/index.js';
 
     let y2k38countdown: string = $state('');
     let ntpCountdown: string = $state('');
@@ -18,7 +15,6 @@
         fatCountdown = formatDiff(Math.floor(new Date("2108-01-01T00:00:00Z").getTime() / 1000) - now);
     }
 
-    // thanks for this function chatgpt
     function formatDiff(diff: number): string {
         const units = [
             ["year", 365 * 24 * 60 * 60],
@@ -47,38 +43,21 @@
 </script>
 
 
-<Card height_100percent>
-    <CardHeader inlineStyles="margin-bottom: 0.25rem;">
-        <StatusText inlineStyles="text-transform: none;">Countdown to Y2K38</StatusText>
-    </CardHeader>
-    <CardContent>
-        <h3 class="countdown">{y2k38countdown}</h3>
-    </CardContent>
-    <CardHeader inlineStyles="margin-bottom: 0.25rem; margin-top: 1rem;">
-        <StatusText inlineStyles="text-transform: none;">Countdown to NTP date rollover</StatusText>
-    </CardHeader>
-    <CardContent>
-        <h3 class="countdown">{ntpCountdown}</h3>
-    </CardContent>
-    <CardHeader inlineStyles="margin-bottom: 0.25rem; margin-top: 1rem;">
-        <StatusText inlineStyles="text-transform: none;">Countdown to Y2106</StatusText>
-    </CardHeader>
-    <CardContent>
-        <h3 class="countdown">{y2106countdown}</h3>
-    </CardContent>
-    <CardHeader inlineStyles="margin-bottom: 0.25rem; margin-top: 1rem;">
-        <StatusText inlineStyles="text-transform: none;">Countdown to FAT filesystem date rollover</StatusText>
-    </CardHeader>
-    <CardContent>
-        <h3 class="countdown">{fatCountdown}</h3>
-    </CardContent>
-</Card>
-
-
-<style>
-    .countdown {
-        margin-block: 0;
-        font-weight: 600;
-        text-align: left;
-    }
-</style>
+<Card.Root class="h-full max-w-100 gap-2">
+    <Card.Content>
+        <p class="m-0 text-sm text-muted-foreground font-semibold">Countdown to Y2K38</p>
+        <h4 class="my-0 font-semibold text-left">{y2k38countdown}</h4>
+    </Card.Content>
+    <Card.Content>
+        <p class="m-0 text-sm text-muted-foreground font-semibold">Countdown to NTP date rollover</p>
+        <h4 class="my-0 font-semibold text-left">{ntpCountdown}</h4>
+    </Card.Content>
+    <Card.Content>
+        <p class="m-0 text-sm text-muted-foreground font-semibold">Countdown to Y2106</p>
+        <h4 class="my-0 font-semibold text-left">{y2106countdown}</h4>
+    </Card.Content>
+    <Card.Content>
+        <p class="m-0 text-sm text-muted-foreground font-semibold">Countdown to FAT filesystem date rollover</p>
+        <h4 class="my-0 font-semibold text-left">{fatCountdown}</h4>
+    </Card.Content>
+</Card.Root>

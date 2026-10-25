@@ -1,13 +1,9 @@
 <script lang="ts">
     import { getLatestSongVars } from "$lib/utils/lastfm";
     import { onMount } from "svelte";
-
-    import Card from "$lib/components/Card/Card.svelte";
-    import CardContent from "$lib/components/Card/CardContent.svelte";
-    import CardHeader from "$lib/components/Card/CardHeader.svelte";
     import MusicBars from "$lib/components/Card/Utilities/MusicBars.svelte";
     import CircularStatusIndicator from "$lib/components/Card/Utilities/CircularStatusIndicator.svelte";
-    import StatusText from "$lib/components/Card/Utilities/StatusText.svelte";
+    import * as Card from "$lib/components/ui/card/index.js";
 
     let { username } = $props();
 
@@ -78,61 +74,61 @@
 </script>
 
 {#if isLoading}
-<Card height_100percent>
-    <CardHeader>
-        <CircularStatusIndicator loading />
-        <StatusText>Loading last.fm status...</StatusText>
-    </CardHeader>
-</Card>
+    <Card.Root class="h-full">
+        <Card.Header class="flex flex-row items-center gap-3 mb-4">
+            <CircularStatusIndicator loading />
+            <p class="m-0 text-sm text-muted-foreground font-semibold tracking-wide uppercase">Loading Last.fm status...</p>
+        </Card.Header>
+    </Card.Root>
 {:else if errorCode}
-<Card height_100percent error>
-    <CardHeader>
-        <CircularStatusIndicator error />
-        <StatusText>Error loading last.fm data</StatusText>
-    </CardHeader>
-    <CardContent>
-        <div class="generic-error">Please try again later.</div>
-    </CardContent>
-</Card>
+    <Card.Root class="h-full ring-destructive gap-0">
+        <Card.Header class="flex flex-row items-center gap-3 mb-4">
+            <CircularStatusIndicator error />
+            <p class="m-0 text-sm text-muted-foreground font-semibold tracking-wide uppercase">Error loading Last.fm data</p>
+        </Card.Header>
+        <Card.Content>
+            <div class="italic text-sm text-muted-foreground">Please try again later.</div>
+        </Card.Content>
+    </Card.Root>
 {:else if trackName && artistName}
-<Card height_100percent>
-    <CardHeader>
-        {#if isNowPlaying}
-            <MusicBars />
-        {:else}
-            <CircularStatusIndicator />
-        {/if}
-        <StatusText>
-            {isNowPlaying ? 'Now Playing' : 'Last Played'}
-        </StatusText>
-    </CardHeader>
-    
-    <CardContent>
-        {#if bestImage}
-        <div class="album-art">
-            <button title="Click to open album cover in new tab" id="album-art-click" onclick={() => open_thing_in_new_tab(bestImage)} onkeydown={(e) => { if (e.key.toLowerCase() === 'enter') open_thing_in_new_tab(bestImage); }}>
-                <img loading="lazy" src={bestImage} alt="Album art for {albumName}" />
-            </button>
-        </div>
-        {/if}
-        
-        <div class="track-info">
-            <div class="track-name">
-                {#if trackUrl}
-                <a href={trackUrl} target="_blank" rel="noopener noreferrer">
+    <Card.Root class="h-full max-w-100">
+        <Card.Header class="flex flex-row items-center gap-3">
+            {#if isNowPlaying}
+                <MusicBars />
+            {:else}
+                <CircularStatusIndicator />
+            {/if}
+            <p class="m-0 text-sm text-muted-foreground font-semibold tracking-wide uppercase">
+                {isNowPlaying ? 'Now Playing' : 'Last Played'}
+            </p>
+        </Card.Header>
+
+        <Card.Content class="flex items-start gap-4">
+            {#if bestImage}
+            <div class="album-art">
+                <button title="Click to open album cover in new tab" id="album-art-click" onclick={() => open_thing_in_new_tab(bestImage)} onkeydown={(e) => { if (e.key.toLowerCase() === 'enter') open_thing_in_new_tab(bestImage); }}>
+                    <img loading="lazy" src={bestImage} alt="Album art for {albumName}" />
+                </button>
+            </div>
+            {/if}
+            
+            <div class="track-info">
+                <div class="track-name">
+                    {#if trackUrl}
+                    <a href={trackUrl} target="_blank" rel="noopener noreferrer">
+                        {trackName}
+                    </a>
+                    {:else}
                     {trackName}
-                </a>
-                {:else}
-                {trackName}
+                    {/if}
+                </div>
+                <div class="artist-name">{artistName}</div>
+                {#if albumName}
+                <div class="album-name">{albumName}</div>
                 {/if}
             </div>
-            <div class="artist-name">{artistName}</div>
-            {#if albumName}
-            <div class="album-name">{albumName}</div>
-            {/if}
-        </div>
-    </CardContent>
-</Card>
+        </Card.Content>
+    </Card.Root>
 {/if}
 
 <style lang="scss">
@@ -172,27 +168,20 @@
             font-size: 1.1rem;
             font-weight: 600;
             line-height: 1.3;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.1rem;
         }
-        
+
         .artist-name {
             font-size: 1rem;
             font-weight: 500;
-            margin-bottom: 0.25rem;
             color: g.$light;
         }
-        
+
         .album-name {
             font-size: 0.9rem;
             color: g.$border;
             font-style: italic;
         }
-    }
-
-    .generic-error {
-        font-size: 0.85rem;
-        color: g.$border;
-        font-style: italic;
     }
 
     @media (max-width: 480px) {

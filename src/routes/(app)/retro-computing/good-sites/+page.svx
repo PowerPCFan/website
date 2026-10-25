@@ -4,7 +4,7 @@
 
 <Title title="Good Sites for your Old Mac"></Title>
 
-<div class="container">
+<div class="m-0 p-2 h-full w-auto bg-[antiquewhite] text-black text-center">
 
 # Good Sites for your Old Macs
 
@@ -20,21 +20,9 @@
 </div>
 
 <style lang="scss">
-    @use '/static/scss/global.scss' as g;
+    @reference "tailwindcss";
 
-    .container {
-        margin: 0;
-        padding: 0.5rem;
-        height: 100%;
-        width: auto;
-        background-color: antiquewhite;
-        color: g.$dark;
-        text-align: center;
-    }
-
-    a {
-        margin-top: 0.75rem;
-        display: block;
-        font-size: 1.2rem;
+    a:not(.rehype-autolink-headings-link) {
+        @apply mt-3 block text-xl text-[blue] underline underline-offset-1 w-fit mx-auto;
     }
 </style>

@@ -1,8 +1,11 @@
 <script lang="ts">
     import Title from "$lib/components/title.svelte";
+    import Holder from "$lib/components/Holder.svelte";
 </script>
 
 <Title title="HardwareSwap Listing Scraper"></Title>
+
+<Holder>
 
 # HardwareSwap Listing Scraper
 
@@ -37,3 +40,5 @@ There are multiple URL shorteners available:
 - https://blinkl.ink
 
 You can set these up to shorten the long reddit.com links for easier sharing.
+
+</Holder>

@@ -1,8 +1,11 @@
 <script lang="ts">
     import Title from "$lib/components/title.svelte";
+    import Holder from "$lib/components/Holder.svelte";
 </script>
 
 <Title title="Learn Python"></Title>
+
+<Holder>
 
 # Learn Python
 
@@ -582,3 +585,5 @@ Here are some common mistakes that beginners make when working with functions an
 
 
 # More lessons soon, check back later!
+
+</Holder>

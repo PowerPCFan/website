@@ -4,11 +4,11 @@
 
 <Title title="Get Started with Retro Computing"></Title>
 
-<div class="container">
-<div class="container-2">
+<div class="h-full w-full p-8 bg-[url('/images/background-tiles/1.png')] bg-repeat">
+<div class="mx-auto w-[90%] bg-foreground text-background p-4 squircle-md">
 
-# How to get started with Retro Computing!
-## This guide will help you find a good Apple Mac that will be reliable and fun to use as a vintage machine.
+# How to get started with Retro Computing
+### This guide will help you find a good Apple Mac that will be reliable and fun to use as a vintage machine.
 
 1. A PowerPC laptop like the iBook G4 or PowerBook G4 is a great place for beginners to start, because they are:
    - Easy to find and affordable on sites like eBay and Facebook Marketplace
@@ -24,27 +24,9 @@
 </div>
 </div>
 
-<style lang="scss">
-    @use '/static/scss/global.scss' as g;
-
-    .container {
-        height: 100%;
-        width: auto;
-        padding: 2rem;
-        background-image: url("/images/background-tiles/1.png");
-        background-repeat: repeat;
-    }
-
-    .container-2 {
-        margin-inline: auto;
-        width: 90%;
-        background-color: g.$light;
-        color: g.$dark;
-        padding: 1rem;
-        border-radius: 1rem;
-    }
-
-    h1, h2 {
-        text-align: center;
-    }
+<style>
+    @reference "tailwindcss";
+    h1, h2, h3 { @apply text-center; }
+    h1 { @apply mb-0; }
+    h3 { @apply mb-4; }
 </style>

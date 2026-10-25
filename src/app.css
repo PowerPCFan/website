@@ -1,0 +1,228 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn-svelte/tailwind.css";
+@import "@fontsource-variable/inter";
+
+/* defaults: https://ui.shadcn.com/docs/theming#default-theme-css */
+:root {
+    --background: #0d0d0d;
+    --foreground: #f1f1f1;
+    --card: #262626;
+    --card-foreground: #ebebeb;
+    --popover: #262626;
+    --popover-foreground: #ebebeb;
+    --primary: #3d74ff;
+    --primary-foreground: oklch(0.97 0.014 254.604);
+    --secondary: oklch(0.274 0.006 286.033);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: #1a1a1a;
+    --muted-foreground: #9f9f9f;
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: #b80003;
+    /* --border: rgba(255, 255, 255, 0.15); */
+    --border: #747474;
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.623 0.214 259.815);
+    --sidebar-primary-foreground: oklch(0.97 0.014 254.604);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.556 0 0);
+    --link: #4a97ce;
+    --font-sans-int: "Inter", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, serif;
+    --font-mono-int: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-link: var(--link);
+    --font-sans: var(--font-sans-int);
+    --font-mono: var(--font-mono-int);
+}
+
+@layer base {
+    body {
+        background-color: var(--background);
+        color: var(--foreground);
+        /* font-family: var(--font-sans); */
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        font-variant-ligatures: no-contextual;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+    }
+
+    html {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+    }
+
+    *, *::before, *::after {
+        box-sizing: border-box;
+        border-color: var(--border);
+        outline-color: rgba(var(--ring), 0.5);
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        font-weight: 700; /* bold */
+        /* line-height: 42px; */
+        margin-bottom: 0.4rem;
+    }
+
+    h2 {
+        font-size: 1.75rem;
+        font-weight: 650; /* semibold/bold */
+        /* line-height: 30px; */
+        /* margin-bottom: 6px; */
+        /* margin-top: 6px; */
+    }
+
+    h3 {
+        font-size: 1.35rem;
+        font-weight: 550; /* medium/semibold */
+        line-height: 1.25;
+    }
+
+    h4 {
+        font-size: 1.125rem;
+        font-weight: 500; /* semibold */
+        line-height: 1.25;
+    }
+
+    h5, h6 {
+        font-size: 1rem;
+        font-weight: 450; /* regular/semibold */
+    }
+
+    h1, h2 {
+        @apply tracking-snug;
+    }
+
+    hr {
+        @apply border-t border-border h-0 bg-transparent my-2;
+    }
+
+    ul {
+        @apply list-disc pl-8 space-y-0;
+    }
+
+    ol {
+        @apply list-decimal pl-8 space-y-0;
+    }
+
+    .rehype-autolink-headings-link {
+        color: rgba(255, 255, 255, 0);
+        font-size: 0.75em;
+        margin-left: 0.5rem;
+    }
+
+    .rehype-autolink-headings-link:hover {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    button.anchor-tag-styles {
+        all: unset;
+    }
+
+    a, button.anchor-tag-styles {
+        font-size: inherit;
+        text-decoration: none;
+        color: var(--link);
+
+        /* transition: color 0.15s ease; */
+    }
+
+    a:hover, button.anchor-tag-styles:hover {
+        /* color: color-mix(in srgb, var(--link), white 25%); */
+        /* text-decoration: underline; */
+        /* text-underline-offset: 2px; */
+        cursor: pointer;
+    }
+}
+
+@utility squircle-lg {
+    border-radius: 32px;
+    @supports (corner-shape: squircle) {
+        corner-shape: squircle;
+        border-radius: 64px;
+    }
+}
+
+@utility squircle-xl {
+    border-radius: 64px;
+    @supports (corner-shape: squircle) {
+        corner-shape: squircle;
+        border-radius: 128px;
+    }
+}
+
+@utility squircle-md {
+    border-radius: 24px;
+    @supports (corner-shape: squircle) {
+        corner-shape: squircle;
+        border-radius: 48px;
+    }
+}
+
+@utility squircle-sm {
+    border-radius: 16px;
+    @supports (corner-shape: squircle) {
+        corner-shape: squircle;
+        border-radius: 32px;
+    }
+}
+
+@utility squircle-xs {
+    border-radius: 8px;
+    @supports (corner-shape: squircle) {
+        corner-shape: squircle;
+        border-radius: 16px;
+    }
+}
+
+@utility tracking-snug {
+    letter-spacing: -0.0125em;
+}

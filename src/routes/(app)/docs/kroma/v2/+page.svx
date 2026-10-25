@@ -1,8 +1,11 @@
 <script lang="ts">
     import Title from "$lib/components/title.svelte";
+    import Holder from "$lib/components/Holder.svelte";
 </script>
 
 <Title title="v2 | Kroma Documentation"></Title>
+
+<Holder>
 
 # Kroma Documentation
 
@@ -769,3 +772,5 @@ Contains standard ANSI color codes for broad terminal compatibility:
 - **Text Formatting**: Bold and underline are widely supported, italic and strikethrough have slightly less support.
 
 Choose the appropriate color system based on your target environment's capabilities. The unified `style()` function makes it easy to switch between color types without changing your code structure, just change the background and foreground parameters.
+
+</Holder>

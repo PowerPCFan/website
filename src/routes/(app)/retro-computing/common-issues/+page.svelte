@@ -4,30 +4,31 @@
 
 <Title title="Common Problems with Old Macs" />
     
-<h1>Common Problems with Old Apple Macs</h1>
+<h1 class="text-center text-5xl">Common Problems with Old Apple Macs</h1>
 
-<div id="links">
-    <a href="/retro-computing/common-issues/vinegar-syndrome">Vinegar Syndrome</a>
-    <a href="/retro-computing/common-issues/exploding-batteries">Exploding Batteries</a>
-    <a href="/retro-computing/common-issues/crt-problems">CRT Problems</a>
-    <a href="/retro-computing/common-issues/rifa-caps">Exploding RIFA Filter Caps</a>
+<div class="mb-8">
+    <a
+        class="mt-1 text-center text-2xl block"
+        href="/retro-computing/common-issues/vinegar-syndrome"
+    >
+        Vinegar Syndrome
+    </a>
+    <a
+        class="mt-1 text-center text-2xl block"
+        href="/retro-computing/common-issues/exploding-batteries"
+    >
+        Exploding Batteries
+    </a>
+    <a
+        class="mt-1 text-center text-2xl block"
+        href="/retro-computing/common-issues/crt-problems"
+    >
+        CRT Problems
+    </a>
+    <a
+        class="mt-1 text-center text-2xl block"
+        href="/retro-computing/common-issues/rifa-caps"
+    >
+        Exploding RIFA Filter Caps
+    </a>
 </div>
-
-<style lang="scss">
-    @use '/static/scss/global.scss' as g;
-
-    h1 {
-        text-align: center;
-        font-size: 3rem;
-    }
-
-    #links {
-        margin-bottom: 2rem;
-        a {
-            margin-top: 0.25rem;
-            text-align: center;
-            font-size: 25px;
-            display: block;
-        }
-    }
-</style>

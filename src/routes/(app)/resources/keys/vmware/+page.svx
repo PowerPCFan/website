@@ -1,23 +1,30 @@
 <script lang="ts">
     import Title from '$lib/components/title.svelte';
+    import Holder from "$lib/components/Holder.svelte";
 </script>
 
 <Title title="VMware Keys"></Title>
+
+<Holder>
 
 # VMware Workstation Pro Key
 
 MC60H-DWHD5-H80U9-6V85M-8280D
 
+</Holder>
+
 <style>
+    @reference "tailwindcss";
+
     h1, p {
-        text-align: center;
+        @apply text-center;
     }
 
     h1 {
-        font-size: 2.25rem;
+        @apply text-4xl;
     }
 
     p {
-        font-size: 1.2rem;
+        @apply text-xl;
     }
 </style>
