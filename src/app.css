@@ -226,3 +226,13 @@
 @utility tracking-snug {
     letter-spacing: -0.0125em;
 }
+
+@utility text-2xs {
+    font-size: 0.5rem;
+    line-height: 1.3;
+}
+
+@utility text-3xs {
+    font-size: 0.4rem;
+    line-height: 1.2;
+}

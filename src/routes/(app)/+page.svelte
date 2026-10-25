@@ -5,9 +5,10 @@
     import Title from "$lib/components/title.svelte";
     import NowPlaying from "$lib/components/Widgets/NowPlaying.svelte";
     import TimeWidget from "$lib/components/Widgets/TimeWidget.svelte";
-    import BrowserStats from "$lib/components/Widgets/BrowserStats.svelte";
     import VSCodeStatus from "$lib/components/Widgets/VSCodeStatus.svelte";
-  import Countdown from "$lib/components/Widgets/Countdown.svelte";
+    import Countdown from "$lib/components/Widgets/Countdown.svelte";
+    import OutdoorSensor from "$lib/components/Widgets/OutdoorSensor.svelte";
+  import IndoorSensor from "$lib/components/Widgets/IndoorSensor.svelte";
 
     let scrollY = $state(0);
 </script>
@@ -184,14 +185,19 @@
                 </div>
 
                 <div class="flex flex-col w-full h-full gap-2">
+                    <h3 class="font-semibold! text-2xl!">Outdoor Sensor</h3>
+                    <OutdoorSensor />
+                </div>
+
+                <div class="flex flex-col w-full h-full gap-2">
+                    <h3 class="font-semibold! text-2xl!">Indoor Sensor</h3>
+                    <IndoorSensor />
+                </div>
+
+                <div class="flex flex-col w-full h-full gap-2">
                     <h3 class="font-semibold! text-2xl!">World Clock</h3>
                     <TimeWidget />
                 </div>
-
-                <!-- <div class="flex flex-col w-full h-full gap-2">
-                    <h3 class="font-semibold! text-2xl!">Browser Stats</h3>
-                    <BrowserStats />
-                </div> -->
 
                 <div class="flex flex-col w-full h-full gap-2">
                     <h3 class="font-semibold! text-2xl!">Countdown</h3>

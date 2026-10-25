@@ -45,12 +45,12 @@
 
 <Card.Root class="h-full max-w-100 gap-2">
     <Card.Content>
-        <p class="m-0 text-sm text-muted-foreground font-semibold">Countdown to Y2K38</p>
-        <h4 class="my-0 font-semibold text-left">{y2k38countdown}</h4>
-    </Card.Content>
-    <Card.Content>
         <p class="m-0 text-sm text-muted-foreground font-semibold">Countdown to NTP date rollover</p>
         <h4 class="my-0 font-semibold text-left">{ntpCountdown}</h4>
+    </Card.Content>
+    <Card.Content>
+        <p class="m-0 text-sm text-muted-foreground font-semibold">Countdown to Y2K38</p>
+        <h4 class="my-0 font-semibold text-left">{y2k38countdown}</h4>
     </Card.Content>
     <Card.Content>
         <p class="m-0 text-sm text-muted-foreground font-semibold">Countdown to Y2106</p>
