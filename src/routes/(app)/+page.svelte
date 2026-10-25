@@ -41,11 +41,8 @@
         <div class="max-w-300">
             <h2>Project showcase</h2>
 
-            <div class="flex flex-col md:flex-row md:justify-between md:px-8 md:py-16">
-                <div
-                    class="space-y-24 pr-16 md:w-1/2 md:space-y-52"
-                    id="left"
-                >
+            <div class="flex flex-col md:flex-row md:justify-between pt-8 pb-12 md:pb-24">
+                <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-12 xl:gap-9">
                     <Project
                         name="eepy.page"
                         description="A free subdomain registrar. It uses a SvelteKit frontend and a Python backend to manipulate DNS records on my PowerDNS instance. This project has been extremely valuable for teaching me about networking, DNS, server administration, and managing complex, full-stack applications like this."
@@ -64,11 +61,32 @@
                     </Project>
 
                     <Project
+                        name="eBay Listing Scraper"
+                        description="A tool that searches eBay for PC part listings that match a certain criteria, to help flippers find good deals on items. Taught me about interacting with existing APIs, managing states, and working with precise configuration to ensure listings meet criteria."
+                    >
+                        <ContactMethod link="https://github.com/PowerPCFan/ebay-listing-scraper-discord-pings" />
+                    </Project>
+
+                    <Project
+                        name="SensorProject"
+                        description="The all-encompassing term for the various &quot;Sensor Projects&quot; I've done, with ESP32s, sensors, APIs, and more. These projects taught me a lot about embedded systems, IoT, working with hardware, and integrating multiple systems together to create a fully functional solution."
+                    >
+                        <ContactMethod link="https://github.com/PowerPCFan/SensorProject" />
+                    </Project>
+
+                    <Project
                         name="r/HardwareSwap Listing Scraper"
                         description="A tool that searches the HardwareSwap subreddit for posts that match specific criteria. Proved to be challenging since each poster formats their posts differently, so there was no way to parse items properly, but this project taught me about working with APIs and making the best of imperfect data."
                     >
                         <ContactMethod link="https://github.com/PowerPCFan/hardwareswap-listing-scraper" />
                         <ContactMethod link="https://github.com/PowerPCFan/hardwareswap-listing-scraper-discord-pings" />
+                    </Project>
+
+                    <Project
+                        name="VSCode Status"
+                        description="An all-in-one solution for uploading and retrieving your current VSCode status to an API. The VSCode extension pushes updates to a POST endpoint, and there is a public GET endpoint to retrieve the status. Taught me about creating public APIs and handling real-time updates. Scroll down a bit to see it in action in the 'Fun stuff' section!"
+                    >
+                        <ContactMethod link="https://github.com/PowerPCFan/vscode-status-api" />
                     </Project>
 
                     <Project
@@ -79,57 +97,10 @@
                     </Project>
 
                     <Project
-                        name="Optical Media Good"
-                        description="A joke site I built for fun (project name is a Bringus Studios reference). Allowed me to experience the painful process of making modern CSS and JavaScript compatible with archaic browsers."
+                        name="Website"
+                        description="None other than this site! My oldest project by far, dating back to a time where I knew not a thing about programming, however most of its history is lost since I was at the stage where I was using Notepad and .zip files to edit and store code, not Git. :)"
                     >
-                        <ContactMethod link="https://github.com/PowerPCFan/optical-media-good" />
-                    </Project>
-
-                    <Project
-                        name="Ruff Rule Browser"
-                        description="A VSCode extension that adds a Quick Fix to Ruff errors that, when clicked, opens the Ruff rule documentation inside VSCode. Taught me how to build tools to improve your workflow when you're working with limited hardware."
-                    >
-                        <ContactMethod link="https://github.com/PowerPCFan/ruff-browser" />
-                    </Project>
-
-                    <Project
-                        name="GlowControl"
-                        description="A native DDC/CI control app for systems running KDE Plasma + Wayland with compatible monitors. Taught me about interacting with peripherals and integrating with system APIs to provide native dialogs and OSDs."
-                    >
-                        <ContactMethod link="https://github.com/PowerPCFan/GlowControl" />
-                    </Project>
-
-                    <Project
-                        name="Betterfox Installer"
-                        description="A PowerShell script that installs the Betterfox tweaks for Firefox into your Firefox profile."
-                    >
-                        <ContactMethod link="https://github.com/PowerPCFan/new-project" />
-                    </Project>
-                </div>
-
-                <div
-                    class="mt-24 space-y-24 md:mt-52 md:w-1/2 md:justify-end md:space-y-52 md:pl-16 md:text-right"
-                    id="right"
-                >
-                    <Project
-                        name="SensorProject"
-                        description="The all-encompassing term for the various &quot;Sensor Projects&quot; I've done, with ESP32s, sensors, APIs, and more. These projects taught me a lot about embedded systems, IoT, working with hardware, and integrating multiple systems together to create a fully functional solution."
-                    >
-                        <ContactMethod link="https://github.com/PowerPCFan/SensorProject" />
-                    </Project>
-
-                    <Project
-                        name="eBay Listing Scraper"
-                        description="A tool that searches eBay for PC part listings that match a certain criteria, to help flippers find good deals on items. Taught me about interacting with existing APIs, managing states, and working with precise configuration to ensure listings meet criteria."
-                    >
-                        <ContactMethod link="https://github.com/PowerPCFan/ebay-listing-scraper-discord-pings" />
-                    </Project>
-
-                    <Project
-                        name="VSCode Status"
-                        description="An all-in-one solution for uploading and retrieving your current VSCode status to an API. The VSCode extension pushes updates to a POST endpoint, and there is a public GET endpoint to retrieve the status. Taught me about creating public APIs and handling real-time updates. Scroll down a bit to see it in action in the 'Fun stuff' section!"
-                    >
-                        <ContactMethod link="https://github.com/PowerPCFan/vscode-status-api" />
+                        <ContactMethod link="https://github.com/PowerPCFan/hardwareswap-listing-scraper" />
                     </Project>
 
                     <Project
@@ -149,27 +120,46 @@
                     </Project>
 
                     <Project
-                        name="Website"
-                        description="None other than this site! My oldest project by far, dating back to a time where I knew not a thing about programming, however most of its history is lost since I was at the stage where I was using Notepad and .zip files to edit and store code, not Git. :)"
+                        name="Optical Media Good"
+                        description="A joke site I built for fun (project name is a Bringus Studios reference). Allowed me to experience the painful process of making modern CSS and JavaScript compatible with archaic browsers."
                     >
-                        <ContactMethod link="https://github.com/PowerPCFan/hardwareswap-listing-scraper" />
+                        <ContactMethod link="https://github.com/PowerPCFan/optical-media-good" />
                     </Project>
 
+                    <!-- <Project
+                        name="Ruff Rule Browser"
+                        description="A VSCode extension that adds a Quick Fix to Ruff errors that, when clicked, opens the Ruff rule documentation inside VSCode. Taught me how to build tools to improve your workflow when you're working with limited hardware."
+                    >
+                        <ContactMethod link="https://github.com/PowerPCFan/ruff-browser" />
+                    </Project> -->
+
                     <Project
+                        name="GlowControl"
+                        description="A native DDC/CI control app for systems running KDE Plasma + Wayland with compatible monitors. Taught me about interacting with peripherals and integrating with system APIs to provide native dialogs and OSDs."
+                    >
+                        <ContactMethod link="https://github.com/PowerPCFan/GlowControl" />
+                    </Project>
+
+                    <!-- <Project
                         name="KDE Wayland Color Picker"
                         description="A basic tool that opens a native color selector tool to get the HEX code from any color on your screen. This taught me about interacting with KDE APIs and D-Bus, and improved my C++ skills."
                     >
                         <ContactMethod link="https://github.com/PowerPCFan/kde-wayland-color-picker" />
-                    </Project>
+                    </Project> -->
 
-                    <Project
+                    <!-- <Project
+                        name="Betterfox Installer"
+                        description="A PowerShell script that installs the Betterfox tweaks for Firefox into your Firefox profile."
+                    >
+                        <ContactMethod link="https://github.com/PowerPCFan/new-project" />
+                    </Project> -->
+
+                    <!-- <Project
                         name="Windows Wallpaper Switcher"
                         description="A tool that switches your Windows wallpaper to any wallpaper out of a list of predefined wallpapers. Although not the most useful tool, creating this taught me how to make C++ GUI apps and how to work with Win32 APIs."
                     >
                         <ContactMethod link="https://github.com/PowerPCFan/WindowsWallpaperSwitcher" />
-                    </Project>
-
-                    <br />
+                    </Project> -->
                 </div>
             </div>
             <div class="text-center">
@@ -198,10 +188,10 @@
                     <TimeWidget />
                 </div>
 
-                <div class="flex flex-col w-full h-full gap-2">
+                <!-- <div class="flex flex-col w-full h-full gap-2">
                     <h3 class="font-semibold! text-2xl!">Browser Stats</h3>
                     <BrowserStats />
-                </div>
+                </div> -->
 
                 <div class="flex flex-col w-full h-full gap-2">
                     <h3 class="font-semibold! text-2xl!">Countdown</h3>
