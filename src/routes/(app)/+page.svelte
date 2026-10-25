@@ -207,9 +207,19 @@
         </div>
     </div>
 
-    <div class="bg" id="badges">
+    <div class="bg flex flex-col items-center gap-6" id="badges">
+        <a
+            href="https://www.abuseipdb.com/user/329516"
+            title="AbuseIPDB is an IP address blacklist for webmasters and sysadmins to report IP addresses engaging in abusive behavior on their networks"
+        >
+            <img
+                src="https://www.abuseipdb.com/contributor/329516.svg?theme=dark"
+                alt="AbuseIPDB Contributor Badge"
+                class="w-75"
+            >
+        </a>
         <Site88x31s />
-        <p class="text-center mt-6 text-xs">&copy; 2026 PowerPCFan</p>
+        <p class="text-xs">&copy; 2026 PowerPCFan</p>
     </div>
 </div>
 
