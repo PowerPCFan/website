@@ -29,12 +29,12 @@
                 I'm PowerPCFan, a developer and computer enthusiast
             </h2>
 
-            <div class="mt-4 flex flex-row gap-2">
+            <div class="mt-4 flex flex-row gap-3">
                 <ContactMethod link="https://github.com/PowerPCFan/" />
+                <ContactMethod link="mailto:charlie@powerpcfan.xyz" />
+                <ContactMethod link="https://steamcommunity.com/profiles/76561199516243582" />
                 <ContactMethod link="https://youtube.com/@charliesretrocomputing/" />
                 <ContactMethod link="https://open.spotify.com/user/31nmpykqw3mfa7luhps4bchppusy" />
-                <ContactMethod link="https://steamcommunity.com/profiles/76561199516243582" />
-                <ContactMethod link="mailto:charlie@powerpcfan.xyz" />
             </div>
         </div>
     </div>
@@ -209,7 +209,7 @@
     </div>
 
     <div class="bg flex flex-col items-center gap-6" id="badges">
-        <AbuseIPDB userId="329516" />
+        <AbuseIPDB userId={329516} />
         <Site88x31s />
         <p class="text-xs">&copy; 2026 PowerPCFan</p>
     </div>

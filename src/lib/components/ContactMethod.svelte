@@ -10,7 +10,7 @@
             return "fa-solid fa-envelope";
         }
         if (cleanLink.includes("youtube.com")) {
-            return "fa-brands fa-square-youtube pl-0.5";
+            return "fa-brands fa-square-youtube";
         }
         if (cleanLink.includes("spotify.com")) {
             return "fa-brands fa-spotify";

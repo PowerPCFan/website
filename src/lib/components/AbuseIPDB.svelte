@@ -19,9 +19,12 @@
     });
 </script>
 
-<Card.Root class="bg-card p-4 mb-8">
+<!-- todo: maybe wrap this in an <a> instead for better semantics and accessibility and stuff -->
+<Card.Root class="bg-card p-4 mb-8 squircle-xs ring-border/75 cursor-pointer" onclick={() => {
+    window.open(`https://www.abuseipdb.com/user/${userId}`, '_blank');
+}}>
     <Card.Content class="flex items-center gap-3 px-0">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink" x="10" y="0" width="48" height="48" version="1.1" viewBox="0 0 162.18244 162.18244">
+        <svg xmlns="http://www.w3.org/2000/svg" x="10" y="0" width="48" height="48" version="1.1" viewBox="0 0 162.18244 162.18244">
             <g transform="translate(-16.984 -331)" fill="#c0c8d4" stroke="#c0c8d4" stroke-width="5" stroke-linejoin="round">
                 <path d="m48.388 396.53c0.9599-4.2739 1.9198-33.716 10.559-33.241 30.717 0.94974 62.394-30.867 85.432 39.89 71.033 33.241 4.9391 59.953-51.295 57.579-55.567-2.3264-103.01-42.383-44.696-64.227z"/>
                 <g transform="matrix(1.0215 0 0 .99183 -1.0406 3.2411)">

@@ -569,7 +569,9 @@ export type SensorData = {
 export type Conditions = {
     desc: string;
     emoji: string;
-}
+    sunrise?: string;
+    sunset?: string;
+};
 
 export function getThresholdFromValue(thresholds: Thresholds, value: number): Threshold {
     let foundThreshold: Threshold = { emoji: "", label: "" };
@@ -710,11 +712,47 @@ export const codeMapping: { [key: string]: Conditions } = {
     },
 }
 
+export function formatTime(isoOrTimeStr: string): string {
+    const timePart = isoOrTimeStr.includes("T") ? isoOrTimeStr.split("T")[1] : isoOrTimeStr;
+    const [hStr, mStr] = timePart.split(":");
+    let hours = parseInt(hStr, 10);
+    const minutes = mStr ? mStr.slice(0, 2) : "00";
+    if (isNaN(hours)) return isoOrTimeStr;
+    const ampm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    if (hours === 0) hours = 12;
+    return `${hours}:${minutes} ${ampm}`;
+}
+
 export async function fetchConditions(): Promise<Conditions> {
-    const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=42.3601&longitude=-71.0589&current=weather_code&timezone=America%2FNew_York");
+    const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=42.3601&longitude=-71.0589&current=weather_code&daily=sunrise,sunset&timezone=America%2FNew_York");
     const data = await res.json();
-    const code = data.current.weather_code;
-    return codeMapping[code.toString()] ?? { desc: "Unknown", emoji: "⛅️" };
+    const code = data.current?.weather_code;
+    const base = (code !== undefined && code !== null && codeMapping[code.toString()]) ? codeMapping[code.toString()] : { desc: "Unknown", emoji: "⛅️" };
+
+    let sunrise: string | undefined;
+    let sunset: string | undefined;
+
+    if (data.daily && Array.isArray(data.daily.time)) {
+        const currentDate = data.current?.time?.split("T")[0];
+        let index = currentDate ? data.daily.time.indexOf(currentDate) : -1;
+        if (index === -1) {
+            index = 0;
+        }
+
+        if (data.daily.sunrise?.[index]) {
+            sunrise = formatTime(data.daily.sunrise[index]);
+        }
+        if (data.daily.sunset?.[index]) {
+            sunset = formatTime(data.daily.sunset[index]);
+        }
+    }
+
+    return {
+        ...base,
+        sunrise,
+        sunset,
+    };
 }
 
 export function formatDate(iso: string): string {

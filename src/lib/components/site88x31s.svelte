@@ -33,12 +33,13 @@
         <a target="_blank" href="https://www.rarlab.com/download.htm">
             <img alt="WinRAR" src="/images/88x31/winrar.gif" />
         </a>
-        <a target="_blank" href="https://ctih1.fi/">
+        <!-- need to add some more 88x31s that are in /images/88x31/... -->
+        <!-- <a target="_blank" href="https://ctih1.fi/">
             <img alt="ctih1" src="/images/88x31/ctih1.png" />
         </a>
         <a target="_blank" href="https://restartb.xyz/">
             <img alt="RestartB" src="/images/88x31/restart.png" />
-        </a>
+        </a> -->
     </div>
 </div>
 

@@ -13,7 +13,8 @@
         formatDate,
         VOCS,
     } from "$lib/utils/sensors.js";
-    import type { Conditions, SensorData, Thresholds } from "$lib/utils/sensors.js";
+    import type { SensorData, Thresholds } from "$lib/utils/sensors.js";
+    import * as Tooltip from "$lib/components/ui/tooltip/index.js";
 
     let isLoading: boolean = $state(true);
     let currentData: SensorData | null = $state(null);
@@ -76,7 +77,7 @@
             <div class="flex flex-col lg:flex-row gap-2 w-full">
                 <div class="bg-white/5 squircle-xs hidden md:flex max-lg:w-full max-lg:py-3 flex-col items-center justify-center w-32 h-auto gap-1">
                     <span class="text-6xl">🏡</span>
-                    <p class="text-sm">My Bedroom</p>
+                    <p class="text-sm font-semibold">My Bedroom</p>
                 </div>
 
                 <div class="flex-1 gap-2 grid grid-cols-2">
@@ -91,6 +92,16 @@
 
             <Card.Footer class="h-full flex flex-col justify-end">
                 <p class="m-0 mt-2 -mb-2 text-xs w-full">Last updated: <span class="font-semibold">{formatDate(currentData?.indoor.time)}</span></p>
+                <Tooltip.Root>
+                    <Tooltip.Trigger>
+                        <p class="m-0 mt-2 -mb-2 text-[0.65rem] italic w-full underline underline-offset-2 decoration-dotted">Hover to view sources</p>
+                    </Tooltip.Trigger>
+                    <Tooltip.Content>
+                        <ul class="pl-2">
+                            <li>All data: <span class="font-semibold">my DIY indoor sensor</span></li>
+                        </ul>
+                    </Tooltip.Content>
+                </Tooltip.Root>
             </Card.Footer>
         </Card.Content>
     </Card.Root>

@@ -9,7 +9,6 @@
         OUTDOOR_HUMIDITY_THRESHOLDS,
         OUTDOOR_DEW_POINT_THRESHOLDS,
         OUTDOOR_PRESSURE_THRESHOLDS,
-        ESP32_TEMP_THRESHOLDS,
         ESP32_WIFI_THRESHOLDS,
         ESP32_VOLT_THRESHOLDS,
         ESP32_INTERNAL_TEMPERATURE,
@@ -18,6 +17,7 @@
         formatDate,
     } from "$lib/utils/sensors.js";
     import type { Conditions, SensorData, Thresholds } from "$lib/utils/sensors.js";
+    import * as Tooltip from "$lib/components/ui/tooltip/index.js";
 
     let isLoading: boolean = $state(true);
     let currentData: SensorData | null = $state(null);
@@ -98,7 +98,7 @@
             <div class="flex flex-col lg:flex-row gap-2 w-full">
                 <div class="bg-white/5 max-lg:w-full max-lg:py-3 squircle-xs flex flex-col items-center justify-center w-32 h-auto gap-1">
                     <span class="text-6xl">{currentConditions?.emoji}</span>
-                    <p class="text-sm">{currentConditions?.desc}</p>
+                    <p class="text-sm font-semibold">{currentConditions?.desc}</p>
                 </div>
 
                 <div class="flex-1 gap-2 grid grid-cols-2">
@@ -118,8 +118,35 @@
                 {@render metric("Connection", currentData?.outdoor.signal_strength, " dBm", ESP32_WIFI_THRESHOLDS, 0, undefined, true)}
             </div>
 
+            <p class="m-0 mt-2 -mb-1 text-xs w-full text-muted-foreground">Sunrise/Sunset</p>
+            <div class="grid grid-cols-2 gap-2 w-full">
+                <div class="bg-white/5 p-1.5 squircle-xs flex flex-col items-center">
+                    <div class="text-xs text-center w-full leading-tight">
+                        <p class="font-medium">Sunrise</p>
+                        <p class="text-orange-500">☀️&nbsp;&nbsp;{currentConditions?.sunrise ?? "—"}</p>
+                    </div>
+                </div>
+                <div class="bg-white/5 p-1.5 squircle-xs flex flex-col items-center">
+                    <div class="text-xs text-center w-full leading-tight">
+                        <p class="font-medium">Sunset</p>
+                        <p class="text-purple-500">🌙&nbsp;&nbsp;{currentConditions?.sunset ?? "—"}</p>
+                    </div>
+                </div>
+            </div>
+
             <Card.Footer class="h-full flex flex-col justify-end">
                 <p class="m-0 mt-2 -mb-2 text-xs w-full">Last updated: <span class="font-semibold">{formatDate(currentData?.outdoor.time)}</span></p>
+                <Tooltip.Root>
+                    <Tooltip.Trigger>
+                        <p class="m-0 mt-2 -mb-2 text-[0.65rem] italic w-full underline underline-offset-2 decoration-dotted">Hover to view sources</p>
+                    </Tooltip.Trigger>
+                    <Tooltip.Content>
+                        <ul class="pl-2">
+                            <li>Temperature, Humidity, Pressure, Dew Point, and Internal Metrics: <span class="font-semibold">my DIY outdoor sensor</span></li>
+                            <li>Current conditions, sunrise/sunset times: <span class="font-semibold">Open-Meteo</span> (Location set to Boston, MA)</li>
+                        </ul>
+                    </Tooltip.Content>
+                </Tooltip.Root>
             </Card.Footer>
         </Card.Content>
     </Card.Root>
