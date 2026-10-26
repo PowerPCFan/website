@@ -119,7 +119,7 @@
             </div>
 
             <p class="m-0 mt-2 -mb-1 text-xs w-full text-muted-foreground">Sunrise/Sunset</p>
-            <div class="grid grid-cols-2 gap-2 w-full">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 w-full">
                 <div class="bg-white/5 p-1.5 squircle-xs flex flex-col items-center">
                     <div class="text-xs text-center w-full leading-tight">
                         <p class="font-medium">Sunrise</p>

@@ -19,10 +19,10 @@
 <Title title="Home" />
 
 <div class="[&>div]:p-4 [&>div]:md:p-8 [&>div]:lg:p-16 [&div>]:xl:p-32">
-    <div id="introduction" class="bg flex h-[90vh] w-screen items-start sm:items-center">
+    <div id="introduction" class="bg flex h-[90vh] w-screen items-start m-0 sm:items-center">
         <div class="hidden sm:block flex-1 w-full"></div>
         <div
-            class="mr-4 w-full h-min max-w-lg squircle-md bg-black/30 p-6 outline-1 outline-white/20 backdrop-blur-md md:mb-24 lg:mb-38"
+            class="sm:mr-4 w-full h-min sm:max-w-lg squircle-md bg-black/30 p-6 outline-1 outline-white/20 backdrop-blur-md md:mb-24 lg:mb-38"
         >
             <h1 class="text-4xl!">Welcome</h1>
             <h2 class="mb-1! text-2xl! font-medium opacity-85 leading-tight">
