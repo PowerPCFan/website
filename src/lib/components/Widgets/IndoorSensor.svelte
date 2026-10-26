@@ -73,8 +73,8 @@
 
         <Card.Content class="flex flex-col items-center gap-2 h-full">
             <p class="m-0 -mb-1 text-xs w-full text-muted-foreground">Indoor Climate</p>
-            <div class="flex flex-row gap-2 w-full">
-                <div class="bg-white/5 squircle-xs flex flex-col items-center justify-center w-32 h-auto gap-1">
+            <div class="flex flex-col lg:flex-row gap-2 w-full">
+                <div class="bg-white/5 squircle-xs hidden md:flex max-lg:w-full max-lg:py-3 flex-col items-center justify-center w-32 h-auto gap-1">
                     <span class="text-6xl">🏡</span>
                     <p class="text-sm">My Bedroom</p>
                 </div>

@@ -9,6 +9,7 @@
     import Countdown from "$lib/components/Widgets/Countdown.svelte";
     import OutdoorSensor from "$lib/components/Widgets/OutdoorSensor.svelte";
   import IndoorSensor from "$lib/components/Widgets/IndoorSensor.svelte";
+  import AbuseIPDB from "$lib/components/AbuseIPDB.svelte";
 
     let scrollY = $state(0);
 </script>
@@ -208,16 +209,7 @@
     </div>
 
     <div class="bg flex flex-col items-center gap-6" id="badges">
-        <a
-            href="https://www.abuseipdb.com/user/329516"
-            title="AbuseIPDB is an IP address blacklist for webmasters and sysadmins to report IP addresses engaging in abusive behavior on their networks"
-        >
-            <img
-                src="https://www.abuseipdb.com/contributor/329516.svg?theme=dark"
-                alt="AbuseIPDB Contributor Badge"
-                class="w-75"
-            >
-        </a>
+        <AbuseIPDB userId="329516" />
         <Site88x31s />
         <p class="text-xs">&copy; 2026 PowerPCFan</p>
     </div>
