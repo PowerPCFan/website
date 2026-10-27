@@ -102,7 +102,7 @@
                         name="Website"
                         description="None other than this site! My oldest project by far, dating back to a time where I knew not a thing about programming, however most of its history is lost since I was at the stage where I was using Notepad and .zip files to edit and store code, not Git. :)"
                     >
-                        <ContactMethod link="https://github.com/PowerPCFan/hardwareswap-listing-scraper" />
+                        <ContactMethod link="https://github.com/PowerPCFan/website" />
                     </Project>
 
                     <Project

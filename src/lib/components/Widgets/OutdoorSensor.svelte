@@ -18,14 +18,11 @@
     } from "$lib/utils/sensors.js";
     import type { Conditions, SensorData, Thresholds } from "$lib/utils/sensors.js";
     import * as Tooltip from "$lib/components/ui/tooltip/index.js";
+  import SunPosition from "../SunPosition.svelte";
 
     let isLoading: boolean = $state(true);
     let currentData: SensorData | null = $state(null);
     let currentConditions: Conditions | null = $state(null);
-
-    $effect(() => {
-        console.log(currentData);
-    });
 
     function roundTo (num: number, digits: number): number {
         // @ts-expect-error
@@ -118,21 +115,20 @@
                 {@render metric("Connection", currentData?.outdoor.signal_strength, " dBm", ESP32_WIFI_THRESHOLDS, 0, undefined, true)}
             </div>
 
-            <p class="m-0 mt-2 -mb-1 text-xs w-full text-muted-foreground">Sunrise/Sunset</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 w-full">
-                <div class="bg-white/5 p-1.5 squircle-xs flex flex-col items-center">
-                    <div class="text-xs text-center w-full leading-tight">
-                        <p class="font-medium">Sunrise</p>
-                        <p class="text-orange-500">☀️&nbsp;&nbsp;{currentConditions?.sunrise ?? "—"}</p>
-                    </div>
+            {#if currentConditions?.sunrise && currentConditions?.sunset && currentConditions?.date}
+                <p class="m-0 mt-2 -mb-1 text-xs w-full text-muted-foreground">Sunrise/Sunset</p>
+                <div class="w-full bg-white/5 p-1.5 squircle-xs flex flex-col items-center">
+                    <SunPosition
+                        sunrise={currentConditions.sunrise}
+                        sunset={currentConditions.sunset}
+                        dataTs={currentConditions.date}
+                        loc="Boston, MA"
+                        timeZone="America/New_York"
+                        // uncomment for testing (may have to change the date)
+                        // now="2026-10-26T14:00:00-04:00"
+                    />
                 </div>
-                <div class="bg-white/5 p-1.5 squircle-xs flex flex-col items-center">
-                    <div class="text-xs text-center w-full leading-tight">
-                        <p class="font-medium">Sunset</p>
-                        <p class="text-purple-500">🌙&nbsp;&nbsp;{currentConditions?.sunset ?? "—"}</p>
-                    </div>
-                </div>
-            </div>
+            {/if}
 
             <Card.Footer class="h-full flex flex-col justify-end">
                 <p class="m-0 mt-2 -mb-2 text-xs w-full">Last updated: <span class="font-semibold">{formatDate(currentData?.outdoor.time)}</span></p>

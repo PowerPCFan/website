@@ -571,6 +571,7 @@ export type Conditions = {
     emoji: string;
     sunrise?: string;
     sunset?: string;
+    date?: string;
 };
 
 export function getThresholdFromValue(thresholds: Thresholds, value: number): Threshold {
@@ -725,26 +726,25 @@ export function formatTime(isoOrTimeStr: string): string {
 }
 
 export async function fetchConditions(): Promise<Conditions> {
-    const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=42.3601&longitude=-71.0589&current=weather_code&daily=sunrise,sunset&timezone=America%2FNew_York");
+    const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=42.3601&longitude=-71.0589&current=weather_code&daily=sunrise,sunset&timezone=America%2FNew_York&timeformat=unixtime&forecast_days=1");
     const data = await res.json();
     const code = data.current?.weather_code;
     const base = (code !== undefined && code !== null && codeMapping[code.toString()]) ? codeMapping[code.toString()] : { desc: "Unknown", emoji: "⛅️" };
 
     let sunrise: string | undefined;
     let sunset: string | undefined;
+    let date: string | undefined;
 
     if (data.daily && Array.isArray(data.daily.time)) {
-        const currentDate = data.current?.time?.split("T")[0];
-        let index = currentDate ? data.daily.time.indexOf(currentDate) : -1;
-        if (index === -1) {
-            index = 0;
-        }
+        const toIso = (seconds: number) => new Date(seconds * 1000).toISOString();
 
-        if (data.daily.sunrise?.[index]) {
-            sunrise = formatTime(data.daily.sunrise[index]);
+        date = new Date((data.daily.time[0] + (data.utc_offset_seconds ?? 0)) * 1000).toISOString().split("T")[0];
+
+        if (data.daily.sunrise?.[0]) {
+            sunrise = toIso(data.daily.sunrise[0]);
         }
-        if (data.daily.sunset?.[index]) {
-            sunset = formatTime(data.daily.sunset[index]);
+        if (data.daily.sunset?.[0]) {
+            sunset = toIso(data.daily.sunset[0]);
         }
     }
 
@@ -752,6 +752,7 @@ export async function fetchConditions(): Promise<Conditions> {
         ...base,
         sunrise,
         sunset,
+        date,
     };
 }
 

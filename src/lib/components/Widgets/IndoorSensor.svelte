@@ -19,10 +19,6 @@
     let isLoading: boolean = $state(true);
     let currentData: SensorData | null = $state(null);
 
-    $effect(() => {
-        console.log(currentData);
-    });
-
     function roundTo (num: number, digits: number): number {
         // @ts-expect-error
         return Number(Math.round(num + "e" + digits) + "e-" + digits);
