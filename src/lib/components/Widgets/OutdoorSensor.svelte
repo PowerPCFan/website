@@ -18,7 +18,11 @@
     } from "$lib/utils/sensors.js";
     import type { Conditions, SensorData, Thresholds } from "$lib/utils/sensors.js";
     import * as Tooltip from "$lib/components/ui/tooltip/index.js";
-  import SunPosition from "../SunPosition.svelte";
+    import SunPosition from "../SunPosition.svelte";
+    import { MediaQuery } from 'svelte/reactivity';
+    import * as Popover from "$lib/components/ui/popover/index.js";
+    const touchscreen = new MediaQuery('(pointer: coarse)');
+    let isMobile: boolean = $derived(touchscreen.current);
 
     let isLoading: boolean = $state(true);
     let currentData: SensorData | null = $state(null);
@@ -132,17 +136,31 @@
 
             <Card.Footer class="h-full flex flex-col justify-end">
                 <p class="m-0 mt-2 -mb-2 text-xs w-full">Last updated: <span class="font-semibold">{formatDate(currentData?.outdoor.time)}</span></p>
-                <Tooltip.Root>
-                    <Tooltip.Trigger>
-                        <p class="m-0 mt-2 -mb-2 text-[0.65rem] italic w-full underline underline-offset-2 decoration-dotted">Hover to view sources</p>
-                    </Tooltip.Trigger>
-                    <Tooltip.Content>
-                        <ul class="pl-2">
-                            <li>Temperature, Humidity, Pressure, Dew Point, and Internal Metrics: <span class="font-semibold">my DIY outdoor sensor</span></li>
-                            <li>Current conditions, sunrise/sunset times: <span class="font-semibold">Open-Meteo</span> (Location set to Boston, MA)</li>
-                        </ul>
-                    </Tooltip.Content>
-                </Tooltip.Root>
+                {#if isMobile}
+                    <Popover.Root>
+                        <Popover.Trigger>
+                            <p class="m-0 mt-2 -mb-2 text-[0.65rem] italic w-full underline underline-offset-2 decoration-dotted">Tap to view sources</p>
+                        </Popover.Trigger>
+                        <Popover.Content>
+                            <ul class="pl-2">
+                                <li>Temperature, Humidity, Pressure, Dew Point, and Internal Metrics: <span class="font-semibold">my DIY outdoor sensor</span></li>
+                                <li>Current conditions, sunrise/sunset times: <span class="font-semibold">Open-Meteo</span> (Location set to Boston, MA)</li>
+                            </ul>
+                        </Popover.Content>
+                    </Popover.Root>
+                {:else}
+                    <Tooltip.Root>
+                        <Tooltip.Trigger>
+                            <p class="m-0 mt-2 -mb-2 text-[0.65rem] italic w-full underline underline-offset-2 decoration-dotted">Hover to view sources</p>
+                        </Tooltip.Trigger>
+                        <Tooltip.Content>
+                            <ul class="pl-2">
+                                <li>Temperature, Humidity, Pressure, Dew Point, and Internal Metrics: <span class="font-semibold">my DIY outdoor sensor</span></li>
+                                <li>Current conditions, sunrise/sunset times: <span class="font-semibold">Open-Meteo</span> (Location set to Boston, MA)</li>
+                            </ul>
+                        </Tooltip.Content>
+                    </Tooltip.Root>
+                {/if}
             </Card.Footer>
         </Card.Content>
     </Card.Root>

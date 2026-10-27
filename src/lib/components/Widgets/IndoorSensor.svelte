@@ -15,6 +15,10 @@
     } from "$lib/utils/sensors.js";
     import type { SensorData, Thresholds } from "$lib/utils/sensors.js";
     import * as Tooltip from "$lib/components/ui/tooltip/index.js";
+    import { MediaQuery } from 'svelte/reactivity';
+    import * as Popover from "$lib/components/ui/popover/index.js";
+    const touchscreen = new MediaQuery('(pointer: coarse)');
+    let isMobile: boolean = $derived(touchscreen.current);
 
     let isLoading: boolean = $state(true);
     let currentData: SensorData | null = $state(null);
@@ -88,16 +92,29 @@
 
             <Card.Footer class="h-full flex flex-col justify-end">
                 <p class="m-0 mt-2 -mb-2 text-xs w-full">Last updated: <span class="font-semibold">{formatDate(currentData?.indoor.time)}</span></p>
-                <Tooltip.Root>
-                    <Tooltip.Trigger>
-                        <p class="m-0 mt-2 -mb-2 text-[0.65rem] italic w-full underline underline-offset-2 decoration-dotted">Hover to view sources</p>
-                    </Tooltip.Trigger>
-                    <Tooltip.Content>
-                        <ul class="pl-2">
-                            <li>All data: <span class="font-semibold">my DIY indoor sensor</span></li>
-                        </ul>
-                    </Tooltip.Content>
-                </Tooltip.Root>
+                {#if isMobile}
+                    <Popover.Root>
+                        <Popover.Trigger>
+                            <p class="m-0 mt-2 -mb-2 text-[0.65rem] italic w-full underline underline-offset-2 decoration-dotted">Tap to view sources</p>
+                        </Popover.Trigger>
+                        <Popover.Content>
+                            <ul class="pl-2">
+                                <li>All data: <span class="font-semibold">my DIY indoor sensor</span></li>
+                            </ul>
+                        </Popover.Content>
+                    </Popover.Root>
+                {:else}
+                    <Tooltip.Root>
+                        <Tooltip.Trigger>
+                            <p class="m-0 mt-2 -mb-2 text-[0.65rem] italic w-full underline underline-offset-2 decoration-dotted">Hover to view sources</p>
+                        </Tooltip.Trigger>
+                        <Tooltip.Content>
+                            <ul class="pl-2">
+                                <li>All data: <span class="font-semibold">my DIY indoor sensor</span></li>
+                            </ul>
+                        </Tooltip.Content>
+                    </Tooltip.Root>
+                {/if}
             </Card.Footer>
         </Card.Content>
     </Card.Root>

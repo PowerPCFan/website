@@ -98,7 +98,7 @@
 
         {#if isDay}
             <div
-                class="absolute flex size-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-amber-300"
+                class="absolute flex size-6.5 p-0 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-amber-300"
                 style={`left: ${(pos.x / W) * 100}%; top: ${(pos.y / H) * 100}%`}
                 role="img"
                 aria-label='Current sun position'
