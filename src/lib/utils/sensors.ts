@@ -291,27 +291,27 @@ export const OUTDOOR_DEW_POINT_THRESHOLDS: Thresholds = {
 }
 
 export const OUTDOOR_PRESSURE_THRESHOLDS: Thresholds = {
-    "980": {
+    "28.94": {
         label: "Stormy",
         emoji: "🟠",
         color: "text-orange-500",
     },
-    "995": {
+    "29.38": {
         label: "Fair",
         emoji: "🟡",
         color: "text-yellow-500",
     },
-    "1005": {
+    "29.68": {
         label: "Normal",
         emoji: "🟢",
         color: "text-green-500",
     },
-    "1015": {
+    "29.97": {
         label: "Clear",
         emoji: "🔵",
         color: "text-blue-500",
     },
-    "1030": {
+    "30.42": {
         label: "Very high",
         emoji: "🟣",
         color: "text-purple-500",
@@ -348,31 +348,31 @@ export const ESP32_TEMP_THRESHOLDS: Thresholds = {
 
 export const ESP32_WIFI_THRESHOLDS: Thresholds = {
     "-110": {
-        label: "No Signal",
+        label: "Unusable",
         emoji: "⚫",
         color: "text-gray-500",
     },
-    "-90": {
-        label: "Unusable",
+    "-85": {
+        label: "Very Weak",
         emoji: "🔴",
         color: "text-red-500",
     },
-    "-80": {
+    "-75": {
         label: "Weak",
         emoji: "🟠",
         color: "text-orange-500",
     },
-    "-70": {
+    "-60": {
         label: "Fair",
         emoji: "🟡",
         color: "text-yellow-500",
     },
-    "-60": {
+    "-50": {
         label: "Good",
         emoji: "🟢",
         color: "text-green-500",
     },
-    "-35": {
+    "-30": {
         label: "Excellent",
         emoji: "🔵",
         color: "text-blue-500",
