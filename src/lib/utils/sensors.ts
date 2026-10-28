@@ -424,7 +424,7 @@ export const ESP32_INTERNAL_TEMPERATURE: Thresholds = {
         color: "text-orange-500",
     },
     "30": {
-        label: "Elevated",
+        label: "Fair",
         emoji: "🟡",
         color: "text-yellow-500",
     },
