@@ -37,28 +37,36 @@
     const progress = $derived(Math.min(1, Math.max(0, raw)));
 
     const W = 200;
-    const H = 44;
-    const CY = 40;
     const X0 = 10;
     const X1 = 190;
-    const SAG = 25;
+    const arcHeight = 32;
+    const spaceAboveArc = 9;
+    const spaceBelowHorizon = 4;
+    const CY = arcHeight + spaceAboveArc;
+    const H = CY + spaceBelowHorizon;
 
     const half = (X1 - X0) / 2;
-    const R = (half * half + SAG * SAG) / (2 * SAG);
+    const R = (half * half + arcHeight * arcHeight) / (2 * arcHeight);
     const theta = Math.asin(half / R);
-    const centerY = CY - SAG + R;
+    const centerY = CY - arcHeight + R;
 
     const arcPath = `M ${X0} ${CY} A ${R.toFixed(2)} ${R.toFixed(2)} 0 0 1 ${X1} ${CY}`;
 
     const pos = $derived.by(() => {
         const phi = -theta + 2 * theta * progress;
-        return { x: 100 + R * Math.sin(phi), y: centerY - R * Math.cos(phi) };
+        return {
+            x: 100 + R * Math.sin(phi),
+            y: centerY - R * Math.cos(phi),
+        };
     });
 
     const timeFmt = $derived(
         new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit', timeZone })
     );
-    const fmt = (v: number) => timeFmt.format(new Date(v));
+
+    function fmt(v: number) {
+        return timeFmt.format(new Date(v));
+    }
 
     function formatDateForDisplay(date: string): string {
         return new Intl.DateTimeFormat("en-US", {
@@ -91,7 +99,7 @@
                     stroke-width="1.5"
                     stroke-linecap="round"
                     pathLength="1"
-                    stroke-dasharray={`${isDay ? progress : 0} 1`}
+                    stroke-dasharray="{progress} 1"
                 />
             {/if}
         </svg>
@@ -111,7 +119,6 @@
     <div class="mt-1 grid grid-cols-3 gap-5">
         <div>
             <div class="text-xs flex items-center justify-start w-full gap-1">
-                <!-- <span class="text-2xs">☀️</span> Sunrise -->
                 <i class="material-symbols-outlined text-sm text-orange-400">partly_cloudy_day</i> Sunrise
             </div>
             <div class="text-sm font-medium tabular-nums text-orange-400">{fmt(riseMs)}</div>
@@ -126,7 +133,6 @@
         {/if}
         <div class="text-right">
             <div class="text-xs flex items-center justify-end w-full gap-1">
-                <!-- Sunset <span class="text-2xs">🌙</span> -->
                 Sunset <i class="material-symbols-outlined text-sm text-purple-400">moon_stars</i>
             </div>
             <div class="text-sm font-medium tabular-nums text-purple-400">{fmt(setMs)}</div>

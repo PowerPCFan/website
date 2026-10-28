@@ -96,25 +96,25 @@
 
         <Card.Content class="flex flex-col items-center gap-2 h-full">
             <p class="m-0 -mb-1 text-xs w-full text-muted-foreground">Current Conditions</p>
-            <div class="flex flex-col lg:flex-row gap-2 w-full">
-                <div class="bg-white/5 max-lg:w-full max-lg:py-3 squircle-xs flex flex-col items-center justify-center w-32 h-auto gap-1">
-                    <span class="text-6xl">{currentConditions?.emoji}</span>
+            <div class="flex flex-col gap-2 w-full">
+                <div class="bg-white/5 w-full py-3 squircle-xs flex flex-col items-center justify-center h-auto gap-1">
+                    <span class="text-5xl">{currentConditions?.emoji}</span>
                     <p class="text-sm font-semibold">{currentConditions?.desc}</p>
                 </div>
 
                 <div class="flex-1 gap-2 grid grid-cols-2">
-                    {@render metric("Temperature", currentData?.outdoor.temp * (9 / 5) + 32, "ºF", OUTDOOR_TEMP_THRESHOLDS)}
+                    {@render metric("Temperature", currentData?.outdoor.temp * (9 / 5) + 32, "°F", OUTDOOR_TEMP_THRESHOLDS)}
                     {@render metric("Humidity", currentData?.outdoor.hum, "%", OUTDOOR_HUMIDITY_THRESHOLDS)}
                     {@render metric("Pressure", currentData?.outdoor.pressure * 0.02953, " inHg", OUTDOOR_PRESSURE_THRESHOLDS, 2, currentData?.outdoor.pressure)}
-                    {@render metric("Dew Point", currentData?.outdoor.dew_point * (9 / 5) + 32, "ºF", OUTDOOR_DEW_POINT_THRESHOLDS)}
+                    {@render metric("Dew Point", currentData?.outdoor.dew_point * (9 / 5) + 32, "°F", OUTDOOR_DEW_POINT_THRESHOLDS)}
                 </div>
             </div>
 
             <p class="m-0 mt-2 -mb-1 text-xs w-full text-muted-foreground">Internal Metrics</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2 w-full">
-                {@render metric("Internal Temp", currentData?.outdoor.internal_temp * (9 / 5) + 32, "ºF", ESP32_INTERNAL_TEMPERATURE, 0, undefined, true)}
+                {@render metric("Internal Temp", currentData?.outdoor.internal_temp * (9 / 5) + 32, "°F", ESP32_INTERNAL_TEMPERATURE, 0, undefined, true)}
                 {@render metric("Internal Humidity", currentData?.outdoor.internal_hum, "%", ESP32_INTERNAL_HUMIDITY, 0, undefined, true)}
-                <!-- {@render metric("ESP32 Temp", currentData?.outdoor.esp32_temp, "ºC", ESP32_TEMP_THRESHOLDS, 0, undefined, true)} -->
+                <!-- {@render metric("ESP32 Temp", currentData?.outdoor.esp32_temp, "°C", ESP32_TEMP_THRESHOLDS, 0, undefined, true)} -->
                 {@render metric("ESP32 Voltage", currentData?.outdoor.esp32_voltage, "V", ESP32_VOLT_THRESHOLDS, 2, undefined, true)}
                 {@render metric("Connection", currentData?.outdoor.signal_strength, " dBm", ESP32_WIFI_THRESHOLDS, 0, undefined, true)}
             </div>

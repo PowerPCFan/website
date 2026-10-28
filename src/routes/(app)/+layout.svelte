@@ -1,6 +1,6 @@
 <script lang="ts">
     import "../../app.css";
-    import "../../../static/material-symbols/style.css";
+    // import "../../../static/material-symbols/style.css";
     import Header from "$lib/components/header.svelte";
     import { dev } from '$app/environment';
     import { injectAnalytics } from '@vercel/analytics/sveltekit';
@@ -19,3 +19,7 @@
         {@render children()}
     </Tooltip.Provider>
 </main>
+
+<style>
+    @import "/static/material-symbols/style.css";
+</style>
